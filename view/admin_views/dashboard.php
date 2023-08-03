@@ -6,20 +6,21 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Dashboard</title>
   <link href="../../dist/output.css" rel="stylesheet">
+  <script src="./toggle.js" defer></script>
 </head>
 
 <body class="h-[100vh]">
   <div class="text-2xl flex h-full">
-    <aside class=" w-[235px] min-w-[235px] text-sm bg-[#3f454c] static text-neutral-300">
+    <aside id="toggle-menu" class="menu w-[235px] min-w-[235px] text-sm bg-[#3f454c] text-neutral-300">
       <div class="logo p-4 flex gap-2 items-center border-b-[1px] border-solid border-blue-100">
         <div class="img rounded-full grid place-items-center w-[35px] h-[35px]"><img class="rounded-full h-full w-full" src="../../assets/logo-small.png" alt="uni"></div>
         <h2 class="text-xl">Universidad</h2>
       </div>
       <div class="rol p-4 border-b-[1px] border-solid border-blue-100">
-        <p>Alvaro Diaz</p>
-        <p>Administrador</p>
+        <p class="text-base">Alvaro Diaz</p>
+        <p class="text-xs">Administrador</p>
       </div>
-      <div class="menu p-4">
+      <div class="p-4">
         <p class="pb-4 pl-6">MENU ADMINISTRACIÓN</p>
         <nav>
           <ul>
@@ -70,27 +71,35 @@
         </nav>
       </div>
     </aside>
-    <main>
-      <section class="bg-white">
-        <a href="#">
-          <div class="img"><img src="menu.png" alt="|||"></div>
+    <main id="toggle-bg" class="w-full">
+      <section class="bg-white flex items-center justify-between text-sm p-3 text-gray-500">
+        <div href="#" class="flex gap-4 items-center">
+          <button id="toggle-btn" class="img no-underline">
+            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-list" viewBox="0 0 16 16">
+              <path fill-rule="evenodd" d="M2.5 12a.5.5 0 0 1 .5-.5h10a.5.5 0 0 1 0 1H3a.5.5 0 0 1-.5-.5zm0-4a.5.5 0 0 1 .5-.5h10a.5.5 0 0 1 0 1H3a.5.5 0 0 1-.5-.5zm0-4a.5.5 0 0 1 .5-.5h10a.5.5 0 0 1 0 1H3a.5.5 0 0 1-.5-.5z" />
+            </svg>
+          </button>
           <h2>Home</h2>
-        </a>
-        <a href="#">
+        </div>
+        <a href="#" class="flex gap-3 items-center">
           <h2>Administrador</h2>
-          <div class="img"><img src="arrow.png" alt="i"></div>
+          <div class="img">
+            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-caret-down-fill" viewBox="0 0 16 16">
+              <path d="M7.247 11.14 2.451 5.658C1.885 5.013 2.345 4 3.204 4h9.592a1 1 0 0 1 .753 1.659l-4.796 5.48a1 1 0 0 1-1.506 0z" />
+            </svg>
+          </div>
         </a>
       </section>
       <section class="bg-[#F5F6FA]">
-        <div class="title">
-          <h2>Dashboard</h2>
-          <div class="path">
-            <span>Home</span> / Dashboard
+        <div class="title flex justify-between p-3">
+          <h2 class="text-2xl">Dashboard</h2>
+          <div class="path text-sm">
+            <span class="text-blue-500">Home</span> / Dashboard
           </div>
         </div>
         <div class="content">
-          <div class="bienvenido">
-            <h3>Bienvenido</h3>
+          <div class="bienvenido p-3 ml-3 w-3/5 text-sm shadow-md bg-white rounded-sm">
+            <h3 class="text-base">Bienvenido</h3>
             <p>Selecciona la acción que quieras realizar en las pestañas del menu a la izquierda</p>
           </div>
         </div>

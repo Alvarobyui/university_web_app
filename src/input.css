@@ -1,3 +1,29 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+
+@media (max-width: 768px) {
+  #toggle-menu {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 80%; /* o el ancho que prefieras para el menú */
+    height: 100%;
+    overflow-y: auto; /* para permitir el desplazamiento si el menú es más alto que la pantalla */
+    transform: translateX(-100%);
+    transition: transform 0.3s ease-out;
+    background: #3f454c; /* el color de fondo que prefieras */
+    z-index: 1000; /* un valor de z-index alto para asegurarte de que el menú aparezca encima de otros contenidos */
+  }
+  #toggle-menu.desktop-active {
+    transform: translateX(0);
+  }
+  #toggle-menu:not(.active) {
+    transform: translateX(-100%);
+  }
+}
+
+#toggle-menu.active {
+  transform: translateX(0);
+}
