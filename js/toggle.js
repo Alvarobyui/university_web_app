@@ -5,10 +5,10 @@ window.addEventListener("DOMContentLoaded", (event) => {
 
   function handleMediaChange(e) {
     if (e.matches) {
-      // Si estamos en la vista de escritorio, asegurémonos de que el menú esté visible
+      // asegurémonos de que el menú esté visible en vista de escritorio
       menu.classList.add("desktop-active");
     } else {
-      // Si estamos en la vista móvil, asegurémonos de que el menú esté oculto
+      // asegurémonos de que el menú esté oculto en vista movil
       menu.classList.remove("desktop-active");
     }
   }
@@ -16,7 +16,7 @@ window.addEventListener("DOMContentLoaded", (event) => {
   // Escucha los cambios en el tamaño de la pantalla
   mediaQuery.addListener(handleMediaChange);
   
-  // Asegúrate de que el estado del menú sea correcto cuando se carga la página
+  // Se asegura de que el estado del menú sea correcto cuando se carga la página
   handleMediaChange(mediaQuery);
 
   menuBtn.addEventListener("click", (event) => {

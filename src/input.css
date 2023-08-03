@@ -8,13 +8,13 @@
     position: fixed;
     top: 0;
     left: 0;
-    width: 80%; /* o el ancho que prefieras para el menú */
+    width: 65%;
     height: 100%;
     overflow-y: auto; /* para permitir el desplazamiento si el menú es más alto que la pantalla */
     transform: translateX(-100%);
     transition: transform 0.3s ease-out;
-    background: #3f454c; /* el color de fondo que prefieras */
-    z-index: 1000; /* un valor de z-index alto para asegurarte de que el menú aparezca encima de otros contenidos */
+    background: #3f454c; 
+    z-index: 1000; /* un valor alto para aseguarame de que el menú cubra el resto del contenido*/
   }
   #toggle-menu.desktop-active {
     transform: translateX(0);

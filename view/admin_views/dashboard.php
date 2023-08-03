@@ -6,7 +6,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Dashboard</title>
   <link href="../../dist/output.css" rel="stylesheet">
-  <script src="./toggle.js" defer></script>
+  <script src="../../js/toggle.js" defer></script>
 </head>
 
 <body class="h-[100vh]">
@@ -90,7 +90,7 @@
           </div>
         </a>
       </section>
-      <section class="bg-[#F5F6FA]">
+      <section class="bg-[#F5F6FA] pb-[75vh]">
         <div class="title flex justify-between p-3">
           <h2 class="text-2xl">Dashboard</h2>
           <div class="path text-sm">
@@ -105,8 +105,8 @@
         </div>
       </section>
       <footer>
-        <div class="footer">
-          <p>Copyright 2023 <span>AdminLTE.io</span>. All rights reserved</p>
+        <div class="footer text-xs">
+          <p>&#169 Alvaro Diaz 2023 <span class="text-blue-500">AdminLTE.io</span>. All rights reserved</p>
         </div>
       </footer>
     </main>
