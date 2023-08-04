@@ -2658,12 +2658,12 @@ video {
     margin-top: 2rem;
   }
 
-  .md\:h-\[275px\] {
-    height: 275px;
-  }
-
   .md\:h-\[100vh\] {
     height: 100vh;
+  }
+
+  .md\:h-\[275px\] {
+    height: 275px;
   }
 
   .md\:flex-row {
@@ -2676,18 +2676,6 @@ video {
 
   .md\:justify-center {
     justify-content: center;
-  }
-
-  .md\:pt-20 {
-    padding-top: 5rem;
-  }
-
-  .md\:pt-44 {
-    padding-top: 11rem;
-  }
-
-  .md\:pt-40 {
-    padding-top: 10rem;
   }
 
   .md\:pt-36 {
