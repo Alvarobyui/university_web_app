@@ -2883,6 +2883,10 @@ input:checked + .toggle-bg {
   padding-top: 0.5rem;
 }
 
+.pb-\[70vh\] {
+  padding-bottom: 70vh;
+}
+
 .text-left {
   text-align: left;
 }
