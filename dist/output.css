@@ -1434,8 +1434,16 @@ input:checked + .toggle-bg {
   width: 52px;
 }
 
+.w-\[72px\] {
+  width: 72px;
+}
+
 .w-\[81px\] {
   width: 81px;
+}
+
+.w-\[83px\] {
+  width: 83px;
 }
 
 .w-\[85px\] {
@@ -1444,6 +1452,14 @@ input:checked + .toggle-bg {
 
 .w-full {
   width: 100%;
+}
+
+.w-\[75px\] {
+  width: 75px;
+}
+
+.w-\[74px\] {
+  width: 74px;
 }
 
 .min-w-\[235px\] {
