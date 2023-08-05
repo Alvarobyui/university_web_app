@@ -4,10 +4,10 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Permisos</title>
+  <title>Maestros</title>
   <link href="../../dist/output.css" rel="stylesheet">
   <script src="../../js/toggle.js" defer></script>
-  <script src="../../js/switch&edit.js" defer></script>
+  <script src="../../js/maestro.js" defer></script>
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
   <link rel="stylesheet" href="https://cdn.datatables.net/1.13.6/css/jquery.dataTables.css" />
   <script src="https://cdn.datatables.net/1.13.6/js/jquery.dataTables.js"></script>
@@ -120,141 +120,86 @@
       </section>
       <section class="bg-[#F5F6FA] pb-10">
         <div class="title flex justify-between p-3">
-          <h2 class="text-2xl">Lista de Permisos</h2>
+          <h2 class="text-2xl">Maestros</h2>
           <div class="path text-sm">
-            <span class="text-blue-500">Home</span> / Permisos
+            <span class="text-blue-500">Home</span> / Maestros
           </div>
         </div>
         <div class="content text-xs mt-5 mx-2 py-2 overflow-x-scroll md:text-sm md:px-2 md:py-4 bg-white rounded lg:text-base lg:mx-6">
+          <div class="flex justify-between border-b-gray-500 mb-5">
+            <h2 class="text-lg lg:text-xl">Información de Maestros</h2>
+            <button class="bg-blue-500 text-white rounded px-2 py-1 text-xs lg:text-sm" id="crear-maestro-btn">Agregar Maestro</button>
+          </div>
           <table id="myTable" class="table table-auto">
             <thead class="">
               <tr>
                 <th>#</th>
-                <th>Email/Usuario</th>
-                <th>Permiso</th>
-                <th>Estado</th>
+                <th>Nombre</th>
+                <th>Email</th>
+                <th>Materia asignada</th>
                 <th>Acciones</th>
               </tr>
             </thead>
             <tbody>
               <tr>
                 <td>1</td>
-                <td>Aadmin@admin</td>
+                <td>Harold</td>
+                <td>harold@harold.com</td>
                 <td>
-                  <span class="bg-yellow-300 text-[10px] px-2 rounded-md grid items-center w-[81px]">
-                    Administrador
+                  <span class="bg-yellow-300 text-[10px] px-2 rounded-md grid items-center w-[85px]">
+                    Sin asignación
                   </span>
                 </td>
-                <td>
-                  <span class="bg-green-500 text-[11px] text-white px-2 rounded-md grid items-center w-[45px]">
-                    Active
-                  </span>
-                </td>
-                <td class="grid items-center">
-                  <button class="text-blue-400 flex justify-center" id="editar-permiso-btn">
+                <td class="flex gap-2 lg:gap-4 items-center justify-start">
+                  <button class="text-blue-400 flex justify-center" id="editar-maestro-btn">
                     <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-pencil-square" viewBox="0 0 16 16">
                       <path d="M15.502 1.94a.5.5 0 0 1 0 .706L14.459 3.69l-2-2L13.502.646a.5.5 0 0 1 .707 0l1.293 1.293zm-1.75 2.456-2-2L4.939 9.21a.5.5 0 0 0-.121.196l-.805 2.414a.25.25 0 0 0 .316.316l2.414-.805a.5.5 0 0 0 .196-.12l6.813-6.814z" />
                       <path fill-rule="evenodd" d="M1 13.5A1.5 1.5 0 0 0 2.5 15h11a1.5 1.5 0 0 0 1.5-1.5v-6a.5.5 0 0 0-1 0v6a.5.5 0 0 1-.5.5h-11a.5.5 0 0 1-.5-.5v-11a.5.5 0 0 1 .5-.5H9a.5.5 0 0 0 0-1H2.5A1.5 1.5 0 0 0 1 2.5v11z" />
+                    </svg>
+                  </button>
+                  <button class="text-red-700 flex justify-center" id="borrar-maestro-btn">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-trash-fill" viewBox="0 0 16 16">
+                      <path d="M2.5 1a1 1 0 0 0-1 1v1a1 1 0 0 0 1 1H3v9a2 2 0 0 0 2 2h6a2 2 0 0 0 2-2V4h.5a1 1 0 0 0 1-1V2a1 1 0 0 0-1-1H10a1 1 0 0 0-1-1H7a1 1 0 0 0-1 1H2.5zm3 4a.5.5 0 0 1 .5.5v7a.5.5 0 0 1-1 0v-7a.5.5 0 0 1 .5-.5zM8 5a.5.5 0 0 1 .5.5v7a.5.5 0 0 1-1 0v-7A.5.5 0 0 1 8 5zm3 .5v7a.5.5 0 0 1-1 0v-7a.5.5 0 0 1 1 0z" />
                     </svg>
                   </button>
                 </td>
               </tr>
               <tr>
                 <td>2</td>
-                <td>Mestro</td>
-                <td>
-                  <span class="bg-cyan-600 text-[10px] text-white px-2 rounded-md grid items-center w-[52px]">
-                    Maestro
-                  </span>
-                </td>
-                <td>
-                  <span class="bg-red-500 text-[11px] text-white px-2 rounded-md grid items-center w-[50px]">
-                    Inactive
-                  </span>
-                </td>
-                <td class="grid items-center">
-                  <button class="text-blue-400 flex justify-center" id="edit-btn">
+                <td>Marcelo</td>
+                <td>marcelo@marcelo.com</td>
+                <td>Advanced CSS</td>
+                <td class="flex gap-2 lg:gap-4 items-center justify-start">
+                  <button class="text-blue-400 flex justify-center" id="editar-permiso-btn">
                     <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-pencil-square" viewBox="0 0 16 16">
                       <path d="M15.502 1.94a.5.5 0 0 1 0 .706L14.459 3.69l-2-2L13.502.646a.5.5 0 0 1 .707 0l1.293 1.293zm-1.75 2.456-2-2L4.939 9.21a.5.5 0 0 0-.121.196l-.805 2.414a.25.25 0 0 0 .316.316l2.414-.805a.5.5 0 0 0 .196-.12l6.813-6.814z" />
                       <path fill-rule="evenodd" d="M1 13.5A1.5 1.5 0 0 0 2.5 15h11a1.5 1.5 0 0 0 1.5-1.5v-6a.5.5 0 0 0-1 0v6a.5.5 0 0 1-.5.5h-11a.5.5 0 0 1-.5-.5v-11a.5.5 0 0 1 .5-.5H9a.5.5 0 0 0 0-1H2.5A1.5 1.5 0 0 0 1 2.5v11z" />
+                    </svg>
+                  </button>
+                  <button class="text-red-700 flex justify-center" id="editar-permiso-btn">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-trash-fill" viewBox="0 0 16 16">
+                      <path d="M2.5 1a1 1 0 0 0-1 1v1a1 1 0 0 0 1 1H3v9a2 2 0 0 0 2 2h6a2 2 0 0 0 2-2V4h.5a1 1 0 0 0 1-1V2a1 1 0 0 0-1-1H10a1 1 0 0 0-1-1H7a1 1 0 0 0-1 1H2.5zm3 4a.5.5 0 0 1 .5.5v7a.5.5 0 0 1-1 0v-7a.5.5 0 0 1 .5-.5zM8 5a.5.5 0 0 1 .5.5v7a.5.5 0 0 1-1 0v-7A.5.5 0 0 1 8 5zm3 .5v7a.5.5 0 0 1-1 0v-7a.5.5 0 0 1 1 0z" />
                     </svg>
                   </button>
                 </td>
               </tr>
               <tr>
                 <td>3</td>
-                <td>alumno@alumno</td>
+                <td>Jasiel</td>
+                <td>jasiel@jasiel.com</td>
                 <td>
-                  <span class="bg-gray-600 text-[10px] text-white px-2 rounded-md grid items-center w-[52px]">
-                    Alumno
-                  </span>
+                  Laravel y Bases de datos
                 </td>
-                <td>
-                  <span class="bg-green-500 text-[11px] text-white px-2 rounded-md grid items-center w-[45px]">
-                    Active
-                  </span>
-                </td>
-                <td class="grid items-center">
-                  <button class="text-blue-400 flex justify-center" id="edit-btn">
+                <td class="flex gap-2 lg:gap-4 items-center justify-start">
+                  <button class="text-blue-400 flex justify-center" id="editar-permiso-btn">
                     <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-pencil-square" viewBox="0 0 16 16">
                       <path d="M15.502 1.94a.5.5 0 0 1 0 .706L14.459 3.69l-2-2L13.502.646a.5.5 0 0 1 .707 0l1.293 1.293zm-1.75 2.456-2-2L4.939 9.21a.5.5 0 0 0-.121.196l-.805 2.414a.25.25 0 0 0 .316.316l2.414-.805a.5.5 0 0 0 .196-.12l6.813-6.814z" />
                       <path fill-rule="evenodd" d="M1 13.5A1.5 1.5 0 0 0 2.5 15h11a1.5 1.5 0 0 0 1.5-1.5v-6a.5.5 0 0 0-1 0v6a.5.5 0 0 1-.5.5h-11a.5.5 0 0 1-.5-.5v-11a.5.5 0 0 1 .5-.5H9a.5.5 0 0 0 0-1H2.5A1.5 1.5 0 0 0 1 2.5v11z" />
                     </svg>
                   </button>
-                </td>
-              </tr>
-              <tr>
-                <td>4</td>
-                <td>Ras</td>
-                <td> 2 3 5168</td>
-                <td>admin@admin</td>
-                <td class="grid items-center">
-                  <button class="text-blue-400 flex justify-center" id="edit-btn">
-                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-pencil-square" viewBox="0 0 16 16">
-                      <path d="M15.502 1.94a.5.5 0 0 1 0 .706L14.459 3.69l-2-2L13.502.646a.5.5 0 0 1 .707 0l1.293 1.293zm-1.75 2.456-2-2L4.939 9.21a.5.5 0 0 0-.121.196l-.805 2.414a.25.25 0 0 0 .316.316l2.414-.805a.5.5 0 0 0 .196-.12l6.813-6.814z" />
-                      <path fill-rule="evenodd" d="M1 13.5A1.5 1.5 0 0 0 2.5 15h11a1.5 1.5 0 0 0 1.5-1.5v-6a.5.5 0 0 0-1 0v6a.5.5 0 0 1-.5.5h-11a.5.5 0 0 1-.5-.5v-11a.5.5 0 0 1 .5-.5H9a.5.5 0 0 0 0-1H2.5A1.5 1.5 0 0 0 1 2.5v11z" />
-                    </svg>
-                  </button>
-                </td>
-              </tr>
-              <tr>
-                <td>4</td>
-                <td>Ras</td>
-                <td> 2 3 5168</td>
-                <td>admin@admin</td>
-                <td class="grid items-center">
-                  <button class="text-blue-400 flex justify-center" id="edit-btn">
-                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-pencil-square" viewBox="0 0 16 16">
-                      <path d="M15.502 1.94a.5.5 0 0 1 0 .706L14.459 3.69l-2-2L13.502.646a.5.5 0 0 1 .707 0l1.293 1.293zm-1.75 2.456-2-2L4.939 9.21a.5.5 0 0 0-.121.196l-.805 2.414a.25.25 0 0 0 .316.316l2.414-.805a.5.5 0 0 0 .196-.12l6.813-6.814z" />
-                      <path fill-rule="evenodd" d="M1 13.5A1.5 1.5 0 0 0 2.5 15h11a1.5 1.5 0 0 0 1.5-1.5v-6a.5.5 0 0 0-1 0v6a.5.5 0 0 1-.5.5h-11a.5.5 0 0 1-.5-.5v-11a.5.5 0 0 1 .5-.5H9a.5.5 0 0 0 0-1H2.5A1.5 1.5 0 0 0 1 2.5v11z" />
-                    </svg>
-                  </button>
-                </td>
-              </tr>
-              <tr>
-                <td>4</td>
-                <td>Ras</td>
-                <td> 2 3 5168</td>
-                <td>admin@admin</td>
-                <td class="grid items-center">
-                  <button class="text-blue-400 flex justify-center" id="edit-btn">
-                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-pencil-square" viewBox="0 0 16 16">
-                      <path d="M15.502 1.94a.5.5 0 0 1 0 .706L14.459 3.69l-2-2L13.502.646a.5.5 0 0 1 .707 0l1.293 1.293zm-1.75 2.456-2-2L4.939 9.21a.5.5 0 0 0-.121.196l-.805 2.414a.25.25 0 0 0 .316.316l2.414-.805a.5.5 0 0 0 .196-.12l6.813-6.814z" />
-                      <path fill-rule="evenodd" d="M1 13.5A1.5 1.5 0 0 0 2.5 15h11a1.5 1.5 0 0 0 1.5-1.5v-6a.5.5 0 0 0-1 0v6a.5.5 0 0 1-.5.5h-11a.5.5 0 0 1-.5-.5v-11a.5.5 0 0 1 .5-.5H9a.5.5 0 0 0 0-1H2.5A1.5 1.5 0 0 0 1 2.5v11z" />
-                    </svg>
-                  </button>
-                </td>
-              </tr>
-              <tr>
-                <td>4</td>
-                <td>Ras</td>
-                <td> 2 3 5168</td>
-                <td>admin@admin</td>
-                <td class="grid items-center">
-                  <button class="text-blue-400 flex justify-center" id="edit-btn">
-                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-pencil-square" viewBox="0 0 16 16">
-                      <path d="M15.502 1.94a.5.5 0 0 1 0 .706L14.459 3.69l-2-2L13.502.646a.5.5 0 0 1 .707 0l1.293 1.293zm-1.75 2.456-2-2L4.939 9.21a.5.5 0 0 0-.121.196l-.805 2.414a.25.25 0 0 0 .316.316l2.414-.805a.5.5 0 0 0 .196-.12l6.813-6.814z" />
-                      <path fill-rule="evenodd" d="M1 13.5A1.5 1.5 0 0 0 2.5 15h11a1.5 1.5 0 0 0 1.5-1.5v-6a.5.5 0 0 0-1 0v6a.5.5 0 0 1-.5.5h-11a.5.5 0 0 1-.5-.5v-11a.5.5 0 0 1 .5-.5H9a.5.5 0 0 0 0-1H2.5A1.5 1.5 0 0 0 1 2.5v11z" />
+                  <button class="text-red-700 flex justify-center" id="editar-permiso-btn">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-trash-fill" viewBox="0 0 16 16">
+                      <path d="M2.5 1a1 1 0 0 0-1 1v1a1 1 0 0 0 1 1H3v9a2 2 0 0 0 2 2h6a2 2 0 0 0 2-2V4h.5a1 1 0 0 0 1-1V2a1 1 0 0 0-1-1H10a1 1 0 0 0-1-1H7a1 1 0 0 0-1 1H2.5zm3 4a.5.5 0 0 1 .5.5v7a.5.5 0 0 1-1 0v-7a.5.5 0 0 1 .5-.5zM8 5a.5.5 0 0 1 .5.5v7a.5.5 0 0 1-1 0v-7A.5.5 0 0 1 8 5zm3 .5v7a.5.5 0 0 1-1 0v-7a.5.5 0 0 1 1 0z" />
                     </svg>
                   </button>
                 </td>
@@ -269,38 +214,79 @@
         </div>
       </footer>
     </main>
-    <dialog id="modal" class="px-6 py-4 min-w-[335px] rounded-md">
+    <dialog id="editar-maestro" class="px-6 py-4 min-w-[335px] rounded-md">
       <div class="flex justify-between items-start">
-        <h1 class="text-xl md:text-2xl">Editar Permiso</h1>
-        <button id="cerrar-ventana-x" class="text-base">x</button>
+        <h1 class="text-xl md:text-2xl">Editar Maestro</h1>
+        <button id="cerrar-maestro-x" class="text-base">x</button>
       </div>
       <form action="#" method="POST" class="text-sm mt-6 flex flex-col gap-4">
         <div>
-          <label for="editar-email" class="block font-medium text-sm mb-2 text-gray-900">Correo electrónico del usuario</label>
-          <input class="px-2 py-1 w-full bg-gray-50 border-gray-300 border-2 rounded-lg text-gray-500 text-xs lg:text-sm" type="email" name="editar-email" id="editar-email" placeholder="admin@admin">
+          <label for="maestro-email" class="block font-medium text-sm mb-2 text-gray-900">Correo electrónico del usuario</label>
+          <input class="px-2 py-1 w-full bg-gray-50 border-gray-300 border-2 rounded-lg text-gray-500 text-xs lg:text-sm" type="email" name="maestro-email" id="maestro-email" placeholder="harold@harold.com">
         </div>
         <div>
-          <label for="rol" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Rol del usuario</label>
+          <label for="maestro-name" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Nombre(s)</label>
+          <input class="px-2 py-1 w-full bg-gray-50 border-gray-300 border-2 rounded-lg text-gray-500 text-xs lg:text-sm" type="text" name="maestro-name" id="maestro-email" placeholder="Harold">
+        </div>
+        <div>
+          <label for="maestro-surname" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Apellido(s)</label>
+          <input class="px-2 py-1 w-full bg-gray-50 border-gray-300 border-2 rounded-lg text-gray-500 text-xs lg:text-sm" type="text" name="maestro-name" id="maestro-email" placeholder="Carazas">
+        </div>
+        <div>
+          <label for="contact" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Número de teléfono</label>
+          <input class="px-2 py-1 w-full bg-gray-50 border-gray-300 border-2 rounded-lg text-gray-500 text-xs lg:text-sm" type="text" name="contact" id="maestro-email" placeholder="+51 924126535">
+        </div>
+        <div>
+          <label for="maestro-surname" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Materia asignada</label>
           <select id="rol" class="bg-gray-50 border border-gray-300 text-gray-900 py-[6px] text-xs lg:text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
-            <option value="admin" selected>Administrador</option>
-            <option value="maestro">Maestro</option>
-            <option value="alumno">Alumno</option>
+            <option value="Laravel" selected>Laravel y PHP</option>
+            <option value="CSS">CSS Avanzado</option>
+            <option value="Database">Bases de Datos</option>
           </select>
         </div>
-        <div id="switch-container" class="flex gap-2 items-center">
-          <label class="switch">
-            <input type="checkbox" checked id="checkboxSwitch">
-            <span class="slider round"></span>
-          </label>
-          <label for="checkboxSwitch" id="activo">Activo</label>
-          <label for="checkboxSwitch" id="inactivo" style="display: none;">Inactivo</label>
-        </div>
         <div class="buttons ml-auto">
-          <button id="cerrar-permiso-btn" class="bg-gray-600 text-white rounded px-2 py-1">Cerrar</button>
+          <button id="cerrar-maestro-btn" class="bg-gray-600 text-white rounded px-2 py-1">Cerrar</button>
           <button type="submit" class="bg-blue-500 text-white rounded px-2 py-1">Guardar Cambios</button>
         </div>
       </form>
     </dialog>
+    <dialog id="nuevo-maestro" class="px-6 py-4 min-w-[335px] rounded-md">
+      <div class="flex justify-between items-start">
+        <h1 class="text-xl md:text-2xl">Agregar Maestro</h1>
+        <button id="cerrar-nuevo-x" class="text-base">x</button>
+      </div>
+      <form action="#" method="POST" class="text-sm mt-6 flex flex-col gap-4">
+        <div>
+          <label for="nuevo-email" class="block font-medium text-sm mb-2 text-gray-900">Correo electrónico nuevo</label>
+          <input class="px-2 py-1 w-full bg-gray-50 border-gray-300 border-2 rounded-lg text-gray-500 text-xs lg:text-sm" type="email" name="nuevo-email" id="nuevo-email" placeholder="nuevo@nuevo.com">
+        </div>
+        <div>
+          <label for="nuevo-name" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Nombre(s)</label>
+          <input class="px-2 py-1 w-full bg-gray-50 border-gray-300 border-2 rounded-lg text-gray-500 text-xs lg:text-sm" type="text" name="nuevo-name" id="nuevo-name" placeholder="Harold">
+        </div>
+        <div>
+          <label for="nuevo-surname" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Apellido(s)</label>
+          <input class="px-2 py-1 w-full bg-gray-50 border-gray-300 border-2 rounded-lg text-gray-500 text-xs lg:text-sm" type="text" name="nuevo-surname" id="nuevo-surname" placeholder="Carazas">
+        </div>
+        <div>
+          <label for="nuevo-contact" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Número de teléfono</label>
+          <input class="px-2 py-1 w-full bg-gray-50 border-gray-300 border-2 rounded-lg text-gray-500 text-xs lg:text-sm" type="text" name="nuevo-contact" id="nuevo-contact" placeholder="+51 924126535">
+        </div>
+        <div>
+          <label for="nuevo-subject" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Materia asignada</label>
+          <select id="nuevo-subject" class="bg-gray-50 border border-gray-300 text-gray-900 py-[6px] text-xs lg:text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
+            <option value="Laravel" selected>Laravel y PHP</option>
+            <option value="CSS">CSS Avanzado</option>
+            <option value="Database">Bases de Datos</option>
+          </select>
+        </div>
+        <div class="buttons ml-auto">
+          <button id="cerrar-nuevo-btn" class="bg-gray-600 text-white rounded px-2 py-1">Cerrar</button>
+          <button type="submit" class="bg-blue-500 text-white rounded px-2 py-1">Guardar Cambios</button>
+        </div>
+      </form>
+    </dialog>
+
   </div>
   <script src="../../node_modules/flowbite/dist/flowbite.min.js"></script>
 </body>
