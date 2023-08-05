@@ -156,7 +156,7 @@
         </div>
       </section>
       <footer>
-        <div class="footer text-xs mt-10 text-center">
+        <div class="footer text-xs mt-12 lg:mt-5 text-center">
           <p>&#169 Alvaro Diaz 2023 <span class="text-blue-500">AdminLTE.io</span>. All rights reserved</p>
         </div>
       </footer>
