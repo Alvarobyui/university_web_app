@@ -49,7 +49,7 @@
                     <path d="M4.176 9.032a.5.5 0 0 0-.656.327l-.5 1.7a.5.5 0 0 0 .294.605l4.5 1.8a.5.5 0 0 0 .372 0l4.5-1.8a.5.5 0 0 0 .294-.605l-.5-1.7a.5.5 0 0 0-.656-.327L8 10.466 4.176 9.032Z" />
                   </svg>
                 </div>
-                <p>Administrar tus clases</p>
+                <p>Administrar tus Clases</p>
               </a>
             </li>
           </ul>
@@ -108,7 +108,7 @@
         </div>
         <div class="content text-xs mt-5 mx-2 py-2 px-2 overflow-x-scroll md:text-sm md:py-4 bg-white rounded lg:text-base lg:mx-6 lg:px-4">
           <div class="flex justify-between border-b-gray-500 mb-5">
-            <h2 class="text-lg lg:text-xl">Mis calificaciones</h2>
+            <h2 class="text-lg lg:text-xl">Mis Calificaciones</h2>
           </div>
           <table id="myTable" class="table table-auto">
             <thead class="">
