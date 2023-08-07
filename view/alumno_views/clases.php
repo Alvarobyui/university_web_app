@@ -16,7 +16,7 @@
 
 <body class="h-[100vh]">
   <div class="text-2xl flex h-full">
-    <aside id="toggle-menu" class="menu w-[235px] min-w-[235px] text-sm bg-[#3f454c] text-neutral-300">
+    <aside id="toggle-menu" class="menu w-[235px] min-w-[235px] text-sm bg-[#3f454c] text-neutral-300 md:min-h-[154vh] lg:min-h-[100vh]">
       <div class="logo p-4 flex gap-2 items-center border-b-[1px] border-solid border-blue-100">
         <div class="img rounded-full grid place-items-center w-[35px] h-[35px]"><img class="rounded-full h-full w-full" src="../../assets/logo-small.png" alt="uni"></div>
         <h2 class="text-xl">Universidad</h2>
@@ -99,7 +99,7 @@
           </div>
         </a>
       </section>
-      <section class="bg-[#F5F6FA] pb-[25vh]">
+      <section class="bg-[#F5F6FA] mb-2 pb-4">
         <div class="title flex justify-between p-3">
           <h2 class="text-2xl lg:ml-4">Esquema de Clases</h2>
           <div class="path text-sm">

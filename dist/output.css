@@ -1440,6 +1440,10 @@ input:checked + .toggle-bg {
   min-height: 100vh;
 }
 
+.min-h-\[1500px\] {
+  min-height: 1500px;
+}
+
 .w-1\/2 {
   width: 50%;
 }
@@ -4086,6 +4090,22 @@ input:checked + .slider:before {
     height: 275px;
   }
 
+  .md\:min-h-\[120vh\] {
+    min-height: 120vh;
+  }
+
+  .md\:min-h-\[150vh\] {
+    min-height: 150vh;
+  }
+
+  .md\:min-h-\[155vh\] {
+    min-height: 155vh;
+  }
+
+  .md\:min-h-\[154vh\] {
+    min-height: 154vh;
+  }
+
   .md\:flex-row {
     flex-direction: row;
   }
@@ -4124,10 +4144,6 @@ input:checked + .slider:before {
 }
 
 @media (min-width: 1024px) {
-  .lg\:right-0 {
-    right: 0px;
-  }
-
   .lg\:mx-6 {
     margin-left: 1.5rem;
     margin-right: 1.5rem;
@@ -4135,10 +4151,6 @@ input:checked + .slider:before {
 
   .lg\:ml-4 {
     margin-left: 1rem;
-  }
-
-  .lg\:ml-auto {
-    margin-left: auto;
   }
 
   .lg\:mt-5 {
@@ -4153,8 +4165,8 @@ input:checked + .slider:before {
     height: 310px;
   }
 
-  .lg\:gap-2 {
-    gap: 0.5rem;
+  .lg\:min-h-\[100vh\] {
+    min-height: 100vh;
   }
 
   .lg\:gap-4 {
