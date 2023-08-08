@@ -1,3 +1,6 @@
+<?php
+session_start();
+?>
 <!DOCTYPE html>
 <html lang="en">
 
@@ -14,12 +17,12 @@
       <img src="../assets/logo-mid.jpg" alt="logo" class="w-full h-full">
     </div>
     <div class="caja-adapt w-full flex flex-col items-center md:flex-row md:justify-center md:items-start md:mt-8">
-      <form class="flex flex-col gap-5 p-4 m-2 w-11/12 shadow-md bg-white rounded items-center max-w-[380px] md:my-0 md:h-[275px] lg:h-[310px]" action="#" method="POST">
+      <form class="flex flex-col gap-5 p-4 m-2 w-11/12 shadow-md bg-white rounded items-center max-w-[380px] md:my-0 md:h-[275px] lg:h-[310px]" action="../conexion.php" method="POST">
         <label for="bienvenido" class="text-gray-600 md:mt-4">
           ¡Bienvenido! Ingresa con tu cuenta
         </label>
         <div class="flex justify-between items-center px-2 py-1 w-full border-gray-300 border-2 rounded text-gray-500">
-          <input class="outline-none w-full text-sm lg:text-base" type="text" name="email" id="email" placeholder="Email">
+          <input class="border-0 focus:outline-0 focus:ring-0 w-full text-sm lg:text-base" type="text" name="email" id="email" placeholder="Email">
           <div class="">
             <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-envelope-at-fill" viewBox="0 0 16 16">
               <path d="M2 2A2 2 0 0 0 .05 3.555L8 8.414l7.95-4.859A2 2 0 0 0 14 2H2Zm-2 9.8V4.698l5.803 3.546L0 11.801Zm6.761-2.97-6.57 4.026A2 2 0 0 0 2 14h6.256A4.493 4.493 0 0 1 8 12.5a4.49 4.49 0 0 1 1.606-3.446l-.367-.225L8 9.586l-1.239-.757ZM16 9.671V4.697l-5.803 3.546.338.208A4.482 4.482 0 0 1 12.5 8c1.414 0 2.675.652 3.5 1.671Z" />
@@ -28,7 +31,7 @@
           </div>
         </div>
         <div class="flex justify-between items-center px-2 py-1 w-full border-gray-300 border-2 rounded text-gray-400">
-          <input class="outline-none w-full text-sm lg:text-base" type="password" name="password" id="password" placeholder="Password">
+          <input class="border-0 focus:outline-0 focus:ring-0 w-full text-sm lg:text-base" type="password" name="password" id="password" placeholder="Password">
           <div class="">
             <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-unlock-fill" viewBox="0 0 16 16">
               <path d="M11 1a2 2 0 0 0-2 2v4a2 2 0 0 1 2 2v5a2 2 0 0 1-2 2H3a2 2 0 0 1-2-2V9a2 2 0 0 1 2-2h5V3a3 3 0 0 1 6 0v4a.5.5 0 0 1-1 0V3a2 2 0 0 0-2-2z" />
@@ -58,7 +61,7 @@
         <div class="">
           <h2 class="text-base lg:text-lg">Alumno</h2>
 
-          <p class="ml-6 text-sm lg:text-base">Username: alumno@alunno</p>
+          <p class="ml-6 text-sm lg:text-base">Username: alumno@alumno</p>
           <p class="ml-6 text-sm lg:text-base">Password: alumno</p>
         </div>
       </div>
