@@ -125,7 +125,7 @@
             <span class="text-blue-500">Home</span> / Permisos
           </div>
         </div>
-        <div class="content text-xs mt-5 mx-2 py-2 overflow-x-scroll md:text-sm md:px-2 md:py-4 bg-white rounded lg:text-base lg:mx-6">
+        <div class="content text-xs mt-5 mx-2 py-2 overflow-x-auto md:text-sm md:px-2 md:py-4 bg-white rounded lg:text-base lg:mx-6">
           <table id="myTable" class="table table-auto">
             <thead class="">
               <tr>

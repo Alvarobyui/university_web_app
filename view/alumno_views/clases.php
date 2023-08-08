@@ -107,7 +107,7 @@
           </div>
         </div>
         <div class="content lg:flex items-start justify-around">
-          <div class="text-xs mt-5 mx-2 py-2 px-2 overflow-x-scroll md:text-sm md:py-4 bg-white rounded shadow-md lg:text-base lg:mx-6 lg:px-4">
+          <div class="text-xs mt-5 mx-2 py-2 px-2 overflow-x-auto md:text-sm md:py-4 bg-white rounded shadow-md lg:text-base lg:mx-6 lg:px-4">
             <div class="flex justify-between border-b-gray-500 mb-3">
               <h2 class="text-lg lg:text-xl pl-1 text-green-700 font-semibold font-sans">Inscritas</h2>
             </div>

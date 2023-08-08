@@ -4,7 +4,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Calificaciones</title>
+  <title>Tus Clases</title>
   <link href="../../dist/output.css" rel="stylesheet">
   <script src="../../js/toggle.js" defer></script>
   <script src="../../js/maestro.js" defer></script>
@@ -23,22 +23,20 @@
       </div>
       <div class="rol p-4 border-b-[1px] border-solid border-blue-100">
         <p class="text-base">Alvaro Diaz</p>
-        <p class="text-xs">Alumno</p>
+        <p class="text-xs">Maestro</p>
       </div>
       <div class="p-4">
-        <p class="pb-4 pl-6">MENU ALUMNOS</p>
+        <p class="pb-4 pl-6">MENU MAESTROS</p>
         <nav>
           <ul>
             <li>
               <a href="permisos.php" class="flex gap-2 items-center pb-2 hover:">
                 <div class="img">
-                  <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-clipboard2-check" viewBox="0 0 16 16">
-                    <path d="M9.5 0a.5.5 0 0 1 .5.5.5.5 0 0 0 .5.5.5.5 0 0 1 .5.5V2a.5.5 0 0 1-.5.5h-5A.5.5 0 0 1 5 2v-.5a.5.5 0 0 1 .5-.5.5.5 0 0 0 .5-.5.5.5 0 0 1 .5-.5h3Z" />
-                    <path d="M3 2.5a.5.5 0 0 1 .5-.5H4a.5.5 0 0 0 0-1h-.5A1.5 1.5 0 0 0 2 2.5v12A1.5 1.5 0 0 0 3.5 16h9a1.5 1.5 0 0 0 1.5-1.5v-12A1.5 1.5 0 0 0 12.5 1H12a.5.5 0 0 0 0 1h.5a.5.5 0 0 1 .5.5v12a.5.5 0 0 1-.5.5h-9a.5.5 0 0 1-.5-.5v-12Z" />
-                    <path d="M10.854 7.854a.5.5 0 0 0-.708-.708L7.5 9.793 6.354 8.646a.5.5 0 1 0-.708.708l1.5 1.5a.5.5 0 0 0 .708 0l3-3Z" />
+                  <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-people-fill" viewBox="0 0 16 16">
+                    <path d="M7 14s-1 0-1-1 1-4 5-4 5 3 5 4-1 1-1 1H7Zm4-6a3 3 0 1 0 0-6 3 3 0 0 0 0 6Zm-5.784 6A2.238 2.238 0 0 1 5 13c0-1.355.68-2.75 1.936-3.72A6.325 6.325 0 0 0 5 9c-4 0-5 3-5 4s1 1 1 1h4.216ZM4.5 8a2.5 2.5 0 1 0 0-5 2.5 2.5 0 0 0 0 5Z" />
                   </svg>
                 </div>
-                <p>Ver Calificaciones</p>
+                <p>Tus Alumnos</p>
               </a>
             </li>
             <li>
@@ -49,7 +47,7 @@
                     <path d="M4.176 9.032a.5.5 0 0 0-.656.327l-.5 1.7a.5.5 0 0 0 .294.605l4.5 1.8a.5.5 0 0 0 .372 0l4.5-1.8a.5.5 0 0 0 .294-.605l-.5-1.7a.5.5 0 0 0-.656-.327L8 10.466 4.176 9.032Z" />
                   </svg>
                 </div>
-                <p>Administrar tus Clases</p>
+                <p>Tus Clases</p>
               </a>
             </li>
           </ul>
@@ -80,7 +78,7 @@
           <div id="dropdownAvatarName" class="z-10 hidden bg-white divide-y divide-gray-100 rounded-lg shadow w-44 dark:bg-gray-700 dark:divide-gray-600">
             <div class="px-4 py-3 text-xs lg:text-sm text-gray-900 dark:text-white">
               <div class="font-medium ">Alvaro Diaz</div>
-              <div class="truncate">alumno@alumno.com</div>
+              <div class="truncate">maestro@maestro.com</div>
             </div>
             <ul class="py-2 text-xs lg:text-sm text-gray-700 dark:text-gray-200" aria-labelledby="dropdownInformdropdownAvatarNameButtonationButton">
               <li>
@@ -101,29 +99,29 @@
       </section>
       <section class="bg-[#F5F6FA] pb-[25vh]">
         <div class="title flex justify-between p-3">
-          <h2 class="text-2xl lg:ml-4">Calificaciones</h2>
+          <h2 class="text-2xl lg:ml-4">Tus Clases</h2>
           <div class="path text-sm">
-            <span class="text-blue-500">Home</span> / Calificaciones
+            <span class="text-blue-500">Home</span> / Tus Clases
           </div>
         </div>
-        <div class="content text-xs mt-5 mx-2 py-2 px-2 overflow-x-auto md:text-sm md:py-4 bg-white rounded lg:text-base lg:mx-6 lg:px-4">
+        <div class="content text-xs mt-2 mx-2 py-2 px-2 overflow-x-scroll md:text-sm md:py-4 bg-white rounded shadow-md lg:text-base lg:mx-6 lg:px-4">
           <div class="flex justify-between border-b-gray-500 mb-5">
-            <h2 class="text-lg lg:text-xl">Mis Calificaciones</h2>
+            <h2 class="text-lg lg:text-xl">Asignadas</h2>
           </div>
           <table id="myTable" class="table table-auto">
             <thead class="">
               <tr>
                 <th>#</th>
-                <th>Nombre de Materia</th>
-                <th>Calificación</th>
-                <th>Mensajes</th>
+                <th>Materia</th>
+                <th>Estudiantes inscritos</th>
+                <th>Comentarios</th>
               </tr>
             </thead>
             <tbody>
               <tr>
                 <td>1</td>
                 <td>Programación Orientada a Objetos</td>
-                <td>92%/100%</td>
+                <td>15</td>
                 <td>
                   <span class="bg-cyan-700 text-white text-[10px] px-2 rounded-md grid items-center w-[100px]">
                     No hay mensajes
@@ -133,7 +131,7 @@
               <tr>
                 <td>2</td>
                 <td>Advanced CSS</td>
-                <td>87%/100%</td>
+                <td>30</td>
                 <td>
                   <span class="bg-cyan-700 text-white text-[10px] px-2 rounded-md grid items-center w-[100px]">
                     No hay mensajes
@@ -143,7 +141,7 @@
               <tr>
                 <td>3</td>
                 <td>Laravel y Bases de datos</td>
-                <td>76%/100%</td>
+                <td>50</td>
                 <td>
                   <span class="bg-cyan-700 text-white text-[10px] px-2 rounded-md grid items-center w-[100px]">
                     No hay mensajes

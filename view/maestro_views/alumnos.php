@@ -4,7 +4,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Calificaciones</title>
+  <title>Tus Alumnos</title>
   <link href="../../dist/output.css" rel="stylesheet">
   <script src="../../js/toggle.js" defer></script>
   <script src="../../js/maestro.js" defer></script>
@@ -23,22 +23,20 @@
       </div>
       <div class="rol p-4 border-b-[1px] border-solid border-blue-100">
         <p class="text-base">Alvaro Diaz</p>
-        <p class="text-xs">Alumno</p>
+        <p class="text-xs">Maestro</p>
       </div>
       <div class="p-4">
-        <p class="pb-4 pl-6">MENU ALUMNOS</p>
+        <p class="pb-4 pl-6">MENU MESTROS</p>
         <nav>
           <ul>
             <li>
               <a href="permisos.php" class="flex gap-2 items-center pb-2 hover:">
                 <div class="img">
-                  <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-clipboard2-check" viewBox="0 0 16 16">
-                    <path d="M9.5 0a.5.5 0 0 1 .5.5.5.5 0 0 0 .5.5.5.5 0 0 1 .5.5V2a.5.5 0 0 1-.5.5h-5A.5.5 0 0 1 5 2v-.5a.5.5 0 0 1 .5-.5.5.5 0 0 0 .5-.5.5.5 0 0 1 .5-.5h3Z" />
-                    <path d="M3 2.5a.5.5 0 0 1 .5-.5H4a.5.5 0 0 0 0-1h-.5A1.5 1.5 0 0 0 2 2.5v12A1.5 1.5 0 0 0 3.5 16h9a1.5 1.5 0 0 0 1.5-1.5v-12A1.5 1.5 0 0 0 12.5 1H12a.5.5 0 0 0 0 1h.5a.5.5 0 0 1 .5.5v12a.5.5 0 0 1-.5.5h-9a.5.5 0 0 1-.5-.5v-12Z" />
-                    <path d="M10.854 7.854a.5.5 0 0 0-.708-.708L7.5 9.793 6.354 8.646a.5.5 0 1 0-.708.708l1.5 1.5a.5.5 0 0 0 .708 0l3-3Z" />
+                  <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-people-fill" viewBox="0 0 16 16">
+                    <path d="M7 14s-1 0-1-1 1-4 5-4 5 3 5 4-1 1-1 1H7Zm4-6a3 3 0 1 0 0-6 3 3 0 0 0 0 6Zm-5.784 6A2.238 2.238 0 0 1 5 13c0-1.355.68-2.75 1.936-3.72A6.325 6.325 0 0 0 5 9c-4 0-5 3-5 4s1 1 1 1h4.216ZM4.5 8a2.5 2.5 0 1 0 0-5 2.5 2.5 0 0 0 0 5Z" />
                   </svg>
                 </div>
-                <p>Ver Calificaciones</p>
+                <p>Tus Alumnos</p>
               </a>
             </li>
             <li>
@@ -49,7 +47,7 @@
                     <path d="M4.176 9.032a.5.5 0 0 0-.656.327l-.5 1.7a.5.5 0 0 0 .294.605l4.5 1.8a.5.5 0 0 0 .372 0l4.5-1.8a.5.5 0 0 0 .294-.605l-.5-1.7a.5.5 0 0 0-.656-.327L8 10.466 4.176 9.032Z" />
                   </svg>
                 </div>
-                <p>Administrar tus Clases</p>
+                <p>Tus Clases</p>
               </a>
             </li>
           </ul>
@@ -80,7 +78,7 @@
           <div id="dropdownAvatarName" class="z-10 hidden bg-white divide-y divide-gray-100 rounded-lg shadow w-44 dark:bg-gray-700 dark:divide-gray-600">
             <div class="px-4 py-3 text-xs lg:text-sm text-gray-900 dark:text-white">
               <div class="font-medium ">Alvaro Diaz</div>
-              <div class="truncate">alumno@alumno.com</div>
+              <div class="truncate">maestro@maestro.com</div>
             </div>
             <ul class="py-2 text-xs lg:text-sm text-gray-700 dark:text-gray-200" aria-labelledby="dropdownInformdropdownAvatarNameButtonationButton">
               <li>
@@ -101,53 +99,93 @@
       </section>
       <section class="bg-[#F5F6FA] pb-[25vh]">
         <div class="title flex justify-between p-3">
-          <h2 class="text-2xl lg:ml-4">Calificaciones</h2>
+          <h2 class="text-2xl lg:ml-4">Tus Alumnos</h2>
           <div class="path text-sm">
-            <span class="text-blue-500">Home</span> / Calificaciones
+            <span class="text-blue-500">Home</span> / Tus Alumnos
           </div>
         </div>
-        <div class="content text-xs mt-5 mx-2 py-2 px-2 overflow-x-auto md:text-sm md:py-4 bg-white rounded lg:text-base lg:mx-6 lg:px-4">
+        <div class="content text-xs mt-2 mx-2 py-2 px-2 overflow-x-auto md:text-sm md:py-4 bg-white rounded shadow-md lg:text-base lg:mx-6 lg:px-4">
           <div class="flex justify-between border-b-gray-500 mb-5">
-            <h2 class="text-lg lg:text-xl">Mis Calificaciones</h2>
+            <h2 class="text-lg lg:text-xl">Datos Generales</h2>
           </div>
           <table id="myTable" class="table table-auto">
             <thead class="">
               <tr>
                 <th>#</th>
-                <th>Nombre de Materia</th>
+                <th>Alumno</th>
+                <th>Materia(s)</th>
                 <th>Calificación</th>
-                <th>Mensajes</th>
+                <th>Acciones</th>
               </tr>
             </thead>
             <tbody>
               <tr>
                 <td>1</td>
+                <td>Juan Garcia</td>
                 <td>Programación Orientada a Objetos</td>
-                <td>92%/100%</td>
+                <td>89%/100%</td>
                 <td>
-                  <span class="bg-cyan-700 text-white text-[10px] px-2 rounded-md grid items-center w-[100px]">
-                    No hay mensajes
-                  </span>
+                  <div class="text-blue-500 flex gap-2">
+                    <button>
+                      <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-clipboard-plus" viewBox="0 0 16 16">
+                        <path fill-rule="evenodd" d="M8 7a.5.5 0 0 1 .5.5V9H10a.5.5 0 0 1 0 1H8.5v1.5a.5.5 0 0 1-1 0V10H6a.5.5 0 0 1 0-1h1.5V7.5A.5.5 0 0 1 8 7z" />
+                        <path d="M4 1.5H3a2 2 0 0 0-2 2V14a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2V3.5a2 2 0 0 0-2-2h-1v1h1a1 1 0 0 1 1 1V14a1 1 0 0 1-1 1H3a1 1 0 0 1-1-1V3.5a1 1 0 0 1 1-1h1v-1z" />
+                        <path d="M9.5 1a.5.5 0 0 1 .5.5v1a.5.5 0 0 1-.5.5h-3a.5.5 0 0 1-.5-.5v-1a.5.5 0 0 1 .5-.5h3zm-3-1A1.5 1.5 0 0 0 5 1.5v1A1.5 1.5 0 0 0 6.5 4h3A1.5 1.5 0 0 0 11 2.5v-1A1.5 1.5 0 0 0 9.5 0h-3z" />
+                      </svg>
+                    </button>
+                    <button>
+                      <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-send-plus" viewBox="0 0 16 16">
+                        <path d="M15.964.686a.5.5 0 0 0-.65-.65L.767 5.855a.75.75 0 0 0-.124 1.329l4.995 3.178 1.531 2.406a.5.5 0 0 0 .844-.536L6.637 10.07l7.494-7.494-1.895 4.738a.5.5 0 1 0 .928.372l2.8-7Zm-2.54 1.183L5.93 9.363 1.591 6.602l11.833-4.733Z" />
+                        <path d="M16 12.5a3.5 3.5 0 1 1-7 0 3.5 3.5 0 0 1 7 0Zm-3.5-2a.5.5 0 0 0-.5.5v1h-1a.5.5 0 0 0 0 1h1v1a.5.5 0 0 0 1 0v-1h1a.5.5 0 0 0 0-1h-1v-1a.5.5 0 0 0-.5-.5Z" />
+                      </svg>
+                    </button>
+                  </div>
                 </td>
               </tr>
               <tr>
                 <td>2</td>
-                <td>Advanced CSS</td>
-                <td>87%/100%</td>
+                <td>Esteban Lopez</td>
+                <td>CSS3 Avanzado</td>
+                <td>89%/100%</td>
                 <td>
-                  <span class="bg-cyan-700 text-white text-[10px] px-2 rounded-md grid items-center w-[100px]">
-                    No hay mensajes
-                  </span>
+                <div class="text-blue-500 flex gap-2">
+                    <button>
+                      <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-clipboard-plus" viewBox="0 0 16 16">
+                        <path fill-rule="evenodd" d="M8 7a.5.5 0 0 1 .5.5V9H10a.5.5 0 0 1 0 1H8.5v1.5a.5.5 0 0 1-1 0V10H6a.5.5 0 0 1 0-1h1.5V7.5A.5.5 0 0 1 8 7z" />
+                        <path d="M4 1.5H3a2 2 0 0 0-2 2V14a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2V3.5a2 2 0 0 0-2-2h-1v1h1a1 1 0 0 1 1 1V14a1 1 0 0 1-1 1H3a1 1 0 0 1-1-1V3.5a1 1 0 0 1 1-1h1v-1z" />
+                        <path d="M9.5 1a.5.5 0 0 1 .5.5v1a.5.5 0 0 1-.5.5h-3a.5.5 0 0 1-.5-.5v-1a.5.5 0 0 1 .5-.5h3zm-3-1A1.5 1.5 0 0 0 5 1.5v1A1.5 1.5 0 0 0 6.5 4h3A1.5 1.5 0 0 0 11 2.5v-1A1.5 1.5 0 0 0 9.5 0h-3z" />
+                      </svg>
+                    </button>
+                    <button>
+                      <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-send-plus" viewBox="0 0 16 16">
+                        <path d="M15.964.686a.5.5 0 0 0-.65-.65L.767 5.855a.75.75 0 0 0-.124 1.329l4.995 3.178 1.531 2.406a.5.5 0 0 0 .844-.536L6.637 10.07l7.494-7.494-1.895 4.738a.5.5 0 1 0 .928.372l2.8-7Zm-2.54 1.183L5.93 9.363 1.591 6.602l11.833-4.733Z" />
+                        <path d="M16 12.5a3.5 3.5 0 1 1-7 0 3.5 3.5 0 0 1 7 0Zm-3.5-2a.5.5 0 0 0-.5.5v1h-1a.5.5 0 0 0 0 1h1v1a.5.5 0 0 0 1 0v-1h1a.5.5 0 0 0 0-1h-1v-1a.5.5 0 0 0-.5-.5Z" />
+                      </svg>
+                    </button>
+                  </div>
                 </td>
               </tr>
               <tr>
                 <td>3</td>
-                <td>Laravel y Bases de datos</td>
-                <td>76%/100%</td>
+                <td>Alonso Contreras</td>
+                <td>PHP y Laravel</td>
+                <td>89%/100%</td>
                 <td>
-                  <span class="bg-cyan-700 text-white text-[10px] px-2 rounded-md grid items-center w-[100px]">
-                    No hay mensajes
-                  </span>
+                <div class="text-blue-500 flex gap-2">
+                    <button>
+                      <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-clipboard-plus" viewBox="0 0 16 16">
+                        <path fill-rule="evenodd" d="M8 7a.5.5 0 0 1 .5.5V9H10a.5.5 0 0 1 0 1H8.5v1.5a.5.5 0 0 1-1 0V10H6a.5.5 0 0 1 0-1h1.5V7.5A.5.5 0 0 1 8 7z" />
+                        <path d="M4 1.5H3a2 2 0 0 0-2 2V14a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2V3.5a2 2 0 0 0-2-2h-1v1h1a1 1 0 0 1 1 1V14a1 1 0 0 1-1 1H3a1 1 0 0 1-1-1V3.5a1 1 0 0 1 1-1h1v-1z" />
+                        <path d="M9.5 1a.5.5 0 0 1 .5.5v1a.5.5 0 0 1-.5.5h-3a.5.5 0 0 1-.5-.5v-1a.5.5 0 0 1 .5-.5h3zm-3-1A1.5 1.5 0 0 0 5 1.5v1A1.5 1.5 0 0 0 6.5 4h3A1.5 1.5 0 0 0 11 2.5v-1A1.5 1.5 0 0 0 9.5 0h-3z" />
+                      </svg>
+                    </button>
+                    <button>
+                      <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-send-plus" viewBox="0 0 16 16">
+                        <path d="M15.964.686a.5.5 0 0 0-.65-.65L.767 5.855a.75.75 0 0 0-.124 1.329l4.995 3.178 1.531 2.406a.5.5 0 0 0 .844-.536L6.637 10.07l7.494-7.494-1.895 4.738a.5.5 0 1 0 .928.372l2.8-7Zm-2.54 1.183L5.93 9.363 1.591 6.602l11.833-4.733Z" />
+                        <path d="M16 12.5a3.5 3.5 0 1 1-7 0 3.5 3.5 0 0 1 7 0Zm-3.5-2a.5.5 0 0 0-.5.5v1h-1a.5.5 0 0 0 0 1h1v1a.5.5 0 0 0 1 0v-1h1a.5.5 0 0 0 0-1h-1v-1a.5.5 0 0 0-.5-.5Z" />
+                      </svg>
+                    </button>
+                  </div>
                 </td>
               </tr>
             </tbody>
@@ -168,4 +206,5 @@
     $('#myTable').DataTable({});
   });
 </script>
+
 </html>

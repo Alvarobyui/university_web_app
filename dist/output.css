@@ -1277,6 +1277,10 @@ input:checked + .toggle-bg {
   margin-top: 1.5rem;
 }
 
+.mt-3 {
+  margin-top: 0.75rem;
+}
+
 .box-border {
   box-sizing: border-box;
 }
@@ -1438,10 +1442,6 @@ input:checked + .toggle-bg {
 
 .min-h-\[100vh\] {
   min-height: 100vh;
-}
-
-.min-h-\[1500px\] {
-  min-height: 1500px;
 }
 
 .w-1\/2 {
@@ -4088,18 +4088,6 @@ input:checked + .slider:before {
 
   .md\:h-\[275px\] {
     height: 275px;
-  }
-
-  .md\:min-h-\[120vh\] {
-    min-height: 120vh;
-  }
-
-  .md\:min-h-\[150vh\] {
-    min-height: 150vh;
-  }
-
-  .md\:min-h-\[155vh\] {
-    min-height: 155vh;
   }
 
   .md\:min-h-\[154vh\] {

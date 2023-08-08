@@ -125,7 +125,7 @@
             <span class="text-blue-500">Home</span> / Clases
           </div>
         </div>
-        <div class="content text-xs mt-5 mx-2 py-2 overflow-x-scroll md:text-sm md:px-2 md:py-4 bg-white rounded lg:text-base lg:mx-6">
+        <div class="content text-xs mt-5 mx-2 py-2 overflow-x-auto md:text-sm md:px-2 md:py-4 bg-white rounded lg:text-base lg:mx-6">
           <div class="flex justify-between border-b-gray-500 mb-5">
             <h2 class="text-lg lg:text-xl">Información de las clases</h2>
             <button class="bg-blue-500 text-white rounded px-2 py-1 text-xs lg:text-sm" id="crear-maestro-btn">Agregar Clase</button>

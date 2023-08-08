@@ -121,7 +121,7 @@
             <span class="text-blue-500">Home</span> / Perfil
           </div>
         </div>
-        <div class="content text-xs mx-2 mb-3 py-2 px-2 overflow-x-scroll md:text-sm md:px-2 md:py-4 bg-white rounded lg:text-base lg:mx-6">
+        <div class="content text-xs mx-2 mb-3 py-2 px-2 overflow-x-auto md:text-sm md:px-2 md:py-4 bg-white rounded lg:text-base lg:mx-6">
           <h3 class="text-base lg:text-lg">Editar datos</h3>
           <form action="#" method="POST" class="text-sm mt-6 flex flex-col gap-4">
             <div>
