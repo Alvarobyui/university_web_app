@@ -7,7 +7,7 @@ session_start();
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Document</title>
+  <title>Inicia sesión</title>
   <link href="../dist/output.css" rel="stylesheet">
 </head>
 
@@ -47,21 +47,21 @@ session_start();
           <h1 class="">Información para el demo</h1>
         </div>
         <div class="">
-          <h2 class="text-base lg:text-lg">Admin</h2>
+          <h2 class="text-base lg:text-lg">Administrador</h2>
 
-          <p class="ml-6 text-sm lg:text-base">Username: admin@admin</p>
+          <p class="ml-6 text-sm lg:text-base">Username: admin@admin.com</p>
           <p class="ml-6 text-sm lg:text-base">Password: admin</p>
         </div>
         <div class="">
           <h2 class="text-base lg:text-lg">Maestro</h2>
 
-          <p class="ml-6 text-sm lg:text-base">Username: maestro@maestro</p>
+          <p class="ml-6 text-sm lg:text-base">Username: maestro@maestro.com</p>
           <p class="ml-6 text-sm lg:text-base">Password: maestro</p>
         </div>
         <div class="">
           <h2 class="text-base lg:text-lg">Alumno</h2>
 
-          <p class="ml-6 text-sm lg:text-base">Username: alumno@alumno</p>
+          <p class="ml-6 text-sm lg:text-base">Username: alumno@alumno.com</p>
           <p class="ml-6 text-sm lg:text-base">Password: alumno</p>
         </div>
       </div>

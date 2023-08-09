@@ -24,9 +24,11 @@ try {
   if ($rows === 1) {
     $user = mysqli_fetch_assoc($result);
     $rol = $user["rol"];
-    
+    session_start();
+    $_SESSION["user"] = $user;
+
     if($rol === "1") {
-      header("Location: ./view/admin_views/dashboard.php");
+      header("Location: ./view/admin_views/dashboard.php"); //aqui esta el que no funciona
     }
     elseif ($rol ==="2") {
       header("Location: ./view/maestro_views/dashboard.php");

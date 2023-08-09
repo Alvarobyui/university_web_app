@@ -1,5 +1,14 @@
 <?php
 session_start();
+
+/* var_dump($_SESSION["user"]); */
+
+require_once("../../model/Admin.php");
+
+$admin = new Admin($_SESSION["user"]["email"], $_SESSION["user"]["password"], $_SESSION["user"]["rol"] , $_SESSION["user"]["nombre"], $_SESSION["user"]["apellido"], $_SESSION["user"]["contacto"], $_SESSION["user"]["estado"]);
+
+/* header("Location: ../view/admin_views/dashboard.php"); */
+
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -97,8 +106,8 @@ session_start();
           <!-- Dropdown menu -->
           <div id="dropdownAvatarName" class="z-10 hidden bg-white divide-y divide-gray-100 rounded-lg shadow w-44 dark:bg-gray-700 dark:divide-gray-600">
             <div class="px-4 py-3 text-xs lg:text-sm text-gray-900 dark:text-white">
-              <div class="font-medium ">Alvaro Diaz</div>
-              <div class="truncate">admin@admin.com</div>
+              <div class="font-medium "><?=$admin->mostrarNombre();?> <?=$admin->mostrarApellido();?></div>
+              <div class="truncate"><?=$admin->mostrarEmail();?></div>
             </div>
             <ul class="py-2 text-xs lg:text-sm text-gray-700 dark:text-gray-200" aria-labelledby="dropdownInformdropdownAvatarNameButtonationButton">
               <li>
