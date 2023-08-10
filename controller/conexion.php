@@ -1,21 +1,10 @@
 <?php
-$servername = "localhost";
-$username = "root";
-$password = "";
-$dbname = "Universidad";
-
-// Crear conexión
-$conn = new mysqli($servername, $username, $password, $dbname);
-
-// Verificar la conexión
-if ($conn->connect_error) {
-  die("Conexión fallida: " . $conn->connect_error);
-}
+require("conn.php");
+//verifying access
 
 $email = $_POST["email"];
 $psswrd = $_POST["password"];
 
-//verifying access
 try {
   $login = "SELECT * FROM usuario WHERE email= '$email' and password = '$psswrd'";
   $result = mysqli_query($conn, $login);

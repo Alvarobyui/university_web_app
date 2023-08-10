@@ -5,7 +5,8 @@ require_once($_SERVER["DOCUMENT_ROOT"] . "/controller/LogoutController.php");
 
 $loginController = new LoginController();
 $logoutController = new LogoutController();
-// var_dump($_GET);
+
+
 if(isset($_GET["action"])) {
   $action = $_GET["action"];
   switch ($action) {

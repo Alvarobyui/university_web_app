@@ -74,8 +74,41 @@ class Admin {
 
     }
 
-    public function editarUsuarios($usuario) {
-       /*  if($usuario == "alumno") */
+    public function editarUsuarios($conn, $usuario, $id, $boton, $email, $name, $surname, $contact) {
+        if($usuario === "alumno") {
+            if(!empty($_POST[$boton])) { // Lógica corregida aquí
+                if (!empty($_POST[$email]) && !empty($_POST[$name]) && !empty($_POST[$surname]) && !empty($_POST[$contact])) {
+                    $correo = $_POST[$email]; 
+                    $nombre = $_POST[$name]; 
+                    $apellido = $_POST[$surname]; 
+                    $contacto = $_POST[$contact]; 
+                    
+                    // Utilizando una consulta preparada
+                    $stmt = $conn->prepare("UPDATE usuario 
+                        SET email = ?, 
+                            nombre = ?, 
+                            apellido = ?, 
+                            contacto = ?
+                        WHERE id = ?"); // Corregido aquí
+                    $stmt->bind_param("ssssi", $correo, $nombre, $apellido, $contacto, $id); // Corregido aquí
+                    
+                    if ($stmt->execute()) {
+                        echo "<div>Correcto</div>";
+                    } else {
+                        echo "<div>Hubo un error, vuelve a intentar.</div>";
+                    }
+                    
+                    $stmt->close();
+                    
+                } else {
+                    echo "algunos campos están vacios";
+                }
+            } else {
+                echo "botón no encontrado";
+            }
+        } else {
+            echo "no eres alumno";
+        }
     }
 
     public function crearUsuarios() {
