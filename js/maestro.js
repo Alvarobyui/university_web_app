@@ -1,5 +1,25 @@
 document.addEventListener('DOMContentLoaded', (event) => {
-    //Abrir y cerrar la ventana "editar maestro"
+
+  //Abrir y cerrar la ventana "crear maestro"
+  let nuevoMaestro = document.getElementById("crear-maestro-btn");
+  let cerrarNuevoBtn = document.getElementById("cerrar-nuevo-btn");
+  let cerrarNuevoX = document.getElementById("cerrar-nuevo-x");
+
+  let nuevoVentana = document.getElementById("nuevo-maestro");
+
+  nuevoMaestro.addEventListener("click", ()=> {
+    nuevoVentana.showModal();
+  });
+
+  cerrarNuevoBtn.addEventListener("click", (e)=> {
+    nuevoVentana.close();
+    e.preventDefault();
+  })
+  cerrarNuevoX.addEventListener("click", ()=> {
+    nuevoVentana.close();
+  })
+
+  //Abrir y cerrar la ventana "editar maestro o alumno"
   let abrirMaestros = document.querySelectorAll(".editar-maestro-btn");
   let cerrarMaestroBtn = document.getElementById("cerrar-maestro-btn");
   let cerrarMaestroX = document.getElementById("cerrar-maestro-x");
@@ -25,33 +45,7 @@ document.addEventListener('DOMContentLoaded', (event) => {
       });
   });
 
-
-
-  //Abrir y cerrar la ventana "crear maestro"
-  let nuevoMaestro = document.getElementById("crear-maestro-btn");
-  let cerrarNuevoBtn = document.getElementById("cerrar-nuevo-btn");
-  let cerrarNuevoX = document.getElementById("cerrar-nuevo-x");
-
-  let nuevoVentana = document.getElementById("nuevo-maestro");
-
-  nuevoMaestro.addEventListener("click", ()=> {
-    nuevoVentana.showModal();
-  });
-
-  cerrarNuevoBtn.addEventListener("click", (e)=> {
-    nuevoVentana.close();
-    e.preventDefault();
-  })
-  cerrarNuevoX.addEventListener("click", ()=> {
-    nuevoVentana.close();
-  })
-
-
-  /* abrirMaestros.forEach(abrirMaestro => {
-    abrirMaestro.addEventListener("click", () => {
-        maestroVentana.showModal();
-    });
-  }); */
+  
   //Capturar inputs y poner valores por defecto en alumnos.php
   abrirMaestros.forEach(button => {
     button.addEventListener('click', function() {
