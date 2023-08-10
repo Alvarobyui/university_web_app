@@ -93,21 +93,21 @@ class Admin {
                     $stmt->bind_param("ssssi", $correo, $nombre, $apellido, $contacto, $id); // Corregido aquí
                     
                     if ($stmt->execute()) {
-                        echo "<div>Correcto</div>";
+                       /*  echo "<div>Correcto</div>"; */
                     } else {
-                        echo "<div>Hubo un error, vuelve a intentar.</div>";
+                        /* echo "<div>Hubo un error, vuelve a intentar.</div>"; */
                     }
                     
                     $stmt->close();
                     
                 } else {
-                    echo "algunos campos están vacios";
+                  /*   echo "algunos campos están vacios"; */
                 }
             } else {
-                echo "botón no encontrado";
+               /*  echo "botón no encontrado"; */
             }
         } else {
-            echo "no eres alumno";
+           /*  echo "no eres alumno"; */
         }
     }
 

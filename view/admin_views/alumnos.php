@@ -13,8 +13,8 @@ if(isset($_POST['id'])) {
   $id = $_POST['id'];
   var_dump($id);
   $admin->editarUsuarios($conn, "alumno", $id, "editar-alumno-btn", "alumno-email", "alumno-name", "alumno-surname", "alumno-contact");  
-  echo json_encode(['message' => 'Usuario editado con éxito']);
-  exit();  // Finaliza la ejecución para que no envíe la página completa como respuesta
+/*   echo json_encode(['message' => 'Usuario editado con éxito']); */
+  exit();
 }
 ?>
 
@@ -203,7 +203,6 @@ if(isset($_POST['id'])) {
       </div>
       <form action="editarAlumno.php" method="POST" class="text-sm mt-6 flex flex-col gap-4">
         <div>
-          <input type="hidden" name="id" value="<?php echo $id; ?>">
           <label for="alumno-email" class="block font-medium text-sm mb-2 text-gray-900">Correo electrónico del usuario</label>
           <input class="px-2 py-1 w-full bg-gray-50 border-gray-300 border-2 rounded-lg text-gray-500 text-xs lg:text-sm" type="email" name="alumno-email" id="alumno-email" placeholder="harold@harold.com" value="">
         </div>
