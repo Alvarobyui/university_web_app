@@ -1,15 +1,12 @@
 <?php
 session_start();
 
-/* var_dump($_SESSION["user"]); */
-
+include($_SERVER["DOCUMENT_ROOT"] . "/controller/protectSession.php");
 require_once("../../model/Admin.php");
 
 $admin = new Admin($_SESSION["user"]["email"], $_SESSION["user"]["password"], $_SESSION["user"]["rol"] , $_SESSION["user"]["nombre"], $_SESSION["user"]["apellido"], $_SESSION["user"]["contacto"], $_SESSION["user"]["estado"]);
-
-/* header("Location: ../view/admin_views/dashboard.php"); */
-
 ?>
+
 <!DOCTYPE html>
 <html lang="en">
 
@@ -121,12 +118,12 @@ $admin = new Admin($_SESSION["user"]["email"], $_SESSION["user"]["password"], $_
               </li>
             </ul>
             <div class="py-2">
-              <a href="./cerrarSesion.php" class="block px-4 py-2 text-xs lg:text-sm text-gray-700 hover:bg-gray-100 dark:hover:bg-gray-600 dark:text-gray-200 dark:hover:text-white">Cerrar Sesión</a>
+              <a href="../admin_views/cerrarSesion.php" class="block px-4 py-2 text-xs lg:text-sm text-gray-700 hover:bg-gray-100 dark:hover:bg-gray-600 dark:text-gray-200 dark:hover:text-white">Cerrar Sesión</a>
             </div>
           </div>
         </a>
       </section>
-      <section class="bg-[#F5F6FA] pb-[75vh]">
+      <section class="bg-[#F5F6FA] pb-[70vh]">
         <div class="title flex justify-between p-3">
           <h2 class="text-2xl">Dashboard</h2>
           <div class="path text-sm">

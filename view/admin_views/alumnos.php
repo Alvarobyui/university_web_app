@@ -1,3 +1,13 @@
+<?php
+session_start();
+
+include($_SERVER["DOCUMENT_ROOT"] . "/controller/protectSession.php");
+require_once("../../model/Admin.php");
+
+$admin = new Admin($_SESSION["user"]["email"], $_SESSION["user"]["password"], $_SESSION["user"]["rol"] , $_SESSION["user"]["nombre"], $_SESSION["user"]["apellido"], $_SESSION["user"]["contacto"], $_SESSION["user"]["estado"]);
+
+?>
+
 <!DOCTYPE html>
 <html lang="en">
 
@@ -89,7 +99,7 @@
           <button id="dropdownAvatarNameButton" data-dropdown-toggle="dropdownAvatarName" class="flex items-center text-sm font-medium text-gray-900 rounded-full hover:text-blue-600 dark:hover:text-blue-500 md:mr-0 focus:ring-4 focus:ring-gray-100 dark:focus:ring-gray-700 dark:text-white" type="button">
             <span class="sr-only">Open user menu</span>
             <img class="w-8 h-8 mr-2 rounded-full" src="../../assets/user.png" alt="photo">
-            Alvaro Diaz
+            <?=$admin->mostrarNombre();?> <?=$admin->mostrarApellido();?>
             <svg class="w-2.5 h-2.5 ml-2.5" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 10 6">
               <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="m1 1 4 4 4-4" />
             </svg>
@@ -98,8 +108,8 @@
           <!-- Dropdown menu -->
           <div id="dropdownAvatarName" class="z-10 hidden bg-white divide-y divide-gray-100 rounded-lg shadow w-44 dark:bg-gray-700 dark:divide-gray-600">
             <div class="px-4 py-3 text-xs lg:text-sm text-gray-900 dark:text-white">
-              <div class="font-medium ">Alvaro Diaz</div>
-              <div class="truncate">admin@admin.com</div>
+              <div class="font-medium "><?=$admin->mostrarNombre();?> <?=$admin->mostrarApellido();?></div>
+              <div class="truncate"><?=$admin->mostrarEmail();?></div>
             </div>
             <ul class="py-2 text-xs lg:text-sm text-gray-700 dark:text-gray-200" aria-labelledby="dropdownInformdropdownAvatarNameButtonationButton">
               <li>
@@ -136,68 +146,35 @@
                 <th>#</th>
                 <th>Nombre</th>
                 <th>Email</th>
-                <th>DNI</th>
+                <th>Contacto</th>
                 <th>Acciones</th>
               </tr>
             </thead>
             <tbody>
-              <tr>
-                <td>1</td>
-                <td>Harold</td>
-                <td>harold@harold.com</td>
-                <td>87654321</td>
-                <td class="flex gap-2 lg:gap-4 items-center justify-start">
-                  <button class="text-blue-400 flex justify-center" id="editar-maestro-btn">
-                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-pencil-square" viewBox="0 0 16 16">
+              <?php
+                foreach ($_SESSION['alumnos'] as $col => $valor) {
+                  ?>
+                <tr>
+                  <td><?= $valor["id"] ?></td>
+                  <td><?= $valor["nombre"] ?> <?= $valor["apellido"] ?></td>
+                  <td><?= $valor["email"]?></td>
+                  <td><?= $valor["contacto"]?></td>
+                  <td class="flex gap-2 lg:gap-4 items-center justify-start">
+                    <button name=<?= $valor["id"]?> class="text-blue-400 flex justify-center editar-maestro-btn" data-email="<?= $valor["email"] ?>" data-nombre="<?= $valor["nombre"] ?>" data-apellido="<?= $valor["apellido"] ?>"  data-contacto="<?= $valor["contacto"] ?>">
+                      <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-pencil-square" viewBox="0 0 16 16">
                       <path d="M15.502 1.94a.5.5 0 0 1 0 .706L14.459 3.69l-2-2L13.502.646a.5.5 0 0 1 .707 0l1.293 1.293zm-1.75 2.456-2-2L4.939 9.21a.5.5 0 0 0-.121.196l-.805 2.414a.25.25 0 0 0 .316.316l2.414-.805a.5.5 0 0 0 .196-.12l6.813-6.814z" />
                       <path fill-rule="evenodd" d="M1 13.5A1.5 1.5 0 0 0 2.5 15h11a1.5 1.5 0 0 0 1.5-1.5v-6a.5.5 0 0 0-1 0v6a.5.5 0 0 1-.5.5h-11a.5.5 0 0 1-.5-.5v-11a.5.5 0 0 1 .5-.5H9a.5.5 0 0 0 0-1H2.5A1.5 1.5 0 0 0 1 2.5v11z" />
                     </svg>
-                  </button>
-                  <button class="text-red-700 flex justify-center" id="borrar-maestro-btn">
-                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-trash-fill" viewBox="0 0 16 16">
+                    </button>
+                    <button name=<?= $valor["id"]?> class="text-red-700 flex justify-center borrar-maestro-btn">
+                      <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-trash-fill" viewBox="0 0 16 16">
                       <path d="M2.5 1a1 1 0 0 0-1 1v1a1 1 0 0 0 1 1H3v9a2 2 0 0 0 2 2h6a2 2 0 0 0 2-2V4h.5a1 1 0 0 0 1-1V2a1 1 0 0 0-1-1H10a1 1 0 0 0-1-1H7a1 1 0 0 0-1 1H2.5zm3 4a.5.5 0 0 1 .5.5v7a.5.5 0 0 1-1 0v-7a.5.5 0 0 1 .5-.5zM8 5a.5.5 0 0 1 .5.5v7a.5.5 0 0 1-1 0v-7A.5.5 0 0 1 8 5zm3 .5v7a.5.5 0 0 1-1 0v-7a.5.5 0 0 1 1 0z" />
                     </svg>
-                  </button>
-                </td>
-              </tr>
-              <tr>
-                <td>2</td>
-                <td>Marcelo</td>
-                <td>marcelo@marcelo.com</td>
-                <td>12345678</td>
-                <td class="flex gap-2 lg:gap-4 items-center justify-start">
-                  <button class="text-blue-400 flex justify-center" id="editar-permiso-btn">
-                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-pencil-square" viewBox="0 0 16 16">
-                      <path d="M15.502 1.94a.5.5 0 0 1 0 .706L14.459 3.69l-2-2L13.502.646a.5.5 0 0 1 .707 0l1.293 1.293zm-1.75 2.456-2-2L4.939 9.21a.5.5 0 0 0-.121.196l-.805 2.414a.25.25 0 0 0 .316.316l2.414-.805a.5.5 0 0 0 .196-.12l6.813-6.814z" />
-                      <path fill-rule="evenodd" d="M1 13.5A1.5 1.5 0 0 0 2.5 15h11a1.5 1.5 0 0 0 1.5-1.5v-6a.5.5 0 0 0-1 0v6a.5.5 0 0 1-.5.5h-11a.5.5 0 0 1-.5-.5v-11a.5.5 0 0 1 .5-.5H9a.5.5 0 0 0 0-1H2.5A1.5 1.5 0 0 0 1 2.5v11z" />
-                    </svg>
-                  </button>
-                  <button class="text-red-700 flex justify-center" id="editar-permiso-btn">
-                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-trash-fill" viewBox="0 0 16 16">
-                      <path d="M2.5 1a1 1 0 0 0-1 1v1a1 1 0 0 0 1 1H3v9a2 2 0 0 0 2 2h6a2 2 0 0 0 2-2V4h.5a1 1 0 0 0 1-1V2a1 1 0 0 0-1-1H10a1 1 0 0 0-1-1H7a1 1 0 0 0-1 1H2.5zm3 4a.5.5 0 0 1 .5.5v7a.5.5 0 0 1-1 0v-7a.5.5 0 0 1 .5-.5zM8 5a.5.5 0 0 1 .5.5v7a.5.5 0 0 1-1 0v-7A.5.5 0 0 1 8 5zm3 .5v7a.5.5 0 0 1-1 0v-7a.5.5 0 0 1 1 0z" />
-                    </svg>
-                  </button>
-                </td>
-              </tr>
-              <tr>
-                <td>3</td>
-                <td>Jasiel</td>
-                <td>jasiel@jasiel.com</td>
-                <td>70809030</td>
-                <td class="flex gap-2 lg:gap-4 items-center justify-start">
-                  <button class="text-blue-400 flex justify-center" id="editar-permiso-btn">
-                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-pencil-square" viewBox="0 0 16 16">
-                      <path d="M15.502 1.94a.5.5 0 0 1 0 .706L14.459 3.69l-2-2L13.502.646a.5.5 0 0 1 .707 0l1.293 1.293zm-1.75 2.456-2-2L4.939 9.21a.5.5 0 0 0-.121.196l-.805 2.414a.25.25 0 0 0 .316.316l2.414-.805a.5.5 0 0 0 .196-.12l6.813-6.814z" />
-                      <path fill-rule="evenodd" d="M1 13.5A1.5 1.5 0 0 0 2.5 15h11a1.5 1.5 0 0 0 1.5-1.5v-6a.5.5 0 0 0-1 0v6a.5.5 0 0 1-.5.5h-11a.5.5 0 0 1-.5-.5v-11a.5.5 0 0 1 .5-.5H9a.5.5 0 0 0 0-1H2.5A1.5 1.5 0 0 0 1 2.5v11z" />
-                    </svg>
-                  </button>
-                  <button class="text-red-700 flex justify-center" id="editar-permiso-btn">
-                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-trash-fill" viewBox="0 0 16 16">
-                      <path d="M2.5 1a1 1 0 0 0-1 1v1a1 1 0 0 0 1 1H3v9a2 2 0 0 0 2 2h6a2 2 0 0 0 2-2V4h.5a1 1 0 0 0 1-1V2a1 1 0 0 0-1-1H10a1 1 0 0 0-1-1H7a1 1 0 0 0-1 1H2.5zm3 4a.5.5 0 0 1 .5.5v7a.5.5 0 0 1-1 0v-7a.5.5 0 0 1 .5-.5zM8 5a.5.5 0 0 1 .5.5v7a.5.5 0 0 1-1 0v-7A.5.5 0 0 1 8 5zm3 .5v7a.5.5 0 0 1-1 0v-7a.5.5 0 0 1 1 0z" />
-                    </svg>
-                  </button>
-                </td>
-              </tr>
+                    </button>
+                  </td>
+                </tr>
+              <?php
+              }?>
             </tbody>
           </table>
         </div>
@@ -213,25 +190,25 @@
         <h1 class="text-xl md:text-2xl">Editar Alumno</h1>
         <button id="cerrar-maestro-x" class="text-base">x</button>
       </div>
-      <form action="#" method="POST" class="text-sm mt-6 flex flex-col gap-4">
+      <form method="POST" class="text-sm mt-6 flex flex-col gap-4">
         <div>
           <label for="alumno-email" class="block font-medium text-sm mb-2 text-gray-900">Correo electrónico del usuario</label>
-          <input class="px-2 py-1 w-full bg-gray-50 border-gray-300 border-2 rounded-lg text-gray-500 text-xs lg:text-sm" type="email" name="alumno-email" id="alumno-email" placeholder="harold@harold.com">
+          <input class="px-2 py-1 w-full bg-gray-50 border-gray-300 border-2 rounded-lg text-gray-500 text-xs lg:text-sm" type="email" name="alumno-email" id="alumno-email" placeholder="harold@harold.com" value="">
         </div>
         <div>
           <label for="alumno-name" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Nombre(s)</label>
-          <input class="px-2 py-1 w-full bg-gray-50 border-gray-300 border-2 rounded-lg text-gray-500 text-xs lg:text-sm" type="text" name="alumno-name" id="alumno-name" placeholder="Harold">
+          <input class="px-2 py-1 w-full bg-gray-50 border-gray-300 border-2 rounded-lg text-gray-500 text-xs lg:text-sm" type="text" name="alumno-name" id="alumno-name" placeholder="Harold" value="">
         </div>
         <div>
           <label for="alumno-surname" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Apellido(s)</label>
-          <input class="px-2 py-1 w-full bg-gray-50 border-gray-300 border-2 rounded-lg text-gray-500 text-xs lg:text-sm" type="text" name="alumno-surname" id="alumno-surname" placeholder="Carazas">
+          <input class="px-2 py-1 w-full bg-gray-50 border-gray-300 border-2 rounded-lg text-gray-500 text-xs lg:text-sm" type="text" name="alumno-surname" id="alumno-surname" placeholder="Carazas" value="">
         </div>
         <div>
           <label for="alumno-contact" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Número de teléfono</label>
-          <input class="px-2 py-1 w-full bg-gray-50 border-gray-300 border-2 rounded-lg text-gray-500 text-xs lg:text-sm" type="text" name="alumno-contact" id="alumno-contact" placeholder="+51 924126535">
+          <input class="px-2 py-1 w-full bg-gray-50 border-gray-300 border-2 rounded-lg text-gray-500 text-xs lg:text-sm" type="text" name="alumno-contact" id="alumno-contact" placeholder="+51 924126535" value="">
         </div>
         <div class="buttons ml-auto">
-          <button id="cerrar-maestro-btn" class="bg-gray-600 text-white rounded px-2 py-1">Cerrar</button>
+          <button id="cerrar-maestro-btn" name="editar-alumno-btn" class="bg-gray-600 text-white rounded px-2 py-1">Cerrar</button>
           <button type="submit" class="bg-blue-500 text-white rounded px-2 py-1">Guardar Cambios</button>
         </div>
       </form>
@@ -244,19 +221,19 @@
       <form action="#" method="POST" class="text-sm mt-6 flex flex-col gap-4">
         <div>
           <label for="nuevo-alumno-email" class="block font-medium text-sm mb-2 text-gray-900">Correo electrónico nuevo</label>
-          <input class="px-2 py-1 w-full bg-gray-50 border-gray-300 border-2 rounded-lg text-gray-500 text-xs lg:text-sm" type="email" name="nuevo-alumno-email" id="nuevo-alumno-email" placeholder="alumno@alumno.com">
+          <input class="px-2 py-1 w-full bg-gray-50 border-gray-300 border-2 rounded-lg text-gray-500 text-xs lg:text-sm" type="email" name="nuevo-alumno-email" id="nuevo-alumno-email" placeholder="alumno@alumno.com" value="">
         </div>
         <div>
           <label for="nuevo-alumno-name" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Nombre(s)</label>
-          <input class="px-2 py-1 w-full bg-gray-50 border-gray-300 border-2 rounded-lg text-gray-500 text-xs lg:text-sm" type="text" name="nuevo-alumno-name" id="nuevo-alumno-name" placeholder="Harold">
+          <input class="px-2 py-1 w-full bg-gray-50 border-gray-300 border-2 rounded-lg text-gray-500 text-xs lg:text-sm" type="text" name="nuevo-alumno-name" id="nuevo-alumno-name" placeholder="Harold" value="">
         </div>
         <div>
           <label for="nuevo-alumno-surname" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Apellido(s)</label>
-          <input class="px-2 py-1 w-full bg-gray-50 border-gray-300 border-2 rounded-lg text-gray-500 text-xs lg:text-sm" type="text" name="nuevo-alumno-surname" id="nuevo-alumno-surname" placeholder="Carazas">
+          <input class="px-2 py-1 w-full bg-gray-50 border-gray-300 border-2 rounded-lg text-gray-500 text-xs lg:text-sm" type="text" name="nuevo-alumno-surname" id="nuevo-alumno-surname" placeholder="Carazas" value="">
         </div>
         <div>
           <label for="nuevo-alumno-contact" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Número de teléfono</label>
-          <input class="px-2 py-1 w-full bg-gray-50 border-gray-300 border-2 rounded-lg text-gray-500 text-xs lg:text-sm" type="text" name="nuevo-alumno-contact" id="nuevo-alumno-contact" placeholder="+51 924126535">
+          <input class="px-2 py-1 w-full bg-gray-50 border-gray-300 border-2 rounded-lg text-gray-500 text-xs lg:text-sm" type="text" name="nuevo-alumno-contact" id="nuevo-alumno-contact" placeholder="+51 924126535" value="">
         </div>
         <div class="buttons ml-auto">
           <button id="cerrar-nuevo-btn" class="bg-gray-600 text-white rounded px-2 py-1">Cerrar</button>

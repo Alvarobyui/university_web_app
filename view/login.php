@@ -17,7 +17,7 @@ session_start();
       <img src="../assets/logo-mid.jpg" alt="logo" class="w-full h-full">
     </div>
     <div class="caja-adapt w-full flex flex-col items-center md:flex-row md:justify-center md:items-start md:mt-8">
-      <form class="flex flex-col gap-5 p-4 m-2 w-11/12 shadow-md bg-white rounded items-center max-w-[380px] md:my-0 md:h-[275px] lg:h-[310px]" action="../conexion.php" method="POST">
+      <form class="flex flex-col gap-5 p-4 m-2 w-11/12 shadow-md bg-white rounded items-center max-w-[380px] md:my-0 md:h-[275px] lg:h-[310px]" action="?action=login" method="POST">
         <label for="bienvenido" class="text-gray-600 md:mt-4">
           ¡Bienvenido! Ingresa con tu cuenta
         </label>

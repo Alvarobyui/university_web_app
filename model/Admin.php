@@ -71,11 +71,11 @@ class Admin {
 
     // Métodos adicionales
     public function verUsuarios() {
-        // Implementar lógica para ver usuarios
+
     }
 
-    public function editarUsuarios() {
-        // Implementar lógica para editar usuarios
+    public function editarUsuarios($usuario) {
+       /*  if($usuario == "alumno") */
     }
 
     public function crearUsuarios() {
