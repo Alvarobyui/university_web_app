@@ -20,9 +20,11 @@ let cerrarX = document.getElementById("cerrar-ventana-x");
 
 let ventanaEditar = document.getElementById("modal");
 
-abrirVentanas.forEach((btn) => {
-  btn.addEventListener("click", ()=> {
+abrirVentanas.forEach(function(btn) {
+  btn.addEventListener("click", function() {
     ventanaEditar.showModal();
+    let email = this.getAttribute('data-email');
+    document.getElementById('editar-email').value = email;
   });
 });
 
@@ -34,4 +36,5 @@ cerrarBtn.addEventListener("click", (e)=> {
 cerrarX.addEventListener("click", ()=> {
   ventanaEditar.close();
 });
+
 
