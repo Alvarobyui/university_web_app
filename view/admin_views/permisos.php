@@ -182,7 +182,7 @@ $admin = new Admin($_SESSION["user"]["email"], $_SESSION["user"]["password"], $_
                   ?>
                 </td>
                 <td class="grid items-center">
-                  <button class="text-blue-400 flex justify-center" id="editar-permiso-btn">
+                  <button class="text-blue-400 flex justify-center editar-permiso-btn">
                     <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-pencil-square" viewBox="0 0 16 16">
                       <path d="M15.502 1.94a.5.5 0 0 1 0 .706L14.459 3.69l-2-2L13.502.646a.5.5 0 0 1 .707 0l1.293 1.293zm-1.75 2.456-2-2L4.939 9.21a.5.5 0 0 0-.121.196l-.805 2.414a.25.25 0 0 0 .316.316l2.414-.805a.5.5 0 0 0 .196-.12l6.813-6.814z" />
                       <path fill-rule="evenodd" d="M1 13.5A1.5 1.5 0 0 0 2.5 15h11a1.5 1.5 0 0 0 1.5-1.5v-6a.5.5 0 0 0-1 0v6a.5.5 0 0 1-.5.5h-11a.5.5 0 0 1-.5-.5v-11a.5.5 0 0 1 .5-.5H9a.5.5 0 0 0 0-1H2.5A1.5 1.5 0 0 0 1 2.5v11z" />
@@ -197,6 +197,10 @@ $admin = new Admin($_SESSION["user"]["email"], $_SESSION["user"]["password"], $_
         </div>
       </section>
       <footer>
+        <?php
+          include($_SERVER["DOCUMENT_ROOT"] . "/controller/conn.php");
+          include($_SERVER["DOCUMENT_ROOT"] . "/controller/editarPermisos.php");
+        ?>
         <div class="footer text-xs text-center mt-5">
           <p>&#169 Alvaro Diaz 2023 <span class="text-blue-500">AdminLTE.io</span>. All rights reserved</p>
         </div>
@@ -207,22 +211,23 @@ $admin = new Admin($_SESSION["user"]["email"], $_SESSION["user"]["password"], $_
         <h1 class="text-xl md:text-2xl">Editar Permiso</h1>
         <button id="cerrar-ventana-x" class="text-base">x</button>
       </div>
-      <form action="#" method="POST" class="text-sm mt-6 flex flex-col gap-4">
+      <form action="./permisos.php" method="POST" class="text-sm mt-6 flex flex-col gap-4">
+        
         <div>
           <label for="editar-email" class="block font-medium text-sm mb-2 text-gray-900">Correo electrónico del usuario</label>
           <input class="px-2 py-1 w-full bg-gray-50 border-gray-300 border-2 rounded-lg text-gray-500 text-xs lg:text-sm" type="email" name="editar-email" id="editar-email" placeholder="admin@admin">
         </div>
         <div>
           <label for="rol" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Rol del usuario</label>
-          <select id="rol" class="bg-gray-50 border border-gray-300 text-gray-900 py-[6px] text-xs lg:text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
+          <select name="rol-usuario" id="rol" class="bg-gray-50 border border-gray-300 text-gray-900 py-[6px] text-xs lg:text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
             <option value="admin" selected>Administrador</option>
             <option value="maestro">Maestro</option>
             <option value="alumno">Alumno</option>
-          </select>
+        </select>
         </div>
         <div id="switch-container" class="flex gap-2 items-center">
           <label class="switch">
-            <input type="checkbox" checked id="checkboxSwitch">
+            <input type="checkbox" name="estado-usuario" checked id="checkboxSwitch">
             <span class="slider round"></span>
           </label>
           <label for="checkboxSwitch" id="activo">Activo</label>
@@ -230,7 +235,7 @@ $admin = new Admin($_SESSION["user"]["email"], $_SESSION["user"]["password"], $_
         </div>
         <div class="buttons ml-auto">
           <button id="cerrar-permiso-btn" class="bg-gray-600 text-white rounded px-2 py-1">Cerrar</button>
-          <button type="submit" class="bg-blue-500 text-white rounded px-2 py-1">Guardar Cambios</button>
+          <button type="submit" name="guardar-cambios-btn" class="bg-blue-500 text-white rounded px-2 py-1">Guardar Cambios</button>
         </div>
       </form>
     </dialog>

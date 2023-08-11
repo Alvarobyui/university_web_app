@@ -14,20 +14,24 @@ document.getElementById('checkboxSwitch').addEventListener('change', function() 
 
 
 //Abrir y cerrar la ventana "editar permiso"
-let abrirVentana = document.getElementById("editar-permiso-btn");
+let abrirVentanas = document.querySelectorAll(".editar-permiso-btn");
 let cerrarBtn = document.getElementById("cerrar-permiso-btn");
 let cerrarX = document.getElementById("cerrar-ventana-x");
 
 let ventanaEditar = document.getElementById("modal");
 
-abrirVentana.addEventListener("click", ()=> {
-  ventanaEditar.showModal();
+abrirVentanas.forEach((btn) => {
+  btn.addEventListener("click", ()=> {
+    ventanaEditar.showModal();
+  });
 });
 
 cerrarBtn.addEventListener("click", (e)=> {
   ventanaEditar.close();
   e.preventDefault();
-})
+});
+
 cerrarX.addEventListener("click", ()=> {
   ventanaEditar.close();
-})
+});
+
