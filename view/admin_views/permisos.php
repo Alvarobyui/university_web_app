@@ -1,3 +1,12 @@
+<?php
+session_start();
+
+include($_SERVER["DOCUMENT_ROOT"] . "/controller/protectSession.php");
+require_once("../../model/Admin.php");
+
+$admin = new Admin($_SESSION["user"]["email"], $_SESSION["user"]["password"], $_SESSION["user"]["rol"] , $_SESSION["user"]["nombre"], $_SESSION["user"]["apellido"], $_SESSION["user"]["contacto"], $_SESSION["user"]["estado"]); 
+
+?>
 <!DOCTYPE html>
 <html lang="en">
 
@@ -21,7 +30,7 @@
         <h2 class="text-xl">Universidad</h2>
       </div>
       <div class="rol p-4 border-b-[1px] border-solid border-blue-100">
-        <p class="text-base">Alvaro Diaz</p>
+        <p class="text-base"><?=$admin->mostrarNombre()?> <?=$admin->mostrarApellido()?></p>
         <p class="text-xs">Administrador</p>
       </div>
       <div class="p-4">
@@ -89,7 +98,7 @@
           <button id="dropdownAvatarNameButton" data-dropdown-toggle="dropdownAvatarName" class="flex items-center text-sm font-medium text-gray-900 rounded-full hover:text-blue-600 dark:hover:text-blue-500 md:mr-0 focus:ring-4 focus:ring-gray-100 dark:focus:ring-gray-700 dark:text-white" type="button">
             <span class="sr-only">Open user menu</span>
             <img class="w-8 h-8 mr-2 rounded-full" src="../../assets/user.png" alt="photo">
-            Alvaro Diaz
+            <?=$admin->mostrarNombre()?> <?=$admin->mostrarApellido()?>
             <svg class="w-2.5 h-2.5 ml-2.5" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 10 6">
               <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="m1 1 4 4 4-4" />
             </svg>
@@ -98,8 +107,8 @@
           <!-- Dropdown menu -->
           <div id="dropdownAvatarName" class="z-10 hidden bg-white divide-y divide-gray-100 rounded-lg shadow w-44 dark:bg-gray-700 dark:divide-gray-600">
             <div class="px-4 py-3 text-xs lg:text-sm text-gray-900 dark:text-white">
-              <div class="font-medium ">Alvaro Diaz</div>
-              <div class="truncate">admin@admin.com</div>
+              <div class="font-medium "><?=$admin->mostrarNombre()?> <?=$admin->mostrarApellido()?></div>
+              <div class="truncate"><?=$admin->mostrarEmail()?></div>
             </div>
             <ul class="py-2 text-xs lg:text-sm text-gray-700 dark:text-gray-200" aria-labelledby="dropdownInformdropdownAvatarNameButtonationButton">
               <li>
@@ -137,18 +146,40 @@
               </tr>
             </thead>
             <tbody>
+            <?php
+            include($_SERVER["DOCUMENT_ROOT"] . "/controller/conn.php");
+            $sql = $conn->query("SELECT id, email, rol, nombre, apellido, contacto, estado FROM usuario");
+            while($datos = $sql->fetch_object()) { ?>
               <tr>
-                <td>1</td>
-                <td>Aadmin@admin</td>
+                <td><?= $datos->id ?></td>
+                <td><?= $datos->email ?></td>
                 <td>
-                  <span class="bg-yellow-300 text-[10px] px-2 rounded-md grid items-center w-[81px]">
-                    Administrador
-                  </span>
+                  <?php 
+                  // Cambia el contenido según el valor del campo 'rol'
+                  switch ($datos->rol) {
+                      case '1':
+                          echo '<span class="bg-yellow-300 text-[10px] px-2 rounded-md grid items-center w-[81px]">Administrador</span>';
+                          break;
+                      case '2':
+                          echo '<span class="bg-cyan-600 text-[10px] text-white px-2 rounded-md grid items-center w-[52px]">Maestro</span>';
+                          break;
+                      default:
+                          echo '<span class="bg-gray-600 text-[10px] text-white px-2 rounded-md grid items-center w-[52px]">Alumno</span>';
+                          break;
+                  }
+                  ?>
                 </td>
                 <td>
-                  <span class="bg-green-500 text-[11px] text-white px-2 rounded-md grid items-center w-[45px]">
-                    Active
-                  </span>
+                  <?php
+                  switch ($datos->estado) {
+                    case '1':
+                      echo '<span class="bg-green-500 text-[11px] text-white px-2 rounded-md grid items-center w-[45px]">Active</span>';
+                      break;
+                    default:
+                      echo '<span class="bg-red-500 text-[11px] text-white px-2 rounded-md grid items-center w-[50px]">Inactive</span>';
+                      break;
+                  }
+                  ?>
                 </td>
                 <td class="grid items-center">
                   <button class="text-blue-400 flex justify-center" id="editar-permiso-btn">
@@ -159,106 +190,8 @@
                   </button>
                 </td>
               </tr>
-              <tr>
-                <td>2</td>
-                <td>Mestro</td>
-                <td>
-                  <span class="bg-cyan-600 text-[10px] text-white px-2 rounded-md grid items-center w-[52px]">
-                    Maestro
-                  </span>
-                </td>
-                <td>
-                  <span class="bg-red-500 text-[11px] text-white px-2 rounded-md grid items-center w-[50px]">
-                    Inactive
-                  </span>
-                </td>
-                <td class="grid items-center">
-                  <button class="text-blue-400 flex justify-center" id="edit-btn">
-                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-pencil-square" viewBox="0 0 16 16">
-                      <path d="M15.502 1.94a.5.5 0 0 1 0 .706L14.459 3.69l-2-2L13.502.646a.5.5 0 0 1 .707 0l1.293 1.293zm-1.75 2.456-2-2L4.939 9.21a.5.5 0 0 0-.121.196l-.805 2.414a.25.25 0 0 0 .316.316l2.414-.805a.5.5 0 0 0 .196-.12l6.813-6.814z" />
-                      <path fill-rule="evenodd" d="M1 13.5A1.5 1.5 0 0 0 2.5 15h11a1.5 1.5 0 0 0 1.5-1.5v-6a.5.5 0 0 0-1 0v6a.5.5 0 0 1-.5.5h-11a.5.5 0 0 1-.5-.5v-11a.5.5 0 0 1 .5-.5H9a.5.5 0 0 0 0-1H2.5A1.5 1.5 0 0 0 1 2.5v11z" />
-                    </svg>
-                  </button>
-                </td>
-              </tr>
-              <tr>
-                <td>3</td>
-                <td>alumno@alumno</td>
-                <td>
-                  <span class="bg-gray-600 text-[10px] text-white px-2 rounded-md grid items-center w-[52px]">
-                    Alumno
-                  </span>
-                </td>
-                <td>
-                  <span class="bg-green-500 text-[11px] text-white px-2 rounded-md grid items-center w-[45px]">
-                    Active
-                  </span>
-                </td>
-                <td class="grid items-center">
-                  <button class="text-blue-400 flex justify-center" id="edit-btn">
-                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-pencil-square" viewBox="0 0 16 16">
-                      <path d="M15.502 1.94a.5.5 0 0 1 0 .706L14.459 3.69l-2-2L13.502.646a.5.5 0 0 1 .707 0l1.293 1.293zm-1.75 2.456-2-2L4.939 9.21a.5.5 0 0 0-.121.196l-.805 2.414a.25.25 0 0 0 .316.316l2.414-.805a.5.5 0 0 0 .196-.12l6.813-6.814z" />
-                      <path fill-rule="evenodd" d="M1 13.5A1.5 1.5 0 0 0 2.5 15h11a1.5 1.5 0 0 0 1.5-1.5v-6a.5.5 0 0 0-1 0v6a.5.5 0 0 1-.5.5h-11a.5.5 0 0 1-.5-.5v-11a.5.5 0 0 1 .5-.5H9a.5.5 0 0 0 0-1H2.5A1.5 1.5 0 0 0 1 2.5v11z" />
-                    </svg>
-                  </button>
-                </td>
-              </tr>
-              <tr>
-                <td>4</td>
-                <td>Ras</td>
-                <td> 2 3 5168</td>
-                <td>admin@admin</td>
-                <td class="grid items-center">
-                  <button class="text-blue-400 flex justify-center" id="edit-btn">
-                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-pencil-square" viewBox="0 0 16 16">
-                      <path d="M15.502 1.94a.5.5 0 0 1 0 .706L14.459 3.69l-2-2L13.502.646a.5.5 0 0 1 .707 0l1.293 1.293zm-1.75 2.456-2-2L4.939 9.21a.5.5 0 0 0-.121.196l-.805 2.414a.25.25 0 0 0 .316.316l2.414-.805a.5.5 0 0 0 .196-.12l6.813-6.814z" />
-                      <path fill-rule="evenodd" d="M1 13.5A1.5 1.5 0 0 0 2.5 15h11a1.5 1.5 0 0 0 1.5-1.5v-6a.5.5 0 0 0-1 0v6a.5.5 0 0 1-.5.5h-11a.5.5 0 0 1-.5-.5v-11a.5.5 0 0 1 .5-.5H9a.5.5 0 0 0 0-1H2.5A1.5 1.5 0 0 0 1 2.5v11z" />
-                    </svg>
-                  </button>
-                </td>
-              </tr>
-              <tr>
-                <td>4</td>
-                <td>Ras</td>
-                <td> 2 3 5168</td>
-                <td>admin@admin</td>
-                <td class="grid items-center">
-                  <button class="text-blue-400 flex justify-center" id="edit-btn">
-                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-pencil-square" viewBox="0 0 16 16">
-                      <path d="M15.502 1.94a.5.5 0 0 1 0 .706L14.459 3.69l-2-2L13.502.646a.5.5 0 0 1 .707 0l1.293 1.293zm-1.75 2.456-2-2L4.939 9.21a.5.5 0 0 0-.121.196l-.805 2.414a.25.25 0 0 0 .316.316l2.414-.805a.5.5 0 0 0 .196-.12l6.813-6.814z" />
-                      <path fill-rule="evenodd" d="M1 13.5A1.5 1.5 0 0 0 2.5 15h11a1.5 1.5 0 0 0 1.5-1.5v-6a.5.5 0 0 0-1 0v6a.5.5 0 0 1-.5.5h-11a.5.5 0 0 1-.5-.5v-11a.5.5 0 0 1 .5-.5H9a.5.5 0 0 0 0-1H2.5A1.5 1.5 0 0 0 1 2.5v11z" />
-                    </svg>
-                  </button>
-                </td>
-              </tr>
-              <tr>
-                <td>4</td>
-                <td>Ras</td>
-                <td> 2 3 5168</td>
-                <td>admin@admin</td>
-                <td class="grid items-center">
-                  <button class="text-blue-400 flex justify-center" id="edit-btn">
-                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-pencil-square" viewBox="0 0 16 16">
-                      <path d="M15.502 1.94a.5.5 0 0 1 0 .706L14.459 3.69l-2-2L13.502.646a.5.5 0 0 1 .707 0l1.293 1.293zm-1.75 2.456-2-2L4.939 9.21a.5.5 0 0 0-.121.196l-.805 2.414a.25.25 0 0 0 .316.316l2.414-.805a.5.5 0 0 0 .196-.12l6.813-6.814z" />
-                      <path fill-rule="evenodd" d="M1 13.5A1.5 1.5 0 0 0 2.5 15h11a1.5 1.5 0 0 0 1.5-1.5v-6a.5.5 0 0 0-1 0v6a.5.5 0 0 1-.5.5h-11a.5.5 0 0 1-.5-.5v-11a.5.5 0 0 1 .5-.5H9a.5.5 0 0 0 0-1H2.5A1.5 1.5 0 0 0 1 2.5v11z" />
-                    </svg>
-                  </button>
-                </td>
-              </tr>
-              <tr>
-                <td>4</td>
-                <td>Ras</td>
-                <td> 2 3 5168</td>
-                <td>admin@admin</td>
-                <td class="grid items-center">
-                  <button class="text-blue-400 flex justify-center" id="edit-btn">
-                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-pencil-square" viewBox="0 0 16 16">
-                      <path d="M15.502 1.94a.5.5 0 0 1 0 .706L14.459 3.69l-2-2L13.502.646a.5.5 0 0 1 .707 0l1.293 1.293zm-1.75 2.456-2-2L4.939 9.21a.5.5 0 0 0-.121.196l-.805 2.414a.25.25 0 0 0 .316.316l2.414-.805a.5.5 0 0 0 .196-.12l6.813-6.814z" />
-                      <path fill-rule="evenodd" d="M1 13.5A1.5 1.5 0 0 0 2.5 15h11a1.5 1.5 0 0 0 1.5-1.5v-6a.5.5 0 0 0-1 0v6a.5.5 0 0 1-.5.5h-11a.5.5 0 0 1-.5-.5v-11a.5.5 0 0 1 .5-.5H9a.5.5 0 0 0 0-1H2.5A1.5 1.5 0 0 0 1 2.5v11z" />
-                    </svg>
-                  </button>
-                </td>
-              </tr>
+            <?php
+            } ?>
             </tbody>
           </table>
         </div>

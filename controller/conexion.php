@@ -33,9 +33,21 @@ try {
               $alumnos[] = $row;
           }
       }
-
-      // Guardar el array $alumnos en la variable de sesión
       $_SESSION['alumnos'] = $alumnos;
+
+
+      /* $getUsuarios = "SELECT id, email, rol, nombre, apellido, contacto, estado FROM usuario";
+      $usuariosQuery = $conn->query($getUsuarios);
+
+      $usuarios = array();
+
+      if ($usuariosQuery->num_rows > 0) {
+          // Guardar cada fila en el array $alumnos
+          while($rowUsuarios = $usuariosQuery->fetch_assoc()) {
+              $usuarios[] = $rowUsuarios;
+          }
+      }
+      $_SESSION["usuarios"] = $usuarios; */
 
       header("Location: ./view/admin_views/dashboard.php");
     }
