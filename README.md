@@ -1,9 +1,16 @@
-
 Alvaro Diaz:
-Detalles de mi sitio web:
-- Es totalmente adaptativo para dispositivos diferente..
-- Todas las vistas están bien diseñadas, pero al subir el proyecto, algunas dejaron de funcionar como el modal que sale cuando uno hace click a nombre del usuario y quiere cerrar sesión.
-- La funcionalidad en administrador/alumnos funciona para ver y casi para editar. Cuando haces click al botón editar alumno, se rellena por defecto los datos actuales del registro.  
+
+-Es totalmente adaptativo.
+-Todas las vistas están bien diseñadas,
+-La funcionalidad en administrador funciona: se puede ver los datos reales en todas las pestañas, excepto perfil. y ya se puede editar y ver los cambios en         Permisos.
+
+En permisos, absolutamente todo funciona bien. 
+
+En los formularios editar permiso y  edutar alumno, se rellenan por defecto los datos actuales del registro para que sea mas intuitivo.
+
+En Maestros, se puede agregar un maestro nuevo, pero hay conflictos en la llave foránea con mostrarlo después de crearlo.
+
+
 
 # Instrucciones
 
