@@ -254,7 +254,7 @@ $admin = new Admin($_SESSION["user"]["email"], $_SESSION["user"]["password"], $_
         <h1 class="text-xl md:text-2xl">Agregar Maestro</h1>
         <button id="cerrar-nuevo-x" class="text-base">x</button>
       </div>
-      <form action="./dashboard.php" method="POST" class="text-sm mt-6 flex flex-col gap-4">
+      <form method="POST" class="text-sm mt-6 flex flex-col gap-4">
         <div>
           <label for="nuevo-email" class="block font-medium text-sm mb-2 text-gray-900">Correo electrónico nuevo</label>
           <input class="px-2 py-1 w-full bg-gray-50 border-gray-300 border-2 rounded-lg text-gray-500 text-xs lg:text-sm" type="email" name="nuevo-email" id="nuevo-email" placeholder="nuevo@nuevo.com">
