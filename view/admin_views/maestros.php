@@ -204,6 +204,10 @@ $admin = new Admin($_SESSION["user"]["email"], $_SESSION["user"]["password"], $_
         </div>
       </section>
       <footer>
+        <?php
+          include($_SERVER["DOCUMENT_ROOT"] . "/controller/conn.php");
+          include($_SERVER["DOCUMENT_ROOT"] . "/controller/crearMaestro.php");
+        ?>
         <div class="footer text-xs text-center mt-5">
           <p>&#169 Alvaro Diaz 2023 <span class="text-blue-500">AdminLTE.io</span>. All rights reserved</p>
         </div>
@@ -233,7 +237,7 @@ $admin = new Admin($_SESSION["user"]["email"], $_SESSION["user"]["password"], $_
         </div>
         <div>
           <label for="maestro-surname" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Materia asignada</label>
-          <select id="rol" class="bg-gray-50 border border-gray-300 text-gray-900 py-[6px] text-xs lg:text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
+          <select name="maestro-subject" id="rol" class="bg-gray-50 border border-gray-300 text-gray-900 py-[6px] text-xs lg:text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
             <option value="Laravel" selected>Laravel y PHP</option>
             <option value="CSS">CSS Avanzado</option>
             <option value="Database">Bases de Datos</option>
@@ -250,7 +254,7 @@ $admin = new Admin($_SESSION["user"]["email"], $_SESSION["user"]["password"], $_
         <h1 class="text-xl md:text-2xl">Agregar Maestro</h1>
         <button id="cerrar-nuevo-x" class="text-base">x</button>
       </div>
-      <form action="#" method="POST" class="text-sm mt-6 flex flex-col gap-4">
+      <form action="./dashboard.php" method="POST" class="text-sm mt-6 flex flex-col gap-4">
         <div>
           <label for="nuevo-email" class="block font-medium text-sm mb-2 text-gray-900">Correo electrónico nuevo</label>
           <input class="px-2 py-1 w-full bg-gray-50 border-gray-300 border-2 rounded-lg text-gray-500 text-xs lg:text-sm" type="email" name="nuevo-email" id="nuevo-email" placeholder="nuevo@nuevo.com">
@@ -269,15 +273,16 @@ $admin = new Admin($_SESSION["user"]["email"], $_SESSION["user"]["password"], $_
         </div>
         <div>
           <label for="nuevo-subject" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Materia asignada</label>
-          <select id="nuevo-subject" class="bg-gray-50 border border-gray-300 text-gray-900 py-[6px] text-xs lg:text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
-            <option value="Laravel" selected>Laravel y PHP</option>
-            <option value="CSS">CSS Avanzado</option>
-            <option value="Database">Bases de Datos</option>
+          <select name="nuevo-subject" id="nuevo-subject" class="bg-gray-50 border border-gray-300 text-gray-900 py-[6px] text-xs lg:text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
+            <option value="PHP y Laravel" selected>PHP y Laravel</option>
+            <option value="Bases de Datos">Bases de Datos</option>
+            <option value="POO y PHP">POO y PHP</option>
+            <option value="SQL y mySQL">SQL y mySQL</option>
           </select>
         </div>
         <div class="buttons ml-auto">
           <button id="cerrar-nuevo-btn" class="bg-gray-600 text-white rounded px-2 py-1">Cerrar</button>
-          <button type="submit" class="bg-blue-500 text-white rounded px-2 py-1">Guardar Cambios</button>
+          <button name="guardar-maestro-btn" type="submit" class="bg-blue-500 text-white rounded px-2 py-1">Guardar Cambios</button>
         </div>
       </form>
     </dialog>
