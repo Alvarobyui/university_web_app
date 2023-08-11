@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Servidor: 127.0.0.1
--- Tiempo de generación: 10-08-2023 a las 21:32:30
+-- Tiempo de generación: 11-08-2023 a las 22:53:52
 -- Versión del servidor: 10.4.13-MariaDB
 -- Versión de PHP: 7.2.31
 
@@ -34,6 +34,19 @@ CREATE TABLE `cursousuario` (
   `nota` varchar(30) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
+--
+-- Volcado de datos para la tabla `cursousuario`
+--
+
+INSERT INTO `cursousuario` (`id`, `usuario_id`, `materia_id`, `nota`) VALUES
+(1, 2, 1, '50'),
+(2, 3, 3, '90'),
+(3, 4, 1, '100'),
+(4, 5, 4, '99'),
+(5, 6, 5, '100'),
+(14, 6, 5, '100'),
+(15, 14, 5, '100');
+
 -- --------------------------------------------------------
 
 --
@@ -51,7 +64,11 @@ CREATE TABLE `materia` (
 --
 
 INSERT INTO `materia` (`id`, `nombre`, `descripcion`) VALUES
-(1, 'PHP y Laravel', '70%/100%');
+(1, 'PHP y Laravel', '70%/100%'),
+(2, 'Bases de Datos', '70%/100%'),
+(3, 'POO y PHP', '70%/100%'),
+(4, 'SQL y mySQL', '70%/100%'),
+(5, 'sinasignar', 'sin asignar');
 
 -- --------------------------------------------------------
 
@@ -78,9 +95,11 @@ INSERT INTO `usuario` (`id`, `email`, `password`, `rol`, `nombre`, `apellido`, `
 (1, 'admin@admin.com', 'admin', 1, 'Alvaro', 'Diaz', 924126535, 1),
 (2, 'maestro@maestro.com', 'maestro', 2, 'Harold', 'Carazas', 987654321, 1),
 (3, 'alumno@alumno.com', 'alumno', 3, 'Alumno', 'Funval', 987654321, 1),
-(4, 'alumno1@alumno.com', 'alumno', 3, 'Alumno', 'Funval', 987654321, 1),
+(4, 'alumno1@alumno.com', 'alumno', 2, 'Alumno', 'Funval', 987654321, 1),
 (5, 'alumno2@alumno.com', 'alumno', 3, 'Alumno', 'Funval', 987654321, 1),
-(6, 'alumno3@alumno.com', 'alumno', 3, 'Alumno', 'Funval', 987654321, 1);
+(6, 'alumno3@alumno.com', 'alumno', 3, 'Alumno', 'Funval', 987654321, 1),
+(7, 'test@test.com', '', 1, 'ttes', 'tes', 920123456, 1),
+(14, 'mestro1@maestro.com', '', 2, 'maestr', 'o', 987654321, 1);
 
 --
 -- Índices para tablas volcadas
@@ -114,19 +133,19 @@ ALTER TABLE `usuario`
 -- AUTO_INCREMENT de la tabla `cursousuario`
 --
 ALTER TABLE `cursousuario`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=16;
 
 --
 -- AUTO_INCREMENT de la tabla `materia`
 --
 ALTER TABLE `materia`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
 
 --
 -- AUTO_INCREMENT de la tabla `usuario`
 --
 ALTER TABLE `usuario`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=15;
 
 --
 -- Restricciones para tablas volcadas
