@@ -1,5 +1,5 @@
-
 Alvaro Diaz:
+
 -Es totalmente adaptativo.
 -Todas las vistas están bien diseñadas,
 -La funcionalidad en administrador funciona: se puede ver los datos reales en todas las pestañas, excepto perfil. y ya se puede editar y ver los cambios en         Permisos.
