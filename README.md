@@ -1,3 +1,10 @@
+
+Alvaro Diaz:
+Detalles de mi sitio web:
+- Es totalmente adaptativo para dispositivos diferente..
+- Todas las vistas están bien diseñadas, pero al subir el proyecto, algunas dejaron de funcionar como el modal que sale cuando uno hace click a nombre del usuario y quiere cerrar sesión.
+- La funcionalidad en administrador/alumnos funciona para ver y casi para editar. Cuando haces click al botón editar alumno, se rellena por defecto los datos actuales del registro.  
+
 # Instrucciones
 
 Bienvenido al proyecto final del nivel 3. En este proyecto estaremos aplicando los conocimientos adquiridos a lo largo del nivel. Sigue las instrucciones de este archivo para completar el proyecto y ten en cuenta que estas mismas se tomarán en cuenta para la evaluación final del proyecto.
