@@ -17,11 +17,7 @@ try {
     $_SESSION["user"] = $user;
 
     if($rol === "1") {
-/*       $getData = "SELECT * FROM usuario";
-      $query = mysqli_query($conn, $getData);
-      $adminData = mysqli_fetch_object($query);    
-      $_SESSION["data"] = $adminData;
- */      // Consulta para seleccionar todos los usuarios
+
       $getAlumnos = "SELECT id, nombre, apellido, email, contacto FROM usuario WHERE rol='3'";
       $alumnosQuery = $conn->query($getAlumnos);
 
@@ -34,8 +30,8 @@ try {
           }
       }
       $_SESSION['alumnos'] = $alumnos;
-
       header("Location: ./view/admin_views/dashboard.php");
+      
     }
     elseif ($rol ==="2") {
       header("Location: ./view/maestro_views/dashboard.php");
