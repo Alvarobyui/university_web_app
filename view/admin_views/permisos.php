@@ -127,14 +127,18 @@ $admin = new Admin($_SESSION["user"]["email"], $_SESSION["user"]["password"], $_
           </div>
         </a>
       </section>
-      <section class="bg-[#F5F6FA] pb-10">
-        <div class="title flex justify-between p-3">
+      <section class="bg-[#F5F6FA]">
+        <div class="title flex justify-between p-3 pb-0">
           <h2 class="text-2xl">Lista de Permisos</h2>
           <div class="path text-sm">
             <span class="text-blue-500">Home</span> / Permisos
           </div>
         </div>
-        <div class="content text-xs mt-5 mx-2 py-2 overflow-x-auto md:text-sm md:px-2 md:py-4 bg-white rounded lg:text-base lg:mx-6">
+        <?php
+          include($_SERVER["DOCUMENT_ROOT"] . "/controller/conn.php");
+          include($_SERVER["DOCUMENT_ROOT"] . "/controller/editarPermisos.php");
+        ?>
+        <div class="content text-xs mt-1 mx-2 py-2 overflow-x-auto md:text-sm md:px-2 md:py-4 bg-white rounded lg:text-base lg:mx-6">
           <table id="myTable" class="table table-auto">
             <thead class="">
               <tr>
@@ -197,10 +201,6 @@ $admin = new Admin($_SESSION["user"]["email"], $_SESSION["user"]["password"], $_
         </div>
       </section>
       <footer>
-        <?php
-          include($_SERVER["DOCUMENT_ROOT"] . "/controller/conn.php");
-          include($_SERVER["DOCUMENT_ROOT"] . "/controller/editarPermisos.php");
-        ?>
         <div class="footer text-xs text-center mt-5">
           <p>&#169 Alvaro Diaz 2023 <span class="text-blue-500">AdminLTE.io</span>. All rights reserved</p>
         </div>

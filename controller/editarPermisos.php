@@ -13,7 +13,7 @@ if (isset($_POST["guardar-cambios-btn"])) {
 
         $sql = $conn->query("UPDATE usuario SET rol = '$rol', estado = '$estado' WHERE email = '$email';");
 
-        echo "<div class='ml-2'>Refresca la página para ver los cambios, por favor.</div>";
+        echo "<p class='ml-6 p-2 text-xs text-white inline rounded bg-green-400'>¡Editado!</p>";
     } else {
         echo "algunos campos están vacios";
     }

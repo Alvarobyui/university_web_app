@@ -2,10 +2,10 @@
 session_start();
 
 include($_SERVER["DOCUMENT_ROOT"] . "/controller/protectSession.php");
+
 require_once("../../model/Admin.php");
 
 $admin = new Admin($_SESSION["user"]["email"], $_SESSION["user"]["password"], $_SESSION["user"]["rol"] , $_SESSION["user"]["nombre"], $_SESSION["user"]["apellido"], $_SESSION["user"]["contacto"], $_SESSION["user"]["estado"]); 
-
 ?>
 
 <!DOCTYPE html>
@@ -128,14 +128,18 @@ $admin = new Admin($_SESSION["user"]["email"], $_SESSION["user"]["password"], $_
           </div>
         </a>
       </section>
-      <section class="bg-[#F5F6FA] pb-10">
-        <div class="title flex justify-between p-3">
+      <section class="bg-[#F5F6FA] mb-0 ">
+        <div class="title flex justify-between p-3 pb-0">
           <h2 class="text-2xl">Maestros</h2>
           <div class="path text-sm">
             <span class="text-blue-500">Home</span> / Maestros
           </div>
         </div>
-        <div class="content text-xs mt-5 mx-2 py-2 overflow-x-auto md:text-sm md:px-2 md:py-4 bg-white rounded lg:text-base lg:mx-6">
+        <?php
+          include($_SERVER["DOCUMENT_ROOT"] . "/controller/conn.php");
+          include_once($_SERVER["DOCUMENT_ROOT"] . "/controller/crearMaestro.php");
+        ?>
+        <div class="content text-xs mt-2 mx-2 py-2 overflow-x-auto md:text-sm md:px-2 md:py-4 bg-white rounded lg:text-base lg:mx-6">
           <div class="flex justify-between border-b-gray-500 mb-5">
             <h2 class="text-lg lg:text-xl">Información de Maestros</h2>
             <button class="bg-blue-500 text-white rounded px-2 py-1 text-xs lg:text-sm" id="crear-maestro-btn">Agregar Maestro</button>
@@ -143,10 +147,10 @@ $admin = new Admin($_SESSION["user"]["email"], $_SESSION["user"]["password"], $_
           <table id="myTable" class="table table-auto">
             <thead class="">
               <tr>
-                <th>#</th>
                 <th>Nombre</th>
                 <th>Email</th>
                 <th>Materia asignada</th>
+                <th>ID - Materia</th>
                 <th>Acciones</th>
               </tr>
             </thead>
@@ -154,35 +158,39 @@ $admin = new Admin($_SESSION["user"]["email"], $_SESSION["user"]["password"], $_
               <?php
               include($_SERVER["DOCUMENT_ROOT"] . "/controller/conn.php");
               $sql = $conn->query("SELECT 
-                                  usuario.nombre AS nombreUsuario, 
-                                  usuario.email,
-                                  usuario.id,
-                                  usuario.rol,
-                                  materia.nombre 
+                                      u.id AS usuario_id, 
+                                      u.email,
+                                      u.nombre,
+                                      u.apellido,
+                                      m.id,
+                                      m.nombre AS materia_nombre,
+                                      m.descripcion AS materia_descripcion
                                   FROM 
-                                      usuario
+                                      usuario u
                                   JOIN 
-                                      cursousuario ON usuario.id = cursousuario.usuario_id
+                                      CursoUsuario cu ON u.id = cu.usuario_id
                                   JOIN 
-                                      materia ON cursousuario.id = materia.id WHERE rol = 2;");
+                                      materia m ON cu.materia_id = m.id
+                                  WHERE 
+                                      u.rol = 2;");
               if ($sql->num_rows > 0) {
               while($datos = $sql->fetch_object()) { ?>
               <tr>
-                <td><?= $datos->id ?></td>
-                <td><?= $datos->nombreUsuario ?></td>
+                <td><?= $datos->nombre ?> <?= $datos->apellido ?></td>
                 <td><?= $datos->email ?></td>
                 <td>
                   <?php 
-                   switch ($datos->nombre) {
-                    case 'sinasignar':
-                        echo '<span class="bg-yellow-300 text-[10px] px-2 rounded-md grid items-center w-[85px]">Sin asignación</span>';
+                   switch ($datos->materia_nombre) {
+                     case 'sinasignar':
+                      echo '<span class="bg-yellow-300 text-[10px] px-2 rounded-md grid items-center w-[85px]">Sin asignación</span>';
                         break;
-                    default:
-                        echo $datos->nombre;
+                        default:
+                        echo $datos->materia_nombre;
                         break;
-                  }
-                  ?>
+                      }
+                      ?>
                 </td>
+                <td><?= $datos->id ?></td>
                 <td class="flex gap-2 lg:gap-4 items-center justify-start">
                   <button class="text-blue-400 flex justify-center editar-maestro-btn">
                     <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-pencil-square" viewBox="0 0 16 16">
@@ -198,16 +206,13 @@ $admin = new Admin($_SESSION["user"]["email"], $_SESSION["user"]["password"], $_
                 </td>
               </tr>
               <?php 
-              }} ?>
+                }
+              } ?>
             </tbody>
           </table>
         </div>
       </section>
       <footer>
-        <?php
-          include($_SERVER["DOCUMENT_ROOT"] . "/controller/conn.php");
-          include($_SERVER["DOCUMENT_ROOT"] . "/controller/crearMaestro.php");
-        ?>
         <div class="footer text-xs text-center mt-5">
           <p>&#169 Alvaro Diaz 2023 <span class="text-blue-500">AdminLTE.io</span>. All rights reserved</p>
         </div>
