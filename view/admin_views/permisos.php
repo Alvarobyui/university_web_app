@@ -34,7 +34,7 @@ $admin = new Admin($_SESSION["user"]["email"], $_SESSION["user"]["password"], $_
         <p class="text-xs">Administrador</p>
       </div>
       <div class="p-4">
-        <p class="pb-4 pl-6">MENU ADMINISTRACIÓN</p>
+        <p class="pb-4 pl-6">MENÚ ADMINISTRACIÓN</p>
         <nav>
           <ul>
             <li>
@@ -215,11 +215,11 @@ $admin = new Admin($_SESSION["user"]["email"], $_SESSION["user"]["password"], $_
         
         <div>
           <label for="editar-email" class="block font-medium text-sm mb-2 text-gray-900">Correo electrónico del usuario</label>
-          <input class="px-2 py-1 w-full bg-gray-50 border-gray-300 border-2 rounded-lg text-gray-500 text-xs lg:text-sm" type="email" name="editar-email" id="editar-email" placeholder="admin@admin" value="">
+          <input class="px-2 py-1 w-full bg-gray-50 border-gray-300 border-2 rounded-lg text-gray-700 text-xs lg:text-sm" type="email" name="editar-email" id="editar-email" placeholder="admin@admin" value="">
         </div>
         <div>
           <label for="rol" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Rol del usuario</label>
-          <select name="rol-usuario" id="rol" class="bg-gray-50 border border-gray-300 text-gray-900 py-[6px] text-xs lg:text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
+          <select name="rol-usuario" id="rol" class="bg-gray-50 border border-gray-300 text-gray-900 py-[6px] text-xs lg:text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500 cursor-pointer">
             <option value="admin" selected>Administrador</option>
             <option value="maestro">Maestro</option>
             <option value="alumno">Alumno</option>

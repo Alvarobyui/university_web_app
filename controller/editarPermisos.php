@@ -15,7 +15,7 @@ if (isset($_POST["guardar-cambios-btn"])) {
 
         echo "<p class='ml-6 p-2 text-xs text-white inline rounded bg-green-400'>¡Editado!</p>";
     } else {
-        echo "algunos campos están vacios";
+         echo "<p class='ml-6 p-2 text-xs text-white inline rounded font-extrabold bg-red-500'>Algunos campos están vacíos</p>";
     }
 }
 ?>

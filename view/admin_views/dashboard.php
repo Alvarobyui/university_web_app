@@ -30,7 +30,7 @@ $admin = new Admin($_SESSION["user"]["email"], $_SESSION["user"]["password"], $_
         <p class="text-xs">Administrador</p>
       </div>
       <div class="p-4">
-        <p class="pb-4 pl-6">MENU ADMINISTRACIÓN</p>
+        <p class="pb-4 pl-6">MENÚ ADMINISTRACIÓN</p>
         <nav>
           <ul>
             <li>
@@ -133,7 +133,7 @@ $admin = new Admin($_SESSION["user"]["email"], $_SESSION["user"]["password"], $_
         <div class="content">
           <div class="bienvenido p-3 ml-3 w-3/5 text-sm shadow-md bg-white rounded-sm">
             <h3 class="text-base">Bienvenido</h3>
-            <p>Selecciona la acción que quieras realizar en las pestañas del menu a la izquierda</p>
+            <p>Selecciona la acción que quieras realizar en las pestañas del menú a la izquierda.</p>
           </div>
         </div>
       </section>

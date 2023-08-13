@@ -162,6 +162,8 @@ $admin = new Admin($_SESSION["user"]["email"], $_SESSION["user"]["password"], $_
                                       u.email,
                                       u.nombre,
                                       u.apellido,
+                                      u.estado,
+                                      u.contacto,
                                       m.id,
                                       m.nombre AS materia_nombre,
                                       m.descripcion AS materia_descripcion
@@ -172,7 +174,7 @@ $admin = new Admin($_SESSION["user"]["email"], $_SESSION["user"]["password"], $_
                                   JOIN 
                                       materia m ON cu.materia_id = m.id
                                   WHERE 
-                                      u.rol = 2;");
+                                      u.rol = 2 and u.estado = 1;");
               if ($sql->num_rows > 0) {
               while($datos = $sql->fetch_object()) { ?>
               <tr>
@@ -192,13 +194,13 @@ $admin = new Admin($_SESSION["user"]["email"], $_SESSION["user"]["password"], $_
                 </td>
                 <td><?= $datos->id ?></td>
                 <td class="flex gap-2 lg:gap-4 items-center justify-start">
-                  <button class="text-blue-400 flex justify-center editar-maestro-btn">
+                  <button data-email=<?= $datos->email ?> data-nombre=<?= $datos->nombre ?> data-apellido=<?= $datos->apellido ?> data-contacto=<?= $datos->contacto ?> data-materia=<?= $datos->materia_nombre ?> class="text-blue-400 flex justify-center editar-maestro-btn">
                     <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-pencil-square" viewBox="0 0 16 16">
                       <path d="M15.502 1.94a.5.5 0 0 1 0 .706L14.459 3.69l-2-2L13.502.646a.5.5 0 0 1 .707 0l1.293 1.293zm-1.75 2.456-2-2L4.939 9.21a.5.5 0 0 0-.121.196l-.805 2.414a.25.25 0 0 0 .316.316l2.414-.805a.5.5 0 0 0 .196-.12l6.813-6.814z" />
                       <path fill-rule="evenodd" d="M1 13.5A1.5 1.5 0 0 0 2.5 15h11a1.5 1.5 0 0 0 1.5-1.5v-6a.5.5 0 0 0-1 0v6a.5.5 0 0 1-.5.5h-11a.5.5 0 0 1-.5-.5v-11a.5.5 0 0 1 .5-.5H9a.5.5 0 0 0 0-1H2.5A1.5 1.5 0 0 0 1 2.5v11z" />
                     </svg>
                   </button>
-                  <button class="text-red-700 flex justify-center borrar-maestro-btn">
+                  <button class="text-red-700 flex justify-center" data-modal-target="popup-modal" data-modal-toggle="popup-modal" type="button">
                     <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-trash-fill" viewBox="0 0 16 16">
                       <path d="M2.5 1a1 1 0 0 0-1 1v1a1 1 0 0 0 1 1H3v9a2 2 0 0 0 2 2h6a2 2 0 0 0 2-2V4h.5a1 1 0 0 0 1-1V2a1 1 0 0 0-1-1H10a1 1 0 0 0-1-1H7a1 1 0 0 0-1 1H2.5zm3 4a.5.5 0 0 1 .5.5v7a.5.5 0 0 1-1 0v-7a.5.5 0 0 1 .5-.5zM8 5a.5.5 0 0 1 .5.5v7a.5.5 0 0 1-1 0v-7A.5.5 0 0 1 8 5zm3 .5v7a.5.5 0 0 1-1 0v-7a.5.5 0 0 1 1 0z" />
                     </svg>
@@ -223,29 +225,30 @@ $admin = new Admin($_SESSION["user"]["email"], $_SESSION["user"]["password"], $_
         <h1 class="text-xl md:text-2xl">Editar Maestro</h1>
         <button id="cerrar-maestro-x" class="text-base">x</button>
       </div>
-      <form action="#" method="POST" class="text-sm mt-6 flex flex-col gap-4">
+      <form method="POST" class="text-sm mt-6 flex flex-col gap-4">
         <div>
           <label for="maestro-email" class="block font-medium text-sm mb-2 text-gray-900">Correo electrónico del usuario</label>
-          <input class="px-2 py-1 w-full bg-gray-50 border-gray-300 border-2 rounded-lg text-gray-500 text-xs lg:text-sm" type="email" name="maestro-email" id="maestro-email" placeholder="harold@harold.com">
+          <input class="px-2 py-1 w-full bg-gray-50 border-gray-300 border-2 rounded-lg text-gray-500 text-xs lg:text-sm" type="email" name="maestro-email" id="maestro-email" placeholder="harold@harold.com" value="">
         </div>
         <div>
           <label for="maestro-name" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Nombre(s)</label>
-          <input class="px-2 py-1 w-full bg-gray-50 border-gray-300 border-2 rounded-lg text-gray-500 text-xs lg:text-sm" type="text" name="maestro-name" id="maestro-email" placeholder="Harold">
+          <input class="px-2 py-1 w-full bg-gray-50 border-gray-300 border-2 rounded-lg text-gray-500 text-xs lg:text-sm" type="text" name="maestro-name" id="maestro-email" placeholder="Harold" value="">
         </div>
         <div>
           <label for="maestro-surname" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Apellido(s)</label>
-          <input class="px-2 py-1 w-full bg-gray-50 border-gray-300 border-2 rounded-lg text-gray-500 text-xs lg:text-sm" type="text" name="maestro-name" id="maestro-email" placeholder="Carazas">
+          <input class="px-2 py-1 w-full bg-gray-50 border-gray-300 border-2 rounded-lg text-gray-500 text-xs lg:text-sm" type="text" name="maestro-name" id="maestro-email" placeholder="Carazas" value="">
         </div>
         <div>
           <label for="contact" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Número de teléfono</label>
-          <input class="px-2 py-1 w-full bg-gray-50 border-gray-300 border-2 rounded-lg text-gray-500 text-xs lg:text-sm" type="text" name="contact" id="maestro-email" placeholder="+51 924126535">
+          <input class="px-2 py-1 w-full bg-gray-50 border-gray-300 border-2 rounded-lg text-gray-500 text-xs lg:text-sm" type="text" name="contact" id="maestro-email" placeholder="+51 924126535" value="">
         </div>
         <div>
           <label for="maestro-surname" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Materia asignada</label>
-          <select name="maestro-subject" id="rol" class="bg-gray-50 border border-gray-300 text-gray-900 py-[6px] text-xs lg:text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
-            <option value="Laravel" selected>Laravel y PHP</option>
-            <option value="CSS">CSS Avanzado</option>
-            <option value="Database">Bases de Datos</option>
+          <select name="editar-subject" id="rol" class="bg-gray-50 border border-gray-300 text-gray-900 py-[6px] text-xs lg:text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
+            <option value="PHP y Laravel" selected>PHP y Laravel</option>
+            <option value="Bases de Datos">Bases de Datos</option>
+            <option value="POO y PHP">POO y PHP</option>
+            <option value="SQL y mySQL">SQL y mySQL</option>
           </select>
         </div>
         <div class="buttons ml-auto">
@@ -266,11 +269,11 @@ $admin = new Admin($_SESSION["user"]["email"], $_SESSION["user"]["password"], $_
         </div>
         <div>
           <label for="nuevo-name" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Nombre(s)</label>
-          <input class="px-2 py-1 w-full bg-gray-50 border-gray-300 border-2 rounded-lg text-gray-500 text-xs lg:text-sm" type="text" name="nuevo-name" id="nuevo-name" placeholder="Harold">
+          <input class="px-2 py-1 w-full bg-gray-50 border-gray-300 border-2 rounded-lg text-gray-500 text-xs lg:text-sm" type="text" name="nuevo-name" id="nuevo-name" placeholder="Nuevo">
         </div>
         <div>
           <label for="nuevo-surname" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Apellido(s)</label>
-          <input class="px-2 py-1 w-full bg-gray-50 border-gray-300 border-2 rounded-lg text-gray-500 text-xs lg:text-sm" type="text" name="nuevo-surname" id="nuevo-surname" placeholder="Carazas">
+          <input class="px-2 py-1 w-full bg-gray-50 border-gray-300 border-2 rounded-lg text-gray-500 text-xs lg:text-sm" type="text" name="nuevo-surname" id="nuevo-surname" placeholder="Maestro">
         </div>
         <div>
           <label for="nuevo-contact" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Número de teléfono</label>
@@ -292,6 +295,29 @@ $admin = new Admin($_SESSION["user"]["email"], $_SESSION["user"]["password"], $_
       </form>
     </dialog>
 
+    <div id="popup-modal" tabindex="-1" class="fixed top-0 left-0 right-0 z-50 hidden p-4 overflow-x-hidden overflow-y-auto md:inset-0 h-[calc(100%-1rem)] max-h-full">
+    <div class="relative w-full max-w-md max-h-full">
+        <div class="relative bg-white rounded-lg shadow dark:bg-gray-700">
+            <button type="button" class="absolute top-3 right-2.5 text-gray-400 bg-transparent hover:bg-gray-200 hover:text-gray-900 rounded-lg text-sm w-8 h-8 ml-auto inline-flex justify-center items-center dark:hover:bg-gray-600 dark:hover:text-white" data-modal-hide="popup-modal">
+                <svg class="w-3 h-3" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 14 14">
+                    <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="m1 1 6 6m0 0 6 6M7 7l6-6M7 7l-6 6"/>
+                </svg>
+                <span class="sr-only">Cancelar</span>
+            </button>
+            <form action="../../controller/deshabilitarMaestro.php" method="POST" class="p-6 text-center">
+                <svg class="mx-auto mb-4 text-gray-400 w-12 h-12 dark:text-gray-200" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 20 20">
+                    <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 11V6m0 8h.01M19 10a9 9 0 1 1-18 0 9 9 0 0 1 18 0Z"/>
+                </svg>
+                <h3 class="mb-5 text-lg font-normal text-gray-500 dark:text-gray-400">¿Desea deshabilitar al maestro seleccionado?</h3>
+                <button data-modal-hide="popup-modal" type="submit" class="text-white bg-red-600 hover:bg-red-800 focus:ring-4 focus:outline-none focus:ring-red-300 dark:focus:ring-red-800 font-medium rounded-lg text-sm inline-flex items-center px-5 py-2.5 text-center mr-2">
+                    Eliminar
+                </button>
+                <button data-modal-hide="popup-modal" type="button" class="text-gray-500 bg-white hover:bg-gray-100 focus:ring-4 focus:outline-none focus:ring-gray-200 rounded-lg border border-gray-200 text-sm font-medium px-5 py-2.5 hover:text-gray-900 focus:z-10 dark:bg-gray-700 dark:text-gray-300 dark:border-gray-500 dark:hover:text-white dark:hover:bg-gray-600 dark:focus:ring-gray-600">No, cancelar</button>
+            </form>
+        </div>
+    </div>
+</div>
+
   </div>
   <script src="../../node_modules/flowbite/dist/flowbite.min.js"></script>
 </body>
@@ -301,6 +327,30 @@ $admin = new Admin($_SESSION["user"]["email"], $_SESSION["user"]["password"], $_
       "language": {
         "url": "//cdn.datatables.net/plug-ins/1.10.24/i18n/Spanish_Mexico.json"
       }
+    });
+  });
+
+  $(document).ready(function() {
+    $(".editar-maestro-btn").click(function() {
+        // Obtener los valores de los atributos data-*
+        var email = $(this).data('email');
+        var nombre = $(this).data('nombre');
+        var apellido = $(this).data('apellido');
+        var contacto = $(this).data('contacto');
+        var materia = $(this).data('materia');
+        
+        // Rellenar el diálogo con estos valores
+        $("#maestro-email").val(email);
+        $("#maestro-name").val(nombre);
+        $("#maestro-surname").val(apellido);
+        // Aquí hay un problema. Todos tus campos tienen el mismo ID "maestro-email", 
+        // deberías corregir esto y darles IDs únicos.
+        // Suponiendo que corregiste los IDs:
+        $("#maestro-contacto").val(contacto);
+        $("#editar-subject").val(materia);
+        
+        // Muestra el diálogo (suponiendo que usas el método nativo del diálogo)
+        $("#editar-maestro")[0].showModal();
     });
   });
 </script>
