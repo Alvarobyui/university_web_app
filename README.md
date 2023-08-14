@@ -2,13 +2,10 @@ Alvaro Diaz:
 
 -Es totalmente adaptativo.
 -Todas las vistas están bien diseñadas,
--La funcionalidad en administrador funciona: se puede ver los datos reales en todas las pestañas, excepto perfil. y ya se puede editar y ver los cambios en         Permisos.
-
-En permisos, absolutamente todo funciona bien. 
-
-En los formularios editar permiso y  edutar alumno, se rellenan por defecto los datos actuales del registro para que sea mas intuitivo.
-
-En Maestros, se puede agregar un maestro nuevo, pero hay conflictos en la llave foránea con mostrarlo después de crearlo.
+-El CRUD de ALUMNOS, PERMISOS, MATERIAS funciona.
+-La base de datos está actulizada con registro para probar la funcionalidad.
+-Se corrigieron algunos detalles pequeños.
+En todos los formularios para editar se rellenan por defecto los datos actuales del registro para que sea mas intuitivo.
 
 
 
