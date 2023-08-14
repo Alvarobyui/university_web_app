@@ -21,6 +21,7 @@ $admin = new Admin($_SESSION["user"]["email"], $_SESSION["user"]["password"], $_
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
   <link rel="stylesheet" href="https://cdn.datatables.net/1.13.6/css/jquery.dataTables.css" />
   <script src="https://cdn.datatables.net/1.13.6/js/jquery.dataTables.js"></script>
+  <script src="../../js/borrarAsignación.js"></script>
 </head>
 
 <body class="h-[100vh]">
@@ -138,6 +139,8 @@ $admin = new Admin($_SESSION["user"]["email"], $_SESSION["user"]["password"], $_
         <?php
           include($_SERVER["DOCUMENT_ROOT"] . "/controller/conn.php");
           include_once($_SERVER["DOCUMENT_ROOT"] . "/controller/crearMaestro.php");
+          include_once($_SERVER["DOCUMENT_ROOT"] . "/controller/editarMaestro.php");
+          include_once($_SERVER["DOCUMENT_ROOT"] . "/controller/deshabilitarMaestro.php");
         ?>
         <div class="content text-xs mt-2 mx-2 py-2 overflow-x-auto md:text-sm md:px-2 md:py-4 bg-white rounded lg:text-base lg:mx-6">
           <div class="flex justify-between border-b-gray-500 mb-5">
@@ -200,7 +203,7 @@ $admin = new Admin($_SESSION["user"]["email"], $_SESSION["user"]["password"], $_
                       <path fill-rule="evenodd" d="M1 13.5A1.5 1.5 0 0 0 2.5 15h11a1.5 1.5 0 0 0 1.5-1.5v-6a.5.5 0 0 0-1 0v6a.5.5 0 0 1-.5.5h-11a.5.5 0 0 1-.5-.5v-11a.5.5 0 0 1 .5-.5H9a.5.5 0 0 0 0-1H2.5A1.5 1.5 0 0 0 1 2.5v11z" />
                     </svg>
                   </button>
-                  <button class="text-red-700 flex justify-center" data-modal-target="popup-modal" data-modal-toggle="popup-modal" type="button">
+                  <button class="text-red-700 flex justify-center eliminar-relación" data-modal-target="popup-modal" data-modal-toggle="popup-modal" data-usuario-id="<?= $datos->usuario_id ?>" data-materia-id="<?= $datos->id ?>" type="button">
                     <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-trash-fill" viewBox="0 0 16 16">
                       <path d="M2.5 1a1 1 0 0 0-1 1v1a1 1 0 0 0 1 1H3v9a2 2 0 0 0 2 2h6a2 2 0 0 0 2-2V4h.5a1 1 0 0 0 1-1V2a1 1 0 0 0-1-1H10a1 1 0 0 0-1-1H7a1 1 0 0 0-1 1H2.5zm3 4a.5.5 0 0 1 .5.5v7a.5.5 0 0 1-1 0v-7a.5.5 0 0 1 .5-.5zM8 5a.5.5 0 0 1 .5.5v7a.5.5 0 0 1-1 0v-7A.5.5 0 0 1 8 5zm3 .5v7a.5.5 0 0 1-1 0v-7a.5.5 0 0 1 1 0z" />
                     </svg>
@@ -227,20 +230,20 @@ $admin = new Admin($_SESSION["user"]["email"], $_SESSION["user"]["password"], $_
       </div>
       <form method="POST" class="text-sm mt-6 flex flex-col gap-4">
         <div>
-          <label for="maestro-email" class="block font-medium text-sm mb-2 text-gray-900">Correo electrónico del usuario</label>
-          <input class="px-2 py-1 w-full bg-gray-50 border-gray-300 border-2 rounded-lg text-gray-500 text-xs lg:text-sm" type="email" name="maestro-email" id="maestro-email" placeholder="harold@harold.com" value="">
+          <label for="maestro-email" class="block font-medium text-sm mb-2 text-gray-900">Email del maestro a editar</label>
+          <input class="px-2 py-1 w-full bg-gray-50 border-gray-300 border-2 rounded-lg text-gray-800 text-xs lg:text-sm" type="email" name="maestro-email" id="alumno-email" placeholder="harold@harold.com" value="" readonly>
         </div>
         <div>
           <label for="maestro-name" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Nombre(s)</label>
-          <input class="px-2 py-1 w-full bg-gray-50 border-gray-300 border-2 rounded-lg text-gray-500 text-xs lg:text-sm" type="text" name="maestro-name" id="maestro-email" placeholder="Harold" value="">
+          <input class="px-2 py-1 w-full bg-gray-50 border-gray-300 border-2 rounded-lg text-gray-500 text-xs lg:text-sm" type="text" name="maestro-name" id="alumno-name" placeholder="Harold" value="">
         </div>
         <div>
           <label for="maestro-surname" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Apellido(s)</label>
-          <input class="px-2 py-1 w-full bg-gray-50 border-gray-300 border-2 rounded-lg text-gray-500 text-xs lg:text-sm" type="text" name="maestro-name" id="maestro-email" placeholder="Carazas" value="">
+          <input class="px-2 py-1 w-full bg-gray-50 border-gray-300 border-2 rounded-lg text-gray-500 text-xs lg:text-sm" type="text" name="maestro-surname" id="alumno-surname" placeholder="Carazas" value="">
         </div>
         <div>
           <label for="contact" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Número de teléfono</label>
-          <input class="px-2 py-1 w-full bg-gray-50 border-gray-300 border-2 rounded-lg text-gray-500 text-xs lg:text-sm" type="text" name="contact" id="maestro-email" placeholder="+51 924126535" value="">
+          <input class="px-2 py-1 w-full bg-gray-50 border-gray-300 border-2 rounded-lg text-gray-500 text-xs lg:text-sm" type="text" name="maestro-contact" id="alumno-contact" placeholder="+51 924126535" value="">
         </div>
         <div>
           <label for="maestro-surname" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Materia asignada</label>
@@ -253,7 +256,7 @@ $admin = new Admin($_SESSION["user"]["email"], $_SESSION["user"]["password"], $_
         </div>
         <div class="buttons ml-auto">
           <button id="cerrar-maestro-btn" class="bg-gray-600 text-white rounded px-2 py-1">Cerrar</button>
-          <button type="submit" class="bg-blue-500 text-white rounded px-2 py-1">Guardar Cambios</button>
+          <button name="guardar-maestro-cambios" type="submit" class="bg-blue-500 text-white rounded px-2 py-1">Guardar Cambios</button>
         </div>
       </form>
     </dialog>
@@ -265,19 +268,19 @@ $admin = new Admin($_SESSION["user"]["email"], $_SESSION["user"]["password"], $_
       <form method="POST" class="text-sm mt-6 flex flex-col gap-4">
         <div>
           <label for="nuevo-email" class="block font-medium text-sm mb-2 text-gray-900">Correo electrónico nuevo</label>
-          <input class="px-2 py-1 w-full bg-gray-50 border-gray-300 border-2 rounded-lg text-gray-500 text-xs lg:text-sm" type="email" name="nuevo-email" id="nuevo-email" placeholder="nuevo@nuevo.com">
+          <input class="px-2 py-1 w-full bg-gray-50 border-gray-300 border-2 rounded-lg text-gray-500 text-xs lg:text-sm" type="email" name="nuevo-email" id="nuevo-email" placeholder="Ejemplo: nuevo@nuevo.com">
         </div>
         <div>
           <label for="nuevo-name" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Nombre(s)</label>
-          <input class="px-2 py-1 w-full bg-gray-50 border-gray-300 border-2 rounded-lg text-gray-500 text-xs lg:text-sm" type="text" name="nuevo-name" id="nuevo-name" placeholder="Nuevo">
+          <input class="px-2 py-1 w-full bg-gray-50 border-gray-300 border-2 rounded-lg text-gray-500 text-xs lg:text-sm" type="text" name="nuevo-name" id="nuevo-name" placeholder="Ejemplo: Alvaro">
         </div>
         <div>
           <label for="nuevo-surname" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Apellido(s)</label>
-          <input class="px-2 py-1 w-full bg-gray-50 border-gray-300 border-2 rounded-lg text-gray-500 text-xs lg:text-sm" type="text" name="nuevo-surname" id="nuevo-surname" placeholder="Maestro">
+          <input class="px-2 py-1 w-full bg-gray-50 border-gray-300 border-2 rounded-lg text-gray-500 text-xs lg:text-sm" type="text" name="nuevo-surname" id="nuevo-surname" placeholder="Ejemplo: Diaz">
         </div>
         <div>
           <label for="nuevo-contact" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Número de teléfono</label>
-          <input class="px-2 py-1 w-full bg-gray-50 border-gray-300 border-2 rounded-lg text-gray-500 text-xs lg:text-sm" type="text" name="nuevo-contact" id="nuevo-contact" placeholder="+51 924126535">
+          <input class="px-2 py-1 w-full bg-gray-50 border-gray-300 border-2 rounded-lg text-gray-500 text-xs lg:text-sm" type="text" name="nuevo-contact" id="nuevo-contact" placeholder="Ejemplo: +51 924126535">
         </div>
         <div>
           <label for="nuevo-subject" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Materia asignada</label>
@@ -308,9 +311,9 @@ $admin = new Admin($_SESSION["user"]["email"], $_SESSION["user"]["password"], $_
                 <svg class="mx-auto mb-4 text-gray-400 w-12 h-12 dark:text-gray-200" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 20 20">
                     <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 11V6m0 8h.01M19 10a9 9 0 1 1-18 0 9 9 0 0 1 18 0Z"/>
                 </svg>
-                <h3 class="mb-5 text-lg font-normal text-gray-500 dark:text-gray-400">¿Desea deshabilitar al maestro seleccionado?</h3>
-                <button data-modal-hide="popup-modal" type="submit" class="text-white bg-red-600 hover:bg-red-800 focus:ring-4 focus:outline-none focus:ring-red-300 dark:focus:ring-red-800 font-medium rounded-lg text-sm inline-flex items-center px-5 py-2.5 text-center mr-2">
-                    Eliminar
+                <h3 class="mb-5 text-lg font-normal text-gray-500 dark:text-gray-400">¿Desea invalidar a este maestro para la materia señalada?</h3>
+                <button name="invalidar-usuario-btn" data-modal-hide="popup-modal" type="submit" class="text-white bg-red-600 hover:bg-red-800 focus:ring-4 focus:outline-none focus:ring-red-300 dark:focus:ring-red-800 font-medium rounded-lg text-sm inline-flex items-center px-5 py-2.5 text-center mr-2">
+                    Si, invalidar maestro
                 </button>
                 <button data-modal-hide="popup-modal" type="button" class="text-gray-500 bg-white hover:bg-gray-100 focus:ring-4 focus:outline-none focus:ring-gray-200 rounded-lg border border-gray-200 text-sm font-medium px-5 py-2.5 hover:text-gray-900 focus:z-10 dark:bg-gray-700 dark:text-gray-300 dark:border-gray-500 dark:hover:text-white dark:hover:bg-gray-600 dark:focus:ring-gray-600">No, cancelar</button>
             </form>
@@ -330,10 +333,9 @@ $admin = new Admin($_SESSION["user"]["email"], $_SESSION["user"]["password"], $_
     });
   });
 
-  $(document).ready(function() {
+ /*  $(document).ready(function() {
     $(".editar-maestro-btn").click(function() {
         // Obtener los valores de los atributos data-*
-        var email = $(this).data('email');
         var nombre = $(this).data('nombre');
         var apellido = $(this).data('apellido');
         var contacto = $(this).data('contacto');
@@ -352,7 +354,7 @@ $admin = new Admin($_SESSION["user"]["email"], $_SESSION["user"]["password"], $_
         // Muestra el diálogo (suponiendo que usas el método nativo del diálogo)
         $("#editar-maestro")[0].showModal();
     });
-  });
+  }); */
 </script>
 
 </html>

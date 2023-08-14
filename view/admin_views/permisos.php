@@ -215,7 +215,7 @@ $admin = new Admin($_SESSION["user"]["email"], $_SESSION["user"]["password"], $_
         
         <div>
           <label for="editar-email" class="block font-medium text-sm mb-2 text-gray-900">Correo electrónico del usuario</label>
-          <input class="px-2 py-1 w-full bg-gray-50 border-gray-300 border-2 rounded-lg text-gray-700 text-xs lg:text-sm" type="email" name="editar-email" id="editar-email" placeholder="admin@admin" value="">
+          <input class="px-2 py-1 w-full bg-gray-50 border-gray-300 border-2 rounded-lg text-gray-900 text-xs lg:text-sm" type="email" name="editar-email" id="editar-email" placeholder="admin@admin" value="" readonly>
         </div>
         <div>
           <label for="rol" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Rol del usuario</label>

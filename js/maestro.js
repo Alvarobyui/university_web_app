@@ -54,7 +54,7 @@ document.addEventListener('DOMContentLoaded', (event) => {
       let apellido = this.getAttribute('data-apellido');
       let contacto = this.getAttribute('data-contacto');
       
-      maestroVentana.showModal();
+      maestroVentana.showModal();      
       document.getElementById('alumno-email').value = email;
       document.getElementById('alumno-name').value = nombre;
       document.getElementById('alumno-surname').value = apellido;
