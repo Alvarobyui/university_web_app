@@ -16,6 +16,8 @@ document.addEventListener("DOMContentLoaded", function() {
       usuarioIdInput.value = usuarioId;
       materiaIdInput.value = materiaId;
 
+      console.log(usuarioId);
+      console.log(materiaId);
       const form = document.querySelector('#popup-modal form');
       form.appendChild(usuarioIdInput);
       form.appendChild(materiaIdInput);

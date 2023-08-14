@@ -248,10 +248,15 @@ $admin = new Admin($_SESSION["user"]["email"], $_SESSION["user"]["password"], $_
         <div>
           <label for="maestro-surname" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Materia asignada</label>
           <select name="editar-subject" id="rol" class="bg-gray-50 border border-gray-300 text-gray-900 py-[6px] text-xs lg:text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
-            <option value="PHP y Laravel" selected>PHP y Laravel</option>
-            <option value="Bases de Datos">Bases de Datos</option>
-            <option value="POO y PHP">POO y PHP</option>
-            <option value="SQL y mySQL">SQL y mySQL</option>
+            <?php
+              include($_SERVER["DOCUMENT_ROOT"] . "/controller/conn.php");
+              $materias = $conn->query("SELECT nombre FROM materia;");
+              if ($materias->num_rows > 0) {
+                while($datos = $materias->fetch_object()) { ?>
+            ?>
+            <option value=<?= $datos->nombre ?>><?=$datos->nombre?></option>
+            <?php }
+            }?>
           </select>
         </div>
         <div class="buttons ml-auto">

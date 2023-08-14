@@ -16,10 +16,11 @@ $admin = new Admin($_SESSION["user"]["email"], $_SESSION["user"]["password"], $_
   <title>Clases</title>
   <link href="../../dist/output.css" rel="stylesheet">
   <script src="../../js/toggle.js" defer></script>
-  <script src="../../js/maestro.js" defer></script>
+  <script src="../../js/materia.js" defer></script>
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
   <link rel="stylesheet" href="https://cdn.datatables.net/1.13.6/css/jquery.dataTables.css" />
   <script src="https://cdn.datatables.net/1.13.6/js/jquery.dataTables.js"></script>
+  <script src="../../js/borrarAsignación.js" defer></script>
 </head>
 
 <body class="h-[100vh]">
@@ -127,14 +128,20 @@ $admin = new Admin($_SESSION["user"]["email"], $_SESSION["user"]["password"], $_
           </div>
         </a>
       </section>
-      <section class="bg-[#F5F6FA] pb-10">
-        <div class="title flex justify-between p-3">
-          <h2 class="text-2xl">Clases</h2>
-          <div class="path text-sm">
+      <section class="bg-[#F5F6FA] pb-0">
+        <div class="title flex justify-between p-3 pb-0">
+          <h2 class="text-2xl ml-0 lg:ml-4">Clases</h2>
+          <div class="path text-sm lg:mr-4">
             <span class="text-blue-500">Home</span> / Clases
           </div>
         </div>
-        <div class="content text-xs mt-5 mx-2 py-2 overflow-x-auto md:text-sm md:px-2 md:py-4 bg-white rounded lg:text-base lg:mx-6">
+        <?php
+          include($_SERVER["DOCUMENT_ROOT"] . "/controller/conn.php");
+          include_once($_SERVER["DOCUMENT_ROOT"] . "/controller/crearMateria.php");
+          include_once($_SERVER["DOCUMENT_ROOT"] . "/controller/editarMateria.php");
+          include_once($_SERVER["DOCUMENT_ROOT"] . "/controller/eliminarMateria.php");
+        ?>
+        <div class="content text-xs mt-1 mx-2 py-2 overflow-x-auto md:text-sm md:px-2 md:py-4 bg-white rounded lg:text-base lg:mx-6">
           <div class="flex justify-between border-b-gray-500 mb-5">
             <h2 class="text-lg lg:text-xl">Información de las clases</h2>
             <button class="bg-blue-500 text-white rounded px-2 py-1 text-xs lg:text-sm" id="crear-maestro-btn">Agregar Clase</button>
@@ -145,64 +152,45 @@ $admin = new Admin($_SESSION["user"]["email"], $_SESSION["user"]["password"], $_
                 <th>#</th>
                 <th>Clase</th>
                 <th>Maestro</th>
-                <th>Alumnos Inscritos</th>
+                <th>Email del maestro</th>
                 <th>Acciones</th>
               </tr>
             </thead>
             <tbody>
               <?php
               include($_SERVER["DOCUMENT_ROOT"] . "/controller/conn.php");
-                $sql = $conn->query("SELECT 
+              $sql = $conn->query("SELECT DISTINCT 
                                         m.id AS materia_id,
                                         m.nombre AS materia_nombre,
-                                        u.id AS usuario_id,
-                                        u.nombre AS usuario_nombre,
-                                        COALESCE(sub.num_usuarios_rol3, 0) AS numero_usuarios_rol3
+                                        m.descripcion,
+                                        u.nombre AS maestro_nombre,
+                                        u.email AS usuario_email,
+                                        u.id
                                     FROM 
                                         materia m
                                     LEFT JOIN 
                                         cursousuario cu ON m.id = cu.materia_id
                                     LEFT JOIN 
-                                        usuario u ON cu.usuario_id = u.id AND u.rol = 2
-                                    LEFT JOIN (
-                                        SELECT 
-                                            materia_id,
-                                            COUNT(*) as num_usuarios_rol3
-                                        FROM 
-                                            cursousuario cu2
-                                        JOIN 
-                                            usuario u2 ON cu2.usuario_id = u2.id
-                                        WHERE 
-                                            u2.rol = 3
-                                        GROUP BY 
-                                            cu2.materia_id
-                                    ) AS sub ON m.id = sub.materia_id;");
-                if ($sql->num_rows > "0") {
-                while($datos = $sql->fetch_object()) { ?>
+                                        usuario u ON cu.usuario_id = u.id AND u.rol = 2;
+                                    ");
+              if ($sql->num_rows > 0) {
+              while($datos = $sql->fetch_object()) { ?>
               <tr>
                 <td><?= $datos->materia_id ?></td>
                 <td><?= $datos->materia_nombre ?></td>
-                <td><?= $datos->usuario_nombre ?></td>
                 <td>
-                  <?php 
-                   switch ($datos->numero_usuarios_rol3) {
-                    case 0:
-                        echo '<span class="bg-yellow-300 text-[10px] px-2 rounded-md grid items-center w-[75px]">Sin alumnos</span>';                      
-                        break;
-                    default:
-                        echo $datos->numero_usuarios_rol3;
-                        break;
-                  }
-                  ?>
+                <?= empty($datos->maestro_nombre) ? '<span class="bg-yellow-300 text-[10px] px-2 rounded-md grid items-center w-[70px]">Sin maestro</span>' : $datos->maestro_nombre;
+                ?>
                 </td>
+                <td><?= $datos->usuario_email ?></td>
                 <td class="flex gap-2 lg:gap-4 items-center justify-start">
-                  <button class="text-blue-400 flex justify-center editar-maestro-btn">
+                  <button data-materia="<?=$datos->materia_nombre?>" data-des="<?=$datos->descripcion?>" data-id-materia=<?=$datos->materia_id?> class="text-blue-400 flex justify-center editar-maestro-btn">
                     <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-pencil-square" viewBox="0 0 16 16">
                       <path d="M15.502 1.94a.5.5 0 0 1 0 .706L14.459 3.69l-2-2L13.502.646a.5.5 0 0 1 .707 0l1.293 1.293zm-1.75 2.456-2-2L4.939 9.21a.5.5 0 0 0-.121.196l-.805 2.414a.25.25 0 0 0 .316.316l2.414-.805a.5.5 0 0 0 .196-.12l6.813-6.814z" />
                       <path fill-rule="evenodd" d="M1 13.5A1.5 1.5 0 0 0 2.5 15h11a1.5 1.5 0 0 0 1.5-1.5v-6a.5.5 0 0 0-1 0v6a.5.5 0 0 1-.5.5h-11a.5.5 0 0 1-.5-.5v-11a.5.5 0 0 1 .5-.5H9a.5.5 0 0 0 0-1H2.5A1.5 1.5 0 0 0 1 2.5v11z" />
                     </svg>
                   </button>
-                  <button class="text-red-700 flex justify-center borrar-maestro-btn">
+                  <button class="text-red-700 flex justify-center eliminar-relacion" data-modal-target="popup-modal" data-modal-toggle="popup-modal" data-usuario-id=<?= $datos->id ?> data-materia-id=<?= $datos->materia_id ?>type="button">
                     <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-trash-fill" viewBox="0 0 16 16">
                       <path d="M2.5 1a1 1 0 0 0-1 1v1a1 1 0 0 0 1 1H3v9a2 2 0 0 0 2 2h6a2 2 0 0 0 2-2V4h.5a1 1 0 0 0 1-1V2a1 1 0 0 0-1-1H10a1 1 0 0 0-1-1H7a1 1 0 0 0-1 1H2.5zm3 4a.5.5 0 0 1 .5.5v7a.5.5 0 0 1-1 0v-7a.5.5 0 0 1 .5-.5zM8 5a.5.5 0 0 1 .5.5v7a.5.5 0 0 1-1 0v-7A.5.5 0 0 1 8 5zm3 .5v7a.5.5 0 0 1-1 0v-7a.5.5 0 0 1 1 0z" />
                     </svg>
@@ -225,22 +213,20 @@ $admin = new Admin($_SESSION["user"]["email"], $_SESSION["user"]["password"], $_
         <h1 class="text-xl md:text-2xl">Editar Clase</h1>
         <button id="cerrar-maestro-x" class="text-base">x</button>
       </div>
-      <form action="#" method="POST" class="text-sm mt-6 flex flex-col gap-4">
+      <form method="POST" class="text-sm mt-6 flex flex-col gap-4">
+        <input type="hidden" name="materia-id" id="materia-id">
         <div>
           <label for="materia-name" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Nombre de la clase/materia</label>
-          <input class="px-2 py-1 w-full bg-gray-50 border-gray-300 border-2 rounded-lg text-gray-500 text-xs lg:text-sm" type="text" name="materia-name" id="materia-name" placeholder="Laravel y PHP">
+          <input class="px-2 py-1 w-full bg-gray-50 border-gray-300 border-2 rounded-lg text-gray-500 text-xs lg:text-sm" type="text" name="materia-name" id="materia-name" placeholder="Ejemplo: Laravel y PHP">
         </div>
         <div>
-          <label for="maestro-asignado" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Maestro asignado</label>
-          <select id="maestro-asignado" class="bg-gray-50 border border-gray-300 text-gray-900 py-[6px] text-xs lg:text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
-            <option value="Harold" selected>Harold</option>
-            <option value="Alvaro">Alvaro</option>
-            <option value="Jasiel">Jasiel</option>
-          </select>
+          <label for="materia-des" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Nota mínima aprobatoria</label>
+          <input name="materia-des" class="px-2 py-1 w-full bg-gray-50 border-gray-300 border-2 rounded-lg text-gray-500 text-xs lg:text-sm" type="text" id="materia-des" placeholder="Ejemplo: 75%/100%">
         </div>
+       
         <div class="buttons ml-auto">
           <button id="cerrar-maestro-btn" class="bg-gray-600 text-white rounded px-2 py-1">Cerrar</button>
-          <button type="submit" class="bg-blue-500 text-white rounded px-2 py-1">Guardar Cambios</button>
+          <button name="editar-materia-btn" type="submit" class="bg-blue-500 text-white rounded px-2 py-1">Guardar Cambios</button>
         </div>
       </form>
     </dialog>
@@ -249,26 +235,44 @@ $admin = new Admin($_SESSION["user"]["email"], $_SESSION["user"]["password"], $_
         <h1 class="text-xl md:text-2xl">Agregar Clase</h1>
         <button id="cerrar-nuevo-x" class="text-base">x</button>
       </div>
-      <form action="#" method="POST" class="text-sm mt-6 flex flex-col gap-4">
+      <form method="POST" class="text-sm mt-6 flex flex-col gap-4">
         <div>
-          <label for="nueva-materia-name" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Nombre de la clase/materia</label>
+          <label for="nueva-materia-name" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Nombre de la materia nueva</label>
           <input class="px-2 py-1 w-full bg-gray-50 border-gray-300 border-2 rounded-lg text-gray-500 text-xs lg:text-sm" type="text" name="nueva-materia-name" id="nueva-materia-name" require>
         </div>
         <div>
-          <label for="nuevo-maestro-asignado" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Maestro asignado</label>
-          <select id="nuevo-maestro-asignado" class="bg-gray-50 border border-gray-300 text-gray-900 py-[6px] text-xs lg:text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
-            <option selected>Selecciona un maestro</option>
-            <option value="Harold">Harold</option>
-            <option value="Alvaro">Alvaro</option>
-            <option value="Jasiel">Jasiel</option>
-          </select>
+          <label for="nueva-materia-des" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Nota mínima aprobatoria</label>
+          <input name="nueva-materia-des" class="px-2 py-1 w-full bg-gray-50 border-gray-300 border-2 rounded-lg text-gray-500 text-xs lg:text-sm" type="text" name="nueva-materia-des" id="nueva-materia-des" placeholder="Ejemplo: 75%/100%">
         </div>
         <div class="buttons ml-auto">
           <button id="cerrar-nuevo-btn" class="bg-gray-600 text-white rounded px-2 py-1">Cerrar</button>
-          <button type="submit" class="bg-blue-500 text-white rounded px-2 py-1">Crear</button>
+          <button name="crear-materia-btn" type="submit" class="bg-blue-500 text-white rounded px-2 py-1">Crear</button>
         </div>
       </form>
     </dialog>
+
+    <div id="popup-modal" tabindex="-1" class="fixed top-0 left-0 right-0 z-50 hidden p-4 overflow-x-hidden overflow-y-auto md:inset-0 h-[calc(100%-1rem)] max-h-full">
+      <div class="relative w-full max-w-md max-h-full">
+        <div class="relative bg-white rounded-lg shadow dark:bg-gray-700">
+            <button type="button" class="absolute top-3 right-2.5 text-gray-400 bg-transparent hover:bg-gray-200 hover:text-gray-900 rounded-lg text-sm w-8 h-8 ml-auto inline-flex justify-center items-center dark:hover:bg-gray-600 dark:hover:text-white" data-modal-hide="popup-modal">
+                <svg class="w-3 h-3" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 14 14">
+                    <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="m1 1 6 6m0 0 6 6M7 7l6-6M7 7l-6 6"/>
+                </svg>
+                <span class="sr-only">Cancelar</span>
+            </button>
+            <form action="../../controller/eliminarMateria.php" method="POST" class="p-6 text-center">
+                <svg class="mx-auto mb-4 text-gray-400 w-12 h-12 dark:text-gray-200" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 20 20">
+                    <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 11V6m0 8h.01M19 10a9 9 0 1 1-18 0 9 9 0 0 1 18 0Z"/>
+                </svg>
+                <h3 class="mb-5 text-lg font-normal text-gray-500 dark:text-gray-400">¿Desea eliminar esta materia?</h3>
+                <button name="invalidar-usuario-btn" data-modal-hide="popup-modal" type="submit" class="text-white bg-red-600 hover:bg-red-800 focus:ring-4 focus:outline-none focus:ring-red-300 dark:focus:ring-red-800 font-medium rounded-lg text-sm inline-flex items-center px-5 py-2.5 text-center mr-2">
+                    Si, eliminar materia
+                </button>
+                <button data-modal-hide="popup-modal" type="button" class="text-gray-500 bg-white hover:bg-gray-100 focus:ring-4 focus:outline-none focus:ring-gray-200 rounded-lg border border-gray-200 text-sm font-medium px-5 py-2.5 hover:text-gray-900 focus:z-10 dark:bg-gray-700 dark:text-gray-300 dark:border-gray-500 dark:hover:text-white dark:hover:bg-gray-600 dark:focus:ring-gray-600">No, cancelar</button>
+            </form>
+        </div>
+      </div>
+    </div>
 
   </div>
   <script src="../../node_modules/flowbite/dist/flowbite.min.js"></script>
