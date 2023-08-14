@@ -6,16 +6,6 @@ require_once("../../model/Admin.php");
 
 $admin = new Admin($_SESSION["user"]["email"], $_SESSION["user"]["password"], $_SESSION["user"]["rol"] , $_SESSION["user"]["nombre"], $_SESSION["user"]["apellido"], $_SESSION["user"]["contacto"], $_SESSION["user"]["estado"]); 
 
-include($_SERVER["DOCUMENT_ROOT"] . "/controller/conn.php");
-
-
-if(isset($_POST['id'])) {
-  $id = $_POST['id'];
-  var_dump($id);
-  $admin->editarUsuarios($conn, "alumno", $id, "editar-alumno-btn", "alumno-email", "alumno-name", "alumno-surname", "alumno-contact");  
-/*   echo json_encode(['message' => 'Usuario editado con éxito']); */
-  exit();
-}
 ?>
 
 <!DOCTYPE html>
@@ -138,14 +128,20 @@ if(isset($_POST['id'])) {
           </div>
         </a>
       </section>
-      <section class="bg-[#F5F6FA] pb-10">
-        <div class="title flex justify-between p-3">
-          <h2 class="text-2xl">Alumnos</h2>
+      <section class="bg-[#F5F6FA] pb-0">
+        <div class="title flex justify-between p-3 pb-0">
+          <h2 class="text-2xl md:ml-4">Alumnos</h2>
           <div class="path text-sm">
             <span class="text-blue-500">Home</span> / Alumnos
           </div>
         </div>
-        <div class="content text-xs mt-5 mx-2 py-2 overflow-x-auto md:text-sm md:px-2 md:py-4 bg-white rounded lg:text-base lg:mx-6">
+        <?php
+          include($_SERVER["DOCUMENT_ROOT"] . "/controller/conn.php");
+          include_once($_SERVER["DOCUMENT_ROOT"] . "/controller/crearAlumno.php");
+          include_once($_SERVER["DOCUMENT_ROOT"] . "/controller/editarAlumno.php");
+          include_once($_SERVER["DOCUMENT_ROOT"] . "/controller/eliminarAlumno.php");
+        ?>
+        <div class="content text-xs mt-1 mx-2 py-2 overflow-x-auto md:text-sm md:px-2 md:py-4 bg-white rounded lg:text-base lg:mx-6">
           <div class="flex justify-between border-b-gray-500 mb-5">
             <h2 class="text-lg lg:text-xl">Información de Alumnos</h2>
             <button class="bg-blue-500 text-white rounded px-2 py-1 text-xs lg:text-sm" id="crear-maestro-btn">Agregar Alumno</button>
@@ -161,31 +157,34 @@ if(isset($_POST['id'])) {
               </tr>
             </thead>
             <tbody>
-              <?php
-                foreach ($_SESSION['alumnos'] as $col => $valor) {
-                  ?>
+                <?php
+                include($_SERVER["DOCUMENT_ROOT"] . "/controller/conn.php");
+                $sql = $conn->query("SELECT id, nombre, apellido, email, contacto FROM usuario WHERE rol='3'");
+                if($sql->num_rows > 0) {
+                  while($datos = $sql->fetch_object()) {
+                ?>
                 <tr>
-                  <td><?= $valor["id"] ?></td>
-                  <td><?= $valor["nombre"] ?> <?= $valor["apellido"] ?></td>
-                  <td><?= $valor["email"]?></td>
-                  <td><?= $valor["contacto"]?></td>
+                  <td><?= $datos->id ?></td>
+                  <td><?= $datos->nombre ?> <?= $datos->apellido ?></td>
+                  <td><?= $datos->email?></td>
+                  <td><?= $datos->contacto?></td>
                   <td class="flex gap-2 lg:gap-4 items-center justify-start">
-                    <a href="#?id=<?= $valor["id"]?>" data-id=<?= $valor["id"]?> class="text-blue-400 flex justify-center editar-maestro-btn" data-email="<?= $valor["email"] ?>" data-nombre="<?= $valor["nombre"] ?>" data-apellido="<?= $valor["apellido"] ?>"  data-contacto="<?= $valor["contacto"] ?>">
+                    <a href="#?id=<?= $datos->id?>" data-id=<?= $datos->id?> class="text-blue-400 flex justify-center editar-maestro-btn" data-email=<?= $datos->email ?> data-nombre=<?= $datos->nombre ?> data-apellido=<?= $datos->apellido ?>  data-contacto=<?= $datos->contacto ?>>
                       <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-pencil-square" viewBox="0 0 16 16">
                       <path d="M15.502 1.94a.5.5 0 0 1 0 .706L14.459 3.69l-2-2L13.502.646a.5.5 0 0 1 .707 0l1.293 1.293zm-1.75 2.456-2-2L4.939 9.21a.5.5 0 0 0-.121.196l-.805 2.414a.25.25 0 0 0 .316.316l2.414-.805a.5.5 0 0 0 .196-.12l6.813-6.814z" />
                       <path fill-rule="evenodd" d="M1 13.5A1.5 1.5 0 0 0 2.5 15h11a1.5 1.5 0 0 0 1.5-1.5v-6a.5.5 0 0 0-1 0v6a.5.5 0 0 1-.5.5h-11a.5.5 0 0 1-.5-.5v-11a.5.5 0 0 1 .5-.5H9a.5.5 0 0 0 0-1H2.5A1.5 1.5 0 0 0 1 2.5v11z" />
                       </svg>
                     </a>
-                    <a href="#?id=<?= $valor["id"]?>" data-id=<?= $valor["id"]?> class="text-red-700 flex justify-center borrar-maestro-btn">
-                      <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-trash-fill" viewBox="0 0 16 16">
+                    <button class="text-red-700 flex justify-center eliminar-relación" data-modal-target="popup-modal" data-modal-toggle="popup-modal" type="button">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-trash-fill" viewBox="0 0 16 16">
                       <path d="M2.5 1a1 1 0 0 0-1 1v1a1 1 0 0 0 1 1H3v9a2 2 0 0 0 2 2h6a2 2 0 0 0 2-2V4h.5a1 1 0 0 0 1-1V2a1 1 0 0 0-1-1H10a1 1 0 0 0-1-1H7a1 1 0 0 0-1 1H2.5zm3 4a.5.5 0 0 1 .5.5v7a.5.5 0 0 1-1 0v-7a.5.5 0 0 1 .5-.5zM8 5a.5.5 0 0 1 .5.5v7a.5.5 0 0 1-1 0v-7A.5.5 0 0 1 8 5zm3 .5v7a.5.5 0 0 1-1 0v-7a.5.5 0 0 1 1 0z" />
                     </svg>
-                    </a>
+                    </button>
                   </td>
                 </tr>
                 
-              <?php
-              }?>
+              <?php }
+                }?>
             </tbody>
           </table>
         </div>
@@ -201,10 +200,10 @@ if(isset($_POST['id'])) {
         <h1 class="text-xl md:text-2xl">Editar Alumno</h1>
         <button id="cerrar-maestro-x" class="text-base">x</button>
       </div>
-      <form action="editarAlumno.php" method="POST" class="text-sm mt-6 flex flex-col gap-4">
+      <form method="POST" class="text-sm mt-6 flex flex-col gap-4">
         <div>
           <label for="alumno-email" class="block font-medium text-sm mb-2 text-gray-900">Correo electrónico del usuario</label>
-          <input class="px-2 py-1 w-full bg-gray-50 border-gray-300 border-2 rounded-lg text-gray-500 text-xs lg:text-sm" type="email" name="alumno-email" id="alumno-email" placeholder="harold@harold.com" value="">
+          <input class="px-2 py-1 w-full bg-gray-50 border-gray-300 border-2 rounded-lg text-gray-900 text-xs lg:text-sm" type="email" name="alumno-email" id="alumno-email" value="" readonly>
         </div>
         <div>
           <label for="alumno-name" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Nombre(s)</label>
@@ -220,7 +219,7 @@ if(isset($_POST['id'])) {
         </div>
         <div class="buttons ml-auto">
           <button id="cerrar-maestro-btn" class="bg-gray-600 text-white rounded px-2 py-1">Cerrar</button>
-          <button type="submit" name="editar-alumno-btn" class="bg-blue-500 text-white rounded px-2 py-1">Guardar Cambios</button>
+          <button name="editar-alumno-btn" type="submit" class="bg-blue-500 text-white rounded px-2 py-1">Guardar Cambios</button>
         </div>
       </form>
     </dialog>
@@ -229,29 +228,52 @@ if(isset($_POST['id'])) {
         <h1 class="text-xl md:text-2xl">Agregar Alumno</h1>
         <button id="cerrar-nuevo-x" class="text-base">x</button>
       </div>
-      <form action="#" method="POST" class="text-sm mt-6 flex flex-col gap-4">
+      <form method="POST" class="text-sm mt-6 flex flex-col gap-4">
         <div>
           <label for="nuevo-alumno-email" class="block font-medium text-sm mb-2 text-gray-900">Correo electrónico nuevo</label>
-          <input class="px-2 py-1 w-full bg-gray-50 border-gray-300 border-2 rounded-lg text-gray-500 text-xs lg:text-sm" type="email" name="nuevo-alumno-email" id="nuevo-alumno-email" placeholder="alumno@alumno.com" value="">
+          <input class="px-2 py-1 w-full bg-gray-50 border-gray-300 border-2 rounded-lg text-gray-500 text-xs lg:text-sm" type="email" name="nuevo-alumno-email" id="nuevo-alumno-email" placeholder="Ejemplo: alumno@gmail.com" value="">
         </div>
         <div>
           <label for="nuevo-alumno-name" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Nombre(s)</label>
-          <input class="px-2 py-1 w-full bg-gray-50 border-gray-300 border-2 rounded-lg text-gray-500 text-xs lg:text-sm" type="text" name="nuevo-alumno-name" id="nuevo-alumno-name" placeholder="Harold" value="">
+          <input class="px-2 py-1 w-full bg-gray-50 border-gray-300 border-2 rounded-lg text-gray-500 text-xs lg:text-sm" type="text" name="nuevo-alumno-name" id="nuevo-alumno-name" placeholder="Ejemplo: Harold" value="">
         </div>
         <div>
           <label for="nuevo-alumno-surname" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Apellido(s)</label>
-          <input class="px-2 py-1 w-full bg-gray-50 border-gray-300 border-2 rounded-lg text-gray-500 text-xs lg:text-sm" type="text" name="nuevo-alumno-surname" id="nuevo-alumno-surname" placeholder="Carazas" value="">
+          <input class="px-2 py-1 w-full bg-gray-50 border-gray-300 border-2 rounded-lg text-gray-500 text-xs lg:text-sm" type="text" name="nuevo-alumno-surname" id="nuevo-alumno-surname" placeholder="Ejemplo: Carazas" value="">
         </div>
         <div>
           <label for="nuevo-alumno-contact" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Número de teléfono</label>
-          <input class="px-2 py-1 w-full bg-gray-50 border-gray-300 border-2 rounded-lg text-gray-500 text-xs lg:text-sm" type="text" name="nuevo-alumno-contact" id="nuevo-alumno-contact" placeholder="+51 924126535" value="">
+          <input class="px-2 py-1 w-full bg-gray-50 border-gray-300 border-2 rounded-lg text-gray-500 text-xs lg:text-sm" type="text" name="nuevo-alumno-contact" id="nuevo-alumno-contact" placeholder="Ejemplo: +51 924126535" value="">
         </div>
         <div class="buttons ml-auto">
           <button id="cerrar-nuevo-btn" class="bg-gray-600 text-white rounded px-2 py-1">Cerrar</button>
-          <button type="submit" class="bg-blue-500 text-white rounded px-2 py-1">Guardar Cambios</button>
+          <button name="guardar-alumno-btn" type="submit" class="bg-blue-500 text-white rounded px-2 py-1">Guardar Cambios</button>
         </div>
       </form>
     </dialog>
+    
+    <div id="popup-modal" tabindex="-1" class="fixed top-0 left-0 right-0 z-50 hidden p-4 overflow-x-hidden overflow-y-auto md:inset-0 h-[calc(100%-1rem)] max-h-full">
+      <div class="relative w-full max-w-md max-h-full">
+        <div class="relative bg-white rounded-lg shadow dark:bg-gray-700">
+            <button type="button" class="absolute top-3 right-2.5 text-gray-400 bg-transparent hover:bg-gray-200 hover:text-gray-900 rounded-lg text-sm w-8 h-8 ml-auto inline-flex justify-center items-center dark:hover:bg-gray-600 dark:hover:text-white" data-modal-hide="popup-modal">
+                <svg class="w-3 h-3" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 14 14">
+                    <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="m1 1 6 6m0 0 6 6M7 7l6-6M7 7l-6 6"/>
+                </svg>
+                <span class="sr-only">Cancelar</span>
+            </button>
+            <form action="../../controller/deshabilitarAlumno.php" method="POST" class="p-6 text-center">
+                <svg class="mx-auto mb-4 text-gray-400 w-12 h-12 dark:text-gray-200" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 20 20">
+                    <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 11V6m0 8h.01M19 10a9 9 0 1 1-18 0 9 9 0 0 1 18 0Z"/>
+                </svg>
+                <h3 class="mb-5 text-lg font-normal text-gray-500 dark:text-gray-400">¿Desea eliminar a este alumno?</h3>
+                <button name="invalidar-usuario-btn" data-modal-hide="popup-modal" type="submit" class="text-white bg-red-600 hover:bg-red-800 focus:ring-4 focus:outline-none focus:ring-red-300 dark:focus:ring-red-800 font-medium rounded-lg text-sm inline-flex items-center px-5 py-2.5 text-center mr-2">
+                    Si, invalidar alumno
+                </button>
+                <button data-modal-hide="popup-modal" type="button" class="text-gray-500 bg-white hover:bg-gray-100 focus:ring-4 focus:outline-none focus:ring-gray-200 rounded-lg border border-gray-200 text-sm font-medium px-5 py-2.5 hover:text-gray-900 focus:z-10 dark:bg-gray-700 dark:text-gray-300 dark:border-gray-500 dark:hover:text-white dark:hover:bg-gray-600 dark:focus:ring-gray-600">No, cancelar</button>
+            </form>
+        </div>
+      </div>
+    </div>
 
   </div>
   <script src="../../node_modules/flowbite/dist/flowbite.min.js"></script>

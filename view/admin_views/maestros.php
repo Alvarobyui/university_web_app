@@ -299,7 +299,7 @@ $admin = new Admin($_SESSION["user"]["email"], $_SESSION["user"]["password"], $_
     </dialog>
 
     <div id="popup-modal" tabindex="-1" class="fixed top-0 left-0 right-0 z-50 hidden p-4 overflow-x-hidden overflow-y-auto md:inset-0 h-[calc(100%-1rem)] max-h-full">
-    <div class="relative w-full max-w-md max-h-full">
+      <div class="relative w-full max-w-md max-h-full">
         <div class="relative bg-white rounded-lg shadow dark:bg-gray-700">
             <button type="button" class="absolute top-3 right-2.5 text-gray-400 bg-transparent hover:bg-gray-200 hover:text-gray-900 rounded-lg text-sm w-8 h-8 ml-auto inline-flex justify-center items-center dark:hover:bg-gray-600 dark:hover:text-white" data-modal-hide="popup-modal">
                 <svg class="w-3 h-3" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 14 14">
@@ -318,8 +318,8 @@ $admin = new Admin($_SESSION["user"]["email"], $_SESSION["user"]["password"], $_
                 <button data-modal-hide="popup-modal" type="button" class="text-gray-500 bg-white hover:bg-gray-100 focus:ring-4 focus:outline-none focus:ring-gray-200 rounded-lg border border-gray-200 text-sm font-medium px-5 py-2.5 hover:text-gray-900 focus:z-10 dark:bg-gray-700 dark:text-gray-300 dark:border-gray-500 dark:hover:text-white dark:hover:bg-gray-600 dark:focus:ring-gray-600">No, cancelar</button>
             </form>
         </div>
+      </div>
     </div>
-</div>
 
   </div>
   <script src="../../node_modules/flowbite/dist/flowbite.min.js"></script>
@@ -332,29 +332,6 @@ $admin = new Admin($_SESSION["user"]["email"], $_SESSION["user"]["password"], $_
       }
     });
   });
-
- /*  $(document).ready(function() {
-    $(".editar-maestro-btn").click(function() {
-        // Obtener los valores de los atributos data-*
-        var nombre = $(this).data('nombre');
-        var apellido = $(this).data('apellido');
-        var contacto = $(this).data('contacto');
-        var materia = $(this).data('materia');
-        
-        // Rellenar el diálogo con estos valores
-        $("#maestro-email").val(email);
-        $("#maestro-name").val(nombre);
-        $("#maestro-surname").val(apellido);
-        // Aquí hay un problema. Todos tus campos tienen el mismo ID "maestro-email", 
-        // deberías corregir esto y darles IDs únicos.
-        // Suponiendo que corregiste los IDs:
-        $("#maestro-contacto").val(contacto);
-        $("#editar-subject").val(materia);
-        
-        // Muestra el diálogo (suponiendo que usas el método nativo del diálogo)
-        $("#editar-maestro")[0].showModal();
-    });
-  }); */
 </script>
 
 </html>

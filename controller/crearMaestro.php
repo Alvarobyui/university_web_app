@@ -36,7 +36,8 @@ if (isset($_POST["guardar-maestro-btn"])) {
 
         echo "<p class='ml-6 p-2 text-xs text-white inline rounded bg-green-400'>¡Agregado!</p>";
     } else {
-        echo "<h2>Algunos campos están vacios</h2>";
+        echo "<p class='ml-6 p-2 text-xs text-white inline rounded font-extrabold bg-red-500'>¡Ups! Algunos campos están vacíos</p>";
+
     }
 }
 ?>
