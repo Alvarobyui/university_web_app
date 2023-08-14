@@ -1,3 +1,12 @@
+<?php
+session_start();
+
+include($_SERVER["DOCUMENT_ROOT"] . "/controller/protectSession.php");
+require_once("../../model/Admin.php");
+
+$admin = new Admin($_SESSION["user"]["email"], $_SESSION["user"]["password"], $_SESSION["user"]["rol"] , $_SESSION["user"]["nombre"], $_SESSION["user"]["apellido"], $_SESSION["user"]["contacto"], $_SESSION["user"]["estado"]);
+?>
+
 <!DOCTYPE html>
 <html lang="en">
 
@@ -22,7 +31,7 @@
         <h2 class="text-xl">Universidad</h2>
       </div>
       <div class="rol p-4 border-b-[1px] border-solid border-blue-100">
-        <p class="text-base">Alumno Funval</p>
+        <p class="text-base"><?=$admin->mostrarNombre()?> <?=$admin->mostrarApellido()?></p>
         <p class="text-xs">Alumno</p>
       </div>
       <div class="p-4">
