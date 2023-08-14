@@ -21,7 +21,7 @@ $admin = new Admin($_SESSION["user"]["email"], $_SESSION["user"]["password"], $_
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
   <link rel="stylesheet" href="https://cdn.datatables.net/1.13.6/css/jquery.dataTables.css" />
   <script src="https://cdn.datatables.net/1.13.6/js/jquery.dataTables.js"></script>
-  <script src="../../js/borrarAsignación.js"></script>
+  <script src="../../js/borrarAsignación.js" defer></script>
 </head>
 
 <body class="h-[100vh]">

@@ -9,5 +9,5 @@ if(isset($_POST['invalidar-usuario-btn'])) {
   $stmt->execute();
   $stmt->close();
 
-  header("Location: ../view/admin_views/maestros.php?");
+  header("Location: ../view/admin_views/maestros.php");
 } 
