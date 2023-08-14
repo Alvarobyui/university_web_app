@@ -1,10 +1,8 @@
 <?php
-// require("./view/login.php");
 require_once($_SERVER["DOCUMENT_ROOT"] . "/controller/LoginController.php");
-require_once($_SERVER["DOCUMENT_ROOT"] . "/controller/LogoutController.php");
+
 
 $loginController = new LoginController();
-$logoutController = new LogoutController();
 
 
 if(isset($_GET["action"])) {
@@ -17,13 +15,3 @@ if(isset($_GET["action"])) {
 } else {
   $loginController->index();
 }
-
-/* if(isset($_GET["action"])) {
-  switch ($action) {
-    case 'logout':
-      $logoutController->logout();
-      break;
-  }
-}
- */
-  
