@@ -254,7 +254,7 @@ $admin = new Admin($_SESSION["user"]["email"], $_SESSION["user"]["password"], $_
               if ($materias->num_rows > 0) {
                 while($datos = $materias->fetch_object()) { ?>
             ?>
-            <option value=<?= $datos->nombre ?>><?=$datos->nombre?></option>
+            <option value="<?= $datos->nombre ?>"><?=$datos->nombre?></option>
             <?php }
             }?>
           </select>
