@@ -142,79 +142,96 @@ $admin = new Admin($_SESSION["user"]["email"], $_SESSION["user"]["password"], $_
         include_once($_SERVER["DOCUMENT_ROOT"] . "/controller/editarMaestro.php");
         include_once($_SERVER["DOCUMENT_ROOT"] . "/controller/deshabilitarMaestro.php");
         ?>
-        <div class="content text-xs mt-2 mx-2 py-2 overflow-x-auto md:text-sm md:px-2 md:py-4 bg-white rounded lg:text-base lg:mx-6">
+        <div class="content text-xs mt-2 mx-2 py-2 overflow-x-auto lg:overflow-y-auto max-h-[71vh] md:text-sm md:px-2 md:py-4 bg-white rounded lg:text-base lg:mx-6">
           <div class="flex justify-between border-b-gray-500 mb-5">
             <h2 class="text-lg lg:text-xl">Información de Maestros</h2>
             <button class="bg-blue-500 text-white rounded px-2 py-1 text-xs lg:text-sm" id="crear-maestro-btn">Agregar Maestro</button>
           </div>
-          <table id="myTable" class="table table-auto">
-            <thead class="">
-              <tr>
-                <th>Nombre</th>
-                <th>Email</th>
-                <th>Materia asignada</th>
-                <th>ID - Materia</th>
-                <th>Acciones</th>
-              </tr>
-            </thead>
-            <tbody>
-              <?php
-              include($_SERVER["DOCUMENT_ROOT"] . "/controller/conn.php");
-              $sql = $conn->query("SELECT 
-                        u.id AS usuario_id, 
-                        u.email,
-                        u.nombre,
-                        u.apellido,
-                        u.estado,
-                        u.contacto,
-                        m.id,
-                        m.nombre AS materia_nombre,
-                        m.descripcion AS materia_descripcion
-                    FROM 
-                        usuario u
-                    LEFT JOIN 
-                        CursoUsuario cu ON u.id = cu.usuario_id
-                    LEFT JOIN 
-                        materia m ON cu.materia_id = m.id
-                    WHERE 
-                        u.rol = 2 and u.estado = 1;");
-              if ($sql->num_rows > 0) {
-                while ($datos = $sql->fetch_object()) { ?>
-                  <tr>
-                    <td><?= $datos->nombre ?> <?= $datos->apellido ?></td>
-                    <td><?= $datos->email ?></td>
-                    <td>
-                      <?php
-                      switch ($datos->materia_nombre) {
-                        case 'sinasignar':
-                          echo '<span class="bg-yellow-300 text-[10px] px-2 rounded-md grid items-center w-[85px]">Sin asignación</span>';
-                          break;
-                        default:
-                          echo $datos->materia_nombre;
-                          break;
-                      }
-                      ?>
-                    </td>
-                    <td><?= $datos->id ?></td>
-                    <td class="flex gap-2 lg:gap-4 items-center justify-start">
-                      <button data-email=<?= $datos->email ?> data-nombre="<?= $datos->nombre ?>" data-apellido="<?= $datos->apellido ?>" data-contacto="<?= $datos->contacto ?>" data-materia="<?= $datos->materia_nombre ?>" class="text-blue-400 flex justify-center editar-maestro-btn">
-                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-pencil-square" viewBox="0 0 16 16">
-                          <path d="M15.502 1.94a.5.5 0 0 1 0 .706L14.459 3.69l-2-2L13.502.646a.5.5 0 0 1 .707 0l1.293 1.293zm-1.75 2.456-2-2L4.939 9.21a.5.5 0 0 0-.121.196l-.805 2.414a.25.25 0 0 0 .316.316l2.414-.805a.5.5 0 0 0 .196-.12l6.813-6.814z" />
-                          <path fill-rule="evenodd" d="M1 13.5A1.5 1.5 0 0 0 2.5 15h11a1.5 1.5 0 0 0 1.5-1.5v-6a.5.5 0 0 0-1 0v6a.5.5 0 0 1-.5.5h-11a.5.5 0 0 1-.5-.5v-11a.5.5 0 0 1 .5-.5H9a.5.5 0 0 0 0-1H2.5A1.5 1.5 0 0 0 1 2.5v11z" />
-                        </svg>
-                      </button>
-                      <button class="text-red-700 flex justify-center eliminar-relación" data-modal-target="popup-modal" data-modal-toggle="popup-modal" data-usuario-id="<?= $datos->usuario_id ?>" data-materia-id="<?= $datos->id ?>" type="button">
-                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-trash-fill" viewBox="0 0 16 16">
-                          <path d="M2.5 1a1 1 0 0 0-1 1v1a1 1 0 0 0 1 1H3v9a2 2 0 0 0 2 2h6a2 2 0 0 0 2-2V4h.5a1 1 0 0 0 1-1V2a1 1 0 0 0-1-1H10a1 1 0 0 0-1-1H7a1 1 0 0 0-1 1H2.5zm3 4a.5.5 0 0 1 .5.5v7a.5.5 0 0 1-1 0v-7a.5.5 0 0 1 .5-.5zM8 5a.5.5 0 0 1 .5.5v7a.5.5 0 0 1-1 0v-7A.5.5 0 0 1 8 5zm3 .5v7a.5.5 0 0 1-1 0v-7a.5.5 0 0 1 1 0z" />
-                        </svg>
-                      </button>
-                    </td>
-                  </tr>
-              <?php
-                }
-              } ?>
-            </tbody>
-          </table>
+          <div class="relative overflow-x-auto shadow-md sm:rounded-lg">
+            <table class="w-full text-sm text-left text-gray-500 dark:text-gray-400">
+              <thead class="text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400">
+                <tr>
+                  <th scope="col" class="px-6 py-3">
+                    Nombre
+                  </th>
+                  <th scope="col" class="px-6 py-3">
+                    Email
+                  </th>
+                  <th scope="col" class="px-6 py-3">
+                    Materia asignada
+                  </th>
+                  <th scope="col" class="px-6 py-3">
+                    ID - Materia
+                  </th>
+                  <th scope="col" class="px-6 py-3">
+                    Acciones
+                  </th>
+                </tr>
+              </thead>
+              <tbody>
+                <?php
+                include($_SERVER["DOCUMENT_ROOT"] . "/controller/conn.php");
+                $sql = $conn->query("SELECT 
+                          u.id AS usuario_id, 
+                          u.email,
+                          u.nombre,
+                          u.apellido,
+                          u.estado,
+                          u.contacto,
+                          m.id,
+                          m.nombre AS materia_nombre,
+                          m.descripcion AS materia_descripcion
+                      FROM 
+                          usuario u
+                      LEFT JOIN 
+                          CursoUsuario cu ON u.id = cu.usuario_id
+                      LEFT JOIN 
+                          materia m ON cu.materia_id = m.id
+                      WHERE 
+                          u.rol = 2 and u.estado = 1;");
+                if ($sql->num_rows > 0) {
+                  while ($datos = $sql->fetch_object()) { ?>
+                <tr class="bg-white border-b dark:bg-gray-800 dark:border-gray-700 hover:bg-gray-50 dark:hover:bg-gray-600">
+                  <th scope="row" class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white">
+                    <?= $datos->nombre ?> <?= $datos->apellido ?>
+                  </th>
+                  <td class="px-6 py-4">
+                    <?= $datos->email ?>
+                  </td>
+                  <td class="px-6 py-4">
+                    <?php
+                    switch ($datos->materia_nombre) {
+                      case 'sinasignar':
+                        echo '<span class="bg-yellow-300 text-[10px] px-2 rounded-md grid items-center w-[85px]">Sin asignación</span>';
+                        break;
+                      default:
+                        echo $datos->materia_nombre;
+                        break;
+                    }
+                    ?>
+                  </td>
+                  <td class="px-6 py-4">
+                    <?= $datos->id ?>
+                  </td>
+                  <td class="px-6 py-4 flex gap-4">
+                    <button data-email=<?= $datos->email ?> data-nombre="<?= $datos->nombre ?>" data-apellido="<?= $datos->apellido ?>" data-contacto="<?= $datos->contacto ?>" data-materia="<?= $datos->materia_nombre ?>" class="text-blue-400 flex justify-center editar-maestro-btn">
+                      <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-pencil-square" viewBox="0 0 16 16">
+                        <path d="M15.502 1.94a.5.5 0 0 1 0 .706L14.459 3.69l-2-2L13.502.646a.5.5 0 0 1 .707 0l1.293 1.293zm-1.75 2.456-2-2L4.939 9.21a.5.5 0 0 0-.121.196l-.805 2.414a.25.25 0 0 0 .316.316l2.414-.805a.5.5 0 0 0 .196-.12l6.813-6.814z" />
+                        <path fill-rule="evenodd" d="M1 13.5A1.5 1.5 0 0 0 2.5 15h11a1.5 1.5 0 0 0 1.5-1.5v-6a.5.5 0 0 0-1 0v6a.5.5 0 0 1-.5.5h-11a.5.5 0 0 1-.5-.5v-11a.5.5 0 0 1 .5-.5H9a.5.5 0 0 0 0-1H2.5A1.5 1.5 0 0 0 1 2.5v11z" />
+                      </svg>
+                    </button>
+                    <button class="text-red-700 flex justify-center eliminar-relación" data-modal-target="popup-modal" data-modal-toggle="popup-modal" data-usuario-id="<?= $datos->usuario_id ?>" data-materia-id="<?= $datos->id ?>" type="button">
+                      <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-trash-fill" viewBox="0 0 16 16">
+                        <path d="M2.5 1a1 1 0 0 0-1 1v1a1 1 0 0 0 1 1H3v9a2 2 0 0 0 2 2h6a2 2 0 0 0 2-2V4h.5a1 1 0 0 0 1-1V2a1 1 0 0 0-1-1H10a1 1 0 0 0-1-1H7a1 1 0 0 0-1 1H2.5zm3 4a.5.5 0 0 1 .5.5v7a.5.5 0 0 1-1 0v-7a.5.5 0 0 1 .5-.5zM8 5a.5.5 0 0 1 .5.5v7a.5.5 0 0 1-1 0v-7A.5.5 0 0 1 8 5zm3 .5v7a.5.5 0 0 1-1 0v-7a.5.5 0 0 1 1 0z" />
+                      </svg>
+                    </button>
+                  </td>
+                </tr>
+                  <?php }
+                } ?>
+              </tbody>
+            </table>
+          </div>       
         </div>
       </section>
       <footer>

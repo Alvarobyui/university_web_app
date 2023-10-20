@@ -141,7 +141,7 @@ $admin = new Admin($_SESSION["user"]["email"], $_SESSION["user"]["password"], $_
           include_once($_SERVER["DOCUMENT_ROOT"] . "/controller/editarMateria.php");
           include_once($_SERVER["DOCUMENT_ROOT"] . "/controller/eliminarMateria.php");
         ?>
-        <div class="content text-xs mt-1 mx-2 py-2 overflow-x-auto lg:overflow-y-auto max-h-[77vh] md:text-sm md:px-2 md:py-4 bg-white rounded lg:text-base lg:mx-6">
+        <div class="content text-xs mt-1 mx-2 py-2 overflow-x-auto lg:overflow-y-auto max-h-[71vh] md:text-sm md:px-2 md:py-4 bg-white rounded lg:text-base lg:mx-6">
           <div class="flex justify-between border-b-gray-500 mb-5">
             <h2 class="text-lg lg:text-xl">Información de las clases</h2>
             <button class="bg-blue-500 text-white rounded px-2 py-1 text-xs lg:text-sm" id="crear-maestro-btn">Agregar Clase</button>
