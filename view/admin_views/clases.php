@@ -141,65 +141,87 @@ $admin = new Admin($_SESSION["user"]["email"], $_SESSION["user"]["password"], $_
           include_once($_SERVER["DOCUMENT_ROOT"] . "/controller/editarMateria.php");
           include_once($_SERVER["DOCUMENT_ROOT"] . "/controller/eliminarMateria.php");
         ?>
-        <div class="content text-xs mt-1 mx-2 py-2 overflow-x-auto md:text-sm md:px-2 md:py-4 bg-white rounded lg:text-base lg:mx-6">
+        <div class="content text-xs mt-1 mx-2 py-2 overflow-x-auto lg:overflow-y-auto max-h-[77vh] md:text-sm md:px-2 md:py-4 bg-white rounded lg:text-base lg:mx-6">
           <div class="flex justify-between border-b-gray-500 mb-5">
             <h2 class="text-lg lg:text-xl">Información de las clases</h2>
             <button class="bg-blue-500 text-white rounded px-2 py-1 text-xs lg:text-sm" id="crear-maestro-btn">Agregar Clase</button>
           </div>
-          <table id="myTable" class="table table-auto">
-            <thead class="">
-              <tr>
-                <th>Nombre</th>
-                <th>ID - Materia</th>
-                <th>Maestro</th>
-                <th>Email del maestro</th>
-                <th>Acciones</th>
-              </tr>
-            </thead>
-            <tbody>
-              <?php
-              include($_SERVER["DOCUMENT_ROOT"] . "/controller/conn.php");
-              $sql = $conn->query("SELECT DISTINCT 
-                                        m.id AS materia_id,
-                                        m.nombre AS materia_nombre,
-                                        m.descripcion,
-                                        u.nombre AS maestro_nombre,
-                                        u.email AS usuario_email,
-                                        u.id
-                                    FROM 
-                                        materia m
-                                    LEFT JOIN 
-                                        cursousuario cu ON m.id = cu.materia_id
-                                    LEFT JOIN 
-                                        usuario u ON cu.usuario_id = u.id AND u.rol = 2;
-                                    ");
-              if ($sql->num_rows > 0) {
-              while($datos = $sql->fetch_object()) {?>
-              <tr>
-                <td><?= $datos->materia_nombre ?></td>
-                <td><?= $datos->materia_id ?></td>
-                <td>
-                <?= empty($datos->maestro_nombre) ? '<span class="bg-yellow-300 text-[10px] px-2 rounded-md grid items-center w-[70px]">Sin maestro</span>' : $datos->maestro_nombre;
-                ?>
-                </td>
-                <td><?= $datos->usuario_email ?></td>
-                <td class="flex gap-2 lg:gap-4 items-center justify-start">
-                  <button data-materia="<?=$datos->materia_nombre?>" data-des="<?=$datos->descripcion?>" data-id-materia=<?=$datos->materia_id?> class="text-blue-400 flex justify-center editar-maestro-btn">
-                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-pencil-square" viewBox="0 0 16 16">
-                      <path d="M15.502 1.94a.5.5 0 0 1 0 .706L14.459 3.69l-2-2L13.502.646a.5.5 0 0 1 .707 0l1.293 1.293zm-1.75 2.456-2-2L4.939 9.21a.5.5 0 0 0-.121.196l-.805 2.414a.25.25 0 0 0 .316.316l2.414-.805a.5.5 0 0 0 .196-.12l6.813-6.814z" />
-                      <path fill-rule="evenodd" d="M1 13.5A1.5 1.5 0 0 0 2.5 15h11a1.5 1.5 0 0 0 1.5-1.5v-6a.5.5 0 0 0-1 0v6a.5.5 0 0 1-.5.5h-11a.5.5 0 0 1-.5-.5v-11a.5.5 0 0 1 .5-.5H9a.5.5 0 0 0 0-1H2.5A1.5 1.5 0 0 0 1 2.5v11z" />
-                    </svg>
-                  </button>
-                  <button class="text-red-700 flex justify-center eliminar-relacion" data-modal-target="popup-modal" data-modal-toggle="popup-modal" data-id-usuario="<?= $datos->id ?>" data-id-materia="<?= $datos->materia_id ?>" type="button">
-                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-trash-fill" viewBox="0 0 16 16">
-                      <path d="M2.5 1a1 1 0 0 0-1 1v1a1 1 0 0 0 1 1H3v9a2 2 0 0 0 2 2h6a2 2 0 0 0 2-2V4h.5a1 1 0 0 0 1-1V2a1 1 0 0 0-1-1H10a1 1 0 0 0-1-1H7a1 1 0 0 0-1 1H2.5zm3 4a.5.5 0 0 1 .5.5v7a.5.5 0 0 1-1 0v-7a.5.5 0 0 1 .5-.5zM8 5a.5.5 0 0 1 .5.5v7a.5.5 0 0 1-1 0v-7A.5.5 0 0 1 8 5zm3 .5v7a.5.5 0 0 1-1 0v-7a.5.5 0 0 1 1 0z" />
-                    </svg>
-                  </button>
-                </td>
-              </tr>
-              <?php }} ?>
-            </tbody>
-          </table>
+
+          <div class="relative overflow-x-auto shadow-md sm:rounded-lg">
+            <table class="w-full text-sm text-left text-gray-500 dark:text-gray-400">
+              <thead class="text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400">
+                <tr>
+                  <th scope="col" class="px-6 py-3">
+                    Nombre
+                  </th>
+                  <th scope="col" class="px-6 py-3">
+                    ID - Materia
+                  </th>
+                  <th scope="col" class="px-6 py-3">
+                    Maestro
+                  </th>
+                  <th scope="col" class="px-6 py-3">
+                    Email del maestro
+                  </th>
+                  <th scope="col" class="px-6 py-3">
+                    Acciones
+                  </th>
+                </tr>
+              </thead>
+              <tbody>
+                <?php
+                include($_SERVER["DOCUMENT_ROOT"] . "/controller/conn.php");
+                $sql = $conn->query("SELECT DISTINCT 
+                                          m.id AS materia_id,
+                                          m.nombre AS materia_nombre,
+                                          m.descripcion,
+                                          u.nombre AS maestro_nombre,
+                                          u.email AS usuario_email,
+                                          u.id
+                                      FROM 
+                                          materia m
+                                      LEFT JOIN 
+                                          cursousuario cu ON m.id = cu.materia_id
+                                      LEFT JOIN 
+                                          usuario u ON cu.usuario_id = u.id AND u.rol = 2;
+                                      ");
+                if ($sql->num_rows > 0) {
+                while($datos = $sql->fetch_object()) {?>
+                <tr class="bg-white border-b dark:bg-gray-800 dark:border-gray-700 hover:bg-gray-50 dark:hover:bg-gray-600">
+                  <th scope="row" class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white">
+                    <?= $datos->materia_nombre ?>
+                  </th>
+                  <td class="px-6 py-4">
+                    <?= $datos->materia_id ?>
+                  </td>
+                  <td class="px-6 py-4">
+                    <?= empty($datos->maestro_nombre) ? '<span class="bg-yellow-300 text-[10px] px-2 rounded-md grid items-center w-[70px]">Sin maestro</span>' : $datos->maestro_nombre;
+                    ?>
+                  </td>
+                  <td class="px-6 py-4">
+                    <?= $datos->usuario_email ?>
+                  </td>
+                  <td class="px-6 py-4 flex gap-4">
+                    <button data-materia="<?=$datos->materia_nombre?>" data-des="<?=$datos->descripcion?>" data-id-materia=<?=$datos->materia_id?> class="text-blue-400 flex justify-center editar-maestro-btn">
+                      <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-pencil-square" viewBox="0 0 16 16">
+                        <path d="M15.502 1.94a.5.5 0 0 1 0 .706L14.459 3.69l-2-2L13.502.646a.5.5 0 0 1 .707 0l1.293 1.293zm-1.75 2.456-2-2L4.939 9.21a.5.5 0 0 0-.121.196l-.805 2.414a.25.25 0 0 0 .316.316l2.414-.805a.5.5 0 0 0 .196-.12l6.813-6.814z" />
+                        <path fill-rule="evenodd" d="M1 13.5A1.5 1.5 0 0 0 2.5 15h11a1.5 1.5 0 0 0 1.5-1.5v-6a.5.5 0 0 0-1 0v6a.5.5 0 0 1-.5.5h-11a.5.5 0 0 1-.5-.5v-11a.5.5 0 0 1 .5-.5H9a.5.5 0 0 0 0-1H2.5A1.5 1.5 0 0 0 1 2.5v11z" />
+                      </svg>
+                    </button>
+                    <button class="text-red-700 flex justify-center eliminar-relacion" data-modal-target="popup-modal" data-modal-toggle="popup-modal" data-id-usuario="<?= $datos->id ?>" data-id-materia="<?= $datos->materia_id ?>" type="button">
+                      <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-trash-fill" viewBox="0 0 16 16">
+                        <path d="M2.5 1a1 1 0 0 0-1 1v1a1 1 0 0 0 1 1H3v9a2 2 0 0 0 2 2h6a2 2 0 0 0 2-2V4h.5a1 1 0 0 0 1-1V2a1 1 0 0 0-1-1H10a1 1 0 0 0-1-1H7a1 1 0 0 0-1 1H2.5zm3 4a.5.5 0 0 1 .5.5v7a.5.5 0 0 1-1 0v-7a.5.5 0 0 1 .5-.5zM8 5a.5.5 0 0 1 .5.5v7a.5.5 0 0 1-1 0v-7A.5.5 0 0 1 8 5zm3 .5v7a.5.5 0 0 1-1 0v-7a.5.5 0 0 1 1 0z" />
+                      </svg>
+                    </button>
+                  </td>
+                </tr>
+                    <?php }
+                  } ?>
+              </tbody>
+            </table>
+          </div>
+
+          
         </div>
       </section>
       <footer>
@@ -264,9 +286,9 @@ $admin = new Admin($_SESSION["user"]["email"], $_SESSION["user"]["password"], $_
                 <svg class="mx-auto mb-4 text-gray-400 w-12 h-12 dark:text-gray-200" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 20 20">
                     <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 11V6m0 8h.01M19 10a9 9 0 1 1-18 0 9 9 0 0 1 18 0Z"/>
                 </svg>
-                <h3 class="mb-5 text-lg font-normal text-gray-500 dark:text-gray-400">¿Desea eliminar esta materia?</h3>
+                <h3 class="mb-5 text-lg font-normal text-gray-500 dark:text-gray-400">¿Desea eliminar esta clase?</h3>
                 <button name="eliminar-materia-btn" data-modal-hide="popup-modal" type="submit" class="text-white bg-red-600 hover:bg-red-800 focus:ring-4 focus:outline-none focus:ring-red-300 dark:focus:ring-red-800 font-medium rounded-lg text-sm inline-flex items-center px-5 py-2.5 text-center mr-2">
-                    Si, eliminar materia
+                    Si, eliminar clase
                 </button>
                 <button data-modal-hide="popup-modal" type="button" class="text-gray-500 bg-white hover:bg-gray-100 focus:ring-4 focus:outline-none focus:ring-gray-200 rounded-lg border border-gray-200 text-sm font-medium px-5 py-2.5 hover:text-gray-900 focus:z-10 dark:bg-gray-700 dark:text-gray-300 dark:border-gray-500 dark:hover:text-white dark:hover:bg-gray-600 dark:focus:ring-gray-600">No, cancelar</button>
             </form>
