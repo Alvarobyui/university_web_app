@@ -129,7 +129,7 @@ $admin = new Admin($_SESSION["user"]["email"], $_SESSION["user"]["password"], $_
       </section>
       <section class="bg-[#F5F6FA]">
         <div class="title flex justify-between p-3 pb-0">
-          <h2 class="text-2xl">Lista de Permisos</h2>
+          <h2 class="text-2xl lg:ml-4">Lista de Permisos</h2>
           <div class="path text-sm">
             <span class="text-blue-500">Home</span> / Permisos
           </div>
