@@ -1,3 +1,12 @@
+<?php
+session_start();
+
+include($_SERVER["DOCUMENT_ROOT"] . "/controller/protectSession.php");
+require_once("../../model/Admin.php");
+
+$admin = new Admin($_SESSION["user"]["email"], $_SESSION["user"]["password"], $_SESSION["user"]["rol"] , $_SESSION["user"]["nombre"], $_SESSION["user"]["apellido"], $_SESSION["user"]["contacto"], $_SESSION["user"]["estado"]);
+?>
+
 <!DOCTYPE html>
 <html lang="en">
 
@@ -17,7 +26,7 @@
         <h2 class="text-xl">Universidad</h2>
       </div>
       <div class="rol p-4 border-b-[1px] border-solid border-blue-100">
-        <p class="text-base">Alvaro Diaz</p>
+        <p class="text-base"><?= $admin->mostrarNombre() ?> <?= $admin->mostrarApellido() ?></p>
         <p class="text-xs">Administrador</p>
       </div>
       <div class="p-4">
@@ -85,7 +94,7 @@
           <button id="dropdownAvatarNameButton" data-dropdown-toggle="dropdownAvatarName" class="flex items-center text-sm font-medium text-gray-900 rounded-full hover:text-blue-600 dark:hover:text-blue-500 md:mr-0 focus:ring-4 focus:ring-gray-100 dark:focus:ring-gray-700 dark:text-white" type="button">
             <span class="sr-only">Open user menu</span>
             <img class="w-8 h-8 mr-2 rounded-full" src="../../assets/user.png" alt="photo">
-            Alvaro Diaz
+            <?= $admin->mostrarNombre() ?> <?= $admin->mostrarApellido() ?>
             <svg class="w-2.5 h-2.5 ml-2.5" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 10 6">
               <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="m1 1 4 4 4-4" />
             </svg>
@@ -94,8 +103,8 @@
           <!-- Dropdown menu -->
           <div id="dropdownAvatarName" class="z-10 hidden bg-white divide-y divide-gray-100 rounded-lg shadow w-44 dark:bg-gray-700 dark:divide-gray-600">
             <div class="px-4 py-3 text-xs lg:text-sm text-gray-900 dark:text-white">
-              <div class="font-medium ">Alvaro Diaz</div>
-              <div class="truncate">admin@admin.com</div>
+              <div class="font-medium "><?= $admin->mostrarNombre() ?> <?= $admin->mostrarApellido() ?></div>
+              <div class="truncate"><?= $admin->mostrarEmail() ?></div>
             </div>
             <ul class="py-2 text-xs lg:text-sm text-gray-700 dark:text-gray-200" aria-labelledby="dropdownInformdropdownAvatarNameButtonationButton">
               <li>
@@ -121,36 +130,40 @@
             <span class="text-blue-500">Home</span> / Perfil
           </div>
         </div>
+        <?php
+          include($_SERVER["DOCUMENT_ROOT"] . "/controller/conn.php"); 
+          include($_SERVER["DOCUMENT_ROOT"] . "/controller/editarPerfil.php"); 
+        ?>
         <div class="content text-xs mx-2 mb-3 py-2 px-2 overflow-x-auto lg:overflow-y-auto max-h-[72vh] md:text-sm md:px-2 md:py-4 bg-white rounded lg:text-base lg:mx-6">
           <h3 class="text-base lg:text-lg">Editar datos</h3>
-          <form action="#" method="POST" class="text-sm mt-6 flex flex-col gap-4">
+          <form method="POST" class="text-sm mt-6 flex flex-col gap-4">
             <div>
               <label for="editar-admin-email" class="block font-medium text-sm mb-2 text-gray-900">Correo electrónico</label>
-              <input class="px-2 py-1 w-full bg-gray-50 border-gray-300 border-2 rounded-lg text-gray-500 text-xs lg:text-sm" type="email" name="editar-admin-email" id="editar-admin-email" placeholder="admin@admin.com">
+              <input readonly class="px-2 py-1 w-full bg-gray-50 border-gray-300 border-2 rounded-lg text-gray-500 text-xs lg:text-sm" type="email" name="editar-admin-email" id="editar-admin-email" value="<?= $admin->mostrarEmail() ?>">
             </div>
             <div>
               <label for="editar-admin-pass" class="block font-medium text-sm mb-2 text-gray-900">Contraseña nueva</label>
-              <input class="px-2 py-1 w-full bg-gray-50 border-gray-300 border-2 rounded-lg text-gray-500 text-xs lg:text-sm" type="password" name="editar-admin-pass" id="editar-admin-pass" placeholder="********">
+              <input class="px-2 py-1 w-full bg-gray-50 border-gray-300 border-2 rounded-lg text-gray-500 text-xs lg:text-sm" type="password" name="editar-admin-pass" id="editar-admin-pass" value="<?= $admin->mostrarPassword() ?>">
             </div>
             <div>
-              <label for="repetir-admin-pass" class="block font-medium text-sm mb-2 text-gray-900">Contraseña de nuevo</label>
-              <input class="px-2 py-1 w-full bg-gray-50 border-gray-300 border-2 rounded-lg text-gray-500 text-xs lg:text-sm" type="password" name="repetir-admin-pass" id="repetir-admin-pass" placeholder="********">
+              <label for="repetir-admin-pass" class="block font-medium text-sm mb-2 text-gray-900">Repetir nueva contraseña</label>
+              <input class="px-2 py-1 w-full bg-gray-50 border-gray-300 border-2 rounded-lg text-gray-500 text-xs lg:text-sm" type="password" name="repetir-admin-pass" id="repetir-admin-pass">
             </div>
             <div>
               <label for="editar-admin-name" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Nombre(s)</label>
-              <input class="px-2 py-1 w-full bg-gray-50 border-gray-300 border-2 rounded-lg text-gray-500 text-xs lg:text-sm" type="text" name="editar-admin-name" id="editar-admin-name" placeholder="Administrador">
+              <input class="px-2 py-1 w-full bg-gray-50 border-gray-300 border-2 rounded-lg text-gray-500 text-xs lg:text-sm" type="text" name="editar-admin-name" id="editar-admin-name" value="<?= $admin->mostrarNombre() ?>" placeholder="Ej. Alvaro">
             </div>
             <div>
               <label for="editar-admin-surname" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Apellido(s)</label>
-              <input class="px-2 py-1 w-full bg-gray-50 border-gray-300 border-2 rounded-lg text-gray-500 text-xs lg:text-sm" type="text" name="editar-admin-surname" id="editar-admin-surname" placeholder="Administrador">
+              <input class="px-2 py-1 w-full bg-gray-50 border-gray-300 border-2 rounded-lg text-gray-500 text-xs lg:text-sm" type="text" name="editar-admin-surname" id="editar-admin-surname" value="<?= $admin->mostrarApellido() ?>" placeholder="Diaz">
             </div>
             <div>
               <label for="editar-admin-contact" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Número de teléfono</label>
-              <input class="px-2 py-1 w-full bg-gray-50 border-gray-300 border-2 rounded-lg text-gray-500 text-xs lg:text-sm" type="text" name="editar-admin-contact" id="editar-admin-contact" placeholder="+51 924126535">
+              <input class="px-2 py-1 w-full bg-gray-50 border-gray-300 border-2 rounded-lg text-gray-500 text-xs lg:text-sm" type="text" name="editar-admin-contact" id="editar-admin-contact" value="<?= $admin->mostrarContacto() ?>" placeholder="+51 924126535">
             </div>
             <div class="buttons mt-4">
               <button id="cerrar-nuevo-btn" class="bg-gray-600 text-white rounded px-2 py-1">Cancelar</button>
-              <button type="submit" class="bg-blue-500 text-white rounded px-2 py-1">Guardar Cambios</button>
+              <button name="editar-perfil-btn" type="submit" class="bg-blue-500 text-white rounded px-2 py-1">Guardar Cambios</button>
             </div>
           </form>
         </div>

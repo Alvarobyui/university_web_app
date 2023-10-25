@@ -36,7 +36,7 @@ $admin = new Admin($_SESSION["user"]["email"], $_SESSION["user"]["password"], $_
         <p class="text-xs">Administrador</p>
       </div>
       <div class="p-4">
-        <p class="pb-4 pl-6">MENU ADMINISTRACIÓN</p>
+        <p class="pb-4 pl-6">MENÚ ADMINISTRACIÓN</p>
         <nav>
           <ul>
             <li>
